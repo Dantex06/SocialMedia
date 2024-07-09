@@ -1,0 +1,16 @@
+.content-page{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.app {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    background-image:url("../../shared/assets/backgroundImg/backgroundimage1.png");
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-position: center center;
+}

@@ -1,0 +1,92 @@
+.post {
+
+  background: rgba(103, 103, 103, 0.91);
+  border-radius: 30px;
+  width: 780px;
+  margin: 0 auto;
+  height: auto;
+  padding-left: 25px;
+
+}
+
+::-webkit-scrollbar {
+  background: none;
+  width: 0;
+}
+
+.posts{
+  overflow-y: scroll;
+  position: absolute;
+  width: 860px;
+  height: 770px;
+
+}
+
+.message{
+  margin-top: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  color: white;
+  width: 650px;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.likes{
+  display: flex;
+  align-items: center;
+  margin: 12px 0;
+}
+
+.like{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  color: rgba(197, 197, 197, 0.8);
+  margin-left: 10px;
+}
+
+.user{
+  padding-top: 15px;
+  display: flex;
+  height: 42px;
+  margin: 25px 0 10px 0;
+
+}
+
+.userInfo{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-weight: bold;
+  color: white;
+  font-size: 15px;
+  margin-left: 10px;
+}
+
+.commentCount{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  color: rgba(197, 197, 197, 0.8);
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.buttons{
+  display: flex;
+  padding-bottom: 20px;
+}
+
+.button{
+  cursor: pointer;
+  background: none;
+  color: white;
+  width: 200px;
+  border: none;
+  height: 40px;
+  border-radius: 100px;
+  span{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-size: 20px;
+    margin-left: 5px;
+  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 25px;
+}
+
