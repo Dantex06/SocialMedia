@@ -14,8 +14,10 @@ function App() {
 
     useEffect(() => {
         if (!status && path.pathname !== '/register') {
-            console.log("Status change");
             navigate('/login');
+        }
+        if (status && (path.pathname !== '/register' || path.pathname !== '/login')) {
+            navigate('/');
         }
     }, []);
 
@@ -26,7 +28,7 @@ function App() {
         <div className="app">
             <div className="content-page">
                 {status ? <SideBar/>: ""}
-                <AppRouter/>
+                <AppRouter auth={status}/>
             </div>
             {status ? <NavBar/>: ""}
         </div>
