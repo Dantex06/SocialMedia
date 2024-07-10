@@ -6,9 +6,13 @@ import Music from "../../../pages/Music/ui/Music.tsx";
 import NotFoundPage from "../../../pages/NotFoundPage/ui/NotFoundPage.tsx";
 import Settings from "../../../pages/Settings/ui/Settings.tsx";
 import About from "../../../pages/About/ui/About.tsx";
+import Login from "../../../pages/Login/ui/Login.tsx";
+import Register from "../../../pages/Registration/ui/Register.tsx";
 
 export enum AppRoutes {
     NEWS = "news",
+    LOGIN = "login",
+    REGISTER = "register",
     MY_PROFILE = "profile",
     MESSAGES = "message",
     MUSIC = "music",
@@ -19,6 +23,8 @@ export enum AppRoutes {
 
 export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.NEWS]: '/',
+    [AppRoutes.LOGIN]: '/login',
+    [AppRoutes.REGISTER]: "/register",
     [AppRoutes.MY_PROFILE]: '/profile',
     [AppRoutes.MESSAGES]: '/message',
     [AppRoutes.MUSIC]: '/music',
@@ -31,6 +37,14 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
     [AppRoutes.NEWS]: {
         path: RoutePath.news,
         element: <NewsPage/>
+    },
+    [AppRoutes.LOGIN]: {
+        path: RoutePath.login,
+        element: <Login/>
+    },
+    [AppRoutes.REGISTER]: {
+        path: RoutePath.register,
+        element: <Register/>
     },
     [AppRoutes.MY_PROFILE]: {
         path: RoutePath.profile,

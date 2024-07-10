@@ -15,6 +15,7 @@ import {Link} from "react-router-dom";
 const NewsPage = () => {
     return (
         <div className={cls.posts}>
+
             <div className={cls.post}>
                 <div className={cls.user}>
                     <img src={logo} style={{width: 42, height: 42}}/>

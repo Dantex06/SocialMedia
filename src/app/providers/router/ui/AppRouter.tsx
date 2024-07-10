@@ -1,7 +1,7 @@
 import {Route, Routes} from "react-router-dom";
 import {routeConfig} from "../../../../shared/config/routeConfig/routeConfig.tsx";
 import cls from "./AppRouter.module.scss"
-import {CamelCase} from "../../../../shared/utils";
+import {CamelCase} from "../../../../shared/utils/CamelCase.ts";
 const AppRouter = () => {
     return (
         <Routes>
