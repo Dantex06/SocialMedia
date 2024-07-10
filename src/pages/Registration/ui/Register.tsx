@@ -40,7 +40,7 @@ const Register = () => {
             </h1>
             <form className={cls.form} onSubmit={handleSubmit(onSubmit)}>
                 <Stack className={cls.form} spacing={2} width={400}>
-                    <TextField InputLabelProps={{style: { color: '#fff'}}}  style={{margin: "17px 0"}} label="name" type="text" {...register("name", {
+                    <TextField InputLabelProps={{style: { color: '#fff'}}} sx={{ input: { color: 'white' } }}  style={{margin: "17px 0", color: "white"}} label="name" type="text" {...register("name", {
                                         required: "Это поле обязательно!",
                                         minLength: {
                                             value: 5, message: "Слишком мало символов"
@@ -52,7 +52,7 @@ const Register = () => {
                     error={!!errors['name']}
                     helperText={errors['name']?.message}/>
 
-                    <TextField InputLabelProps={{style: { color: '#fff'}}} style={{margin: "17px 0"}} label="surname" type="text" {...register("surname", {
+                    <TextField InputLabelProps={{style: { color: '#fff'}}} sx={{ input: { color: 'white' } }} style={{margin: "17px 0"}} label="surname" type="text" {...register("surname", {
                         required: "Это поле обязательно!",
                         minLength: {
                             value: 5, message: "Слишком мало символов"
@@ -64,7 +64,7 @@ const Register = () => {
                                error={!!errors['name']}
                                helperText={errors['name']?.message}/>
 
-                    <TextField InputLabelProps={{style: { color: '#fff'}}} style={{margin: "17px 0"}} label="Email" type="email" {...register("email", {
+                    <TextField InputLabelProps={{style: { color: '#fff'}}} sx={{ input: { color: 'white' } }} style={{margin: "17px 0"}} label="Email" type="email" {...register("email", {
                         required: "Это поле обязательно!",
                         pattern: {
                             value: /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i,
@@ -74,7 +74,7 @@ const Register = () => {
                     })}
                     error={!!errors['email']}
                     helperText={errors['email']?.message}/>
-                    <TextField InputLabelProps={{style: { color: '#fff', }}} style={{margin: "17px 0"}} label="Password" type="password" {...register("password", {
+                    <TextField InputLabelProps={{style: { color: '#fff', }}} sx={{ input: { color: 'white' } }} style={{margin: "17px 0"}} label="Password" type="password" {...register("password", {
                                         required: "Это поле обязательно!",
                                         pattern: {
                                             value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
@@ -85,7 +85,7 @@ const Register = () => {
                                helperText={errors['password']?.message}/>
 
 
-                    <TextField inputProps={{style: {color: "white", }}}  style={{margin: "17px 0"}} type="date" {...register("birthday", {
+                    <TextField inputProps={{style: {color: "white", }}} sx={{ input: { color: 'white' } }}  style={{margin: "17px 0"}} type="date" {...register("birthday", {
                                         required: "Это поле обязательно!",
                                         pattern: {
                                             value: /^(19\d{2}|20(0[0-9]|1[0-4]))-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/,

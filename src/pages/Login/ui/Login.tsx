@@ -34,7 +34,7 @@ const Register = () => {
             <form  className={cls.form} onSubmit={handleSubmit(onSubmit)}>
                 <Stack className={cls.form} spacing={2} width={400}>
 
-                    <TextField InputLabelProps={{style: { color: '#fff'}}} style={{margin: "17px 0"}} label="Email" type="email" {...register("email", {
+                    <TextField InputLabelProps={{style: { color: '#fff'}}} sx={{ input: { color: 'white' } }} style={{margin: "17px 0"}} label="Email" type="email" {...register("email", {
                         required: "Это поле обязательно!",
                         pattern: {
                             value: /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i,
@@ -44,7 +44,7 @@ const Register = () => {
                     })}
                                error={!!errors['email']}
                                helperText={errors['email']?.message}/>
-                    <TextField InputLabelProps={{style: { color: '#fff'}}} style={{margin: "17px 0"}} label="Password" type="password" {...register("password", {
+                    <TextField InputLabelProps={{style: { color: '#fff'}}} sx={{ input: { color: 'white' } }} style={{margin: "17px 0"}} label="Password" type="password" {...register("password", {
                         required: "Это поле обязательно!",
                         pattern: {
                             value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
