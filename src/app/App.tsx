@@ -7,6 +7,7 @@ import {useEffect, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {observer} from "mobx-react-lite";
 import {useStores} from "./store/root-store.context.ts";
+
 // import Login from "../pages/Login/ui/Login.tsx";
 
 const App = observer(()=> {
@@ -24,7 +25,7 @@ const App = observer(()=> {
             console.log('logged!')
             navigate('/');
         }
-    }, [accessToken, status]);
+    }, [accessToken, navigate, path.pathname, status]);
 
 
 

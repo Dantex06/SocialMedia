@@ -2,7 +2,9 @@ import {Route, Routes} from "react-router-dom";
 import {routeConfig} from "../../../../shared/config/routeConfig/routeConfig.tsx";
 import cls from "./AppRouter.module.scss"
 import {CamelCase} from "../../../../shared/utils/CamelCase.ts";
-const AppRouter = ({auth}) => {
+
+
+const AppRouter = ({auth}: {auth: string}) => {
     return (
         <Routes>
             {Object.entries(routeConfig).map(([key, {element, path}]) => (

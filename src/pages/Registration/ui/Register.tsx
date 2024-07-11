@@ -2,7 +2,6 @@ import {useForm} from "react-hook-form";
 // import {useNavigate} from "react-router-dom";
 import cls from "./Register.module.scss";
 import {Button, Stack, TextField} from "@mui/material"
-import axios from "axios";
 import "./Register.css";
 import {observer} from "mobx-react-lite";
 import {useStores} from "../../../app/store/root-store.context.ts";
