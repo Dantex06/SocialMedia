@@ -4,6 +4,8 @@ import cls from "./Register.module.scss";
 import {Button, Stack, TextField} from "@mui/material"
 import axios from "axios";
 import "./Register.css";
+import {observer} from "mobx-react-lite";
+import {useStores} from "../../../app/store/root-store.context.ts";
 
 type RegisterValues = {
     name: string,
@@ -13,25 +15,17 @@ type RegisterValues = {
     birthday: string
 }
 
-const Register = () => {
+const Register = observer(() => {
+    const {registration} = useStores()
     const {register, handleSubmit, formState} = useForm<RegisterValues>({})
     const {errors} = formState
 
 
     const onSubmit = (data: RegisterValues) => {
-        axios.post('http://localhost:8080/api/auth/register', {
-                    "name": data.name,
-                    "surname": data.surname,
-                    "email": data.email,
-                    "password": data.password,
-                    "birthday": data.birthday,
-                }).then((res) => {
-                    console.log(res)
-                    }
-                )
+        registration(data)
+        console.log(data);
         // axios.get('http://localhost:8080/api/ping').then((res)=>console.log(res))
 
-        console.log(data);
     }
     return (
         <>
@@ -191,6 +185,6 @@ const Register = () => {
     //         </form>
     //     </div>
     // );
-};
+});
 
 export default Register;

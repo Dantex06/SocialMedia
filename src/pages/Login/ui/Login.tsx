@@ -2,27 +2,25 @@ import {useForm} from "react-hook-form";
 // import {useNavigate} from "react-router-dom";
 import cls from "./Login.module.scss";
 import {Button, Stack, TextField} from "@mui/material"
-import axios from "axios";
 import "./Login.css";
+import {useStores} from "../../../app/store/root-store.context.ts";
+import {observer} from "mobx-react-lite";
 
 type LoginValues = {
     email: string,
     password: string,
 }
 
-const Register = () => {
+const Login = observer(() => {
+    const {login, initialState:{authData:{error}}} = useStores()
     const {register, handleSubmit, formState} = useForm<LoginValues>({})
     const {errors} = formState
 
+
+
     const onSubmit = (data: LoginValues) => {
-        axios.post('http://localhost:8080/api/auth/login', {
-            "email": data.email,
-            "password": data.password,
-        }).then((res) => {
-                console.log(res)
-            }
-        )
-        // axios.get('http://localhost:8080/api/ping').then((res)=>console.log(res))
+        login(data);
+
 
         console.log(data);
     }
@@ -59,8 +57,9 @@ const Register = () => {
                     </Button>
                 </Stack>
             </form>
+            {error ? <p>Неверный логин или пароль!</p>: ""}
         </>
     )
-};
+});
 
-export default Register;
+export default Login;
