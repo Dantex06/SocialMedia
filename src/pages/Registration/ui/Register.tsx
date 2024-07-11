@@ -55,8 +55,8 @@ const Register = observer(() => {
                             value: 10, message: "Слишком много символов"
                         }
                     })}
-                               error={!!errors['name']}
-                               helperText={errors['name']?.message}/>
+                               error={!!errors['surname']}
+                               helperText={errors['surname']?.message}/>
 
                     <TextField InputLabelProps={{style: { color: '#fff'}}} sx={{ input: { color: 'white' } }} style={{margin: "17px 0"}} label="Email" type="email" {...register("email", {
                         required: "Это поле обязательно!",

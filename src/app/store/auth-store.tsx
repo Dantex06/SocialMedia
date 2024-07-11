@@ -1,9 +1,14 @@
 import {makeAutoObservable} from "mobx";
 import {login, register} from "../../shared/api/auth";
 
+enum accessState {
+    "join",
+    "exit"
+}
+
 export interface AuthState {
     authData: {
-        accessToken: string | null,
+        accessToken: accessState | null,
         isLoading: boolean,
         error: string | null,
     }
@@ -29,31 +34,38 @@ class AuthStore {
         this.initialState.authData.isLoading = true;
         login(data).then(response => {
             window.localStorage.setItem('access_token', response.data.access);
-            this.initialState.authData.accessToken = response.data.access;
+            this.initialState.authData.accessToken = "join";
         })
             .catch(err => {
                 this.initialState.authData.error = err;
             })
             .finally(() => {
                 this.initialState.authData.isLoading = false;
-            });}
+            });
+    }
 
     registration = (data: any) => {
-        console.log("start register")
-        try {
-            this.initialState.authData.isLoading = true;
-            this.initialState.authData.accessToken = register(data);
-            this.initialState.authData.isLoading = false;
-        } catch (e: any) {
-            this.initialState.authData.error = e;
-        }
+        console.log("start login")
+        this.initialState.authData.error = null;
+        this.initialState.authData.isLoading = true;
+        register(data).then(response => {
+            window.localStorage.setItem('access_token', response.data.access);
+            this.initialState.authData.accessToken = "join";
+        })
+            .catch(err => {
+                this.initialState.authData.error = err;
+            })
+            .finally(() => {
+                this.initialState.authData.isLoading = false;
+            });
     }
+
 
     logout = () => {
         try {
             this.initialState.authData.isLoading = true;
             window.localStorage.removeItem('access_token');
-            this.initialState.authData.accessToken = null;
+            this.initialState.authData.accessToken = "exit";
             this.initialState.authData.isLoading = false;
         } catch (e) {
             this.initialState.authData.error = e;
