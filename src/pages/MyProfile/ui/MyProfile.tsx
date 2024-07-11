@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect, Suspense} from 'react';
 import {observer} from "mobx-react-lite";
 import {useStores} from "../../../app/store/root-store.context.ts";
 
@@ -28,6 +28,7 @@ const MyProfile = observer(() => {
     }
 
     return (
+        <Suspense fallback="loading..">
         <div>
             <h1>Name {name}</h1>
             <h2>Surname {surname}</h2>
@@ -35,6 +36,7 @@ const MyProfile = observer(() => {
             <p>Birthday {birthday}</p>
             <span>id: {id}</span>
         </div>
+        </Suspense>
     );
 });
 

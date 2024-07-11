@@ -6,7 +6,7 @@ import "./Login.css";
 import {useStores} from "../../../app/store/root-store.context.ts";
 import {observer} from "mobx-react-lite";
 import {useEffect} from "react";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 type LoginValues = {
     email: string,
@@ -33,14 +33,14 @@ const Login = observer(() => {
         console.log(data);
     }
     return (
-        <>
+        <div className={cls.all}>
             <h1 className={cls.title}>
                 Войдите
             </h1>
             <form  className={cls.form} onSubmit={handleSubmit(onSubmit)}>
                 <Stack className={cls.form} spacing={2} width={400}>
 
-                    <TextField InputLabelProps={{style: { color: '#fff'}}} sx={{ input: { color: 'white' } }} style={{margin: "17px 0"}} label="Email" type="email" {...register("email", {
+                    <TextField InputLabelProps={{style: { color: '#fff'}}} sx={{ input: { color: 'white'} }} style={{margin: "17px 0"}} label="Email" type="email" {...register("email", {
                         required: "Это поле обязательно!",
                         pattern: {
                             value: /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i,
@@ -57,16 +57,18 @@ const Login = observer(() => {
                             message: "Неправильно указан пароль! Должны использоваться заглавные буквы, цифры и спец. знаки"
                         }
                     })}
+                               defaultValue=""
                                error={!!errors['password']}
                                helperText={errors['password']?.message}/>
 
                     <Button type="submit" variant="contained" color="primary">
                         Войти
                     </Button>
+                    <p className={cls.link}>Нету аккаунта? <Link to="/register">Зарегистрируйтесь</Link></p>
                 </Stack>
             </form>
             {error ? <p>Неверный логин или пароль!</p>: ""}
-        </>
+        </div>
     )
 });
 

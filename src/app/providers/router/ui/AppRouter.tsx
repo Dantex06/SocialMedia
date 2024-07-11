@@ -2,6 +2,8 @@ import {Route, Routes} from "react-router-dom";
 import {routeConfig} from "../../../../shared/config/routeConfig/routeConfig.tsx";
 import cls from "./AppRouter.module.scss"
 import {CamelCase} from "../../../../shared/utils/CamelCase.ts";
+import Register from "../../../../pages/Registration/ui/Register.tsx";
+import Login from "../../../../pages/Login/ui/Login.tsx";
 
 
 const AppRouter = () => {

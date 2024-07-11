@@ -1,5 +1,8 @@
-.title{
+.all{
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+.title{
   padding-top: 45px;
   color: white;
   text-align: center;
@@ -8,6 +11,13 @@
   margin: 30px auto;
 }
 
-.submit{
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+
+
+.link{
+  color: white;
+  a{
+    text-decoration: none;
+    color: #0449e0;
+  }
+  text-align: center;
 }

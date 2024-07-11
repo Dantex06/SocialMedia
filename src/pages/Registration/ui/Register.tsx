@@ -5,7 +5,7 @@ import {Button, Stack, TextField} from "@mui/material"
 import "./Register.css";
 import {observer} from "mobx-react-lite";
 import {useStores} from "../../../app/store/root-store.context.ts";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 
 type RegisterValues = {
@@ -36,25 +36,28 @@ const Register = observer(() => {
 
     }
     return (
-        <>
+        <div className={cls.all}>
             <h1 className={cls.title}>
                 Регистрация
             </h1>
             <form className={cls.form} onSubmit={handleSubmit(onSubmit)}>
                 <Stack className={cls.form} spacing={2} width={400}>
-                    <TextField InputLabelProps={{style: { color: '#fff'}}} sx={{ input: { color: 'white' } }}  style={{margin: "17px 0", color: "white"}} label="name" type="text" {...register("name", {
-                                        required: "Это поле обязательно!",
-                                        minLength: {
-                                            value: 5, message: "Слишком мало символов"
-                                        },
-                                        maxLength: {
-                                            value: 10, message: "Слишком много символов"
-                                        }
-                                    })}
-                    error={!!errors['name']}
-                    helperText={errors['name']?.message}/>
+                    <TextField InputLabelProps={{style: {color: '#fff'}}} sx={{input: {color: 'white'}}}
+                               style={{margin: "17px 0", color: "white"}} label="name"
+                               type="text" {...register("name", {
+                        required: "Это поле обязательно!",
+                        minLength: {
+                            value: 5, message: "Слишком мало символов"
+                        },
+                        maxLength: {
+                            value: 10, message: "Слишком много символов"
+                        }
+                    })}
+                               error={!!errors['name']}
+                               helperText={errors['name']?.message}/>
 
-                    <TextField InputLabelProps={{style: { color: '#fff'}}} sx={{ input: { color: 'white' } }} style={{margin: "17px 0"}} label="surname" type="text" {...register("surname", {
+                    <TextField InputLabelProps={{style: {color: '#fff'}}} sx={{input: {color: 'white'}}}
+                               style={{margin: "17px 0"}} label="surname" type="text" {...register("surname", {
                         required: "Это поле обязательно!",
                         minLength: {
                             value: 5, message: "Слишком мало символов"
@@ -66,7 +69,8 @@ const Register = observer(() => {
                                error={!!errors['surname']}
                                helperText={errors['surname']?.message}/>
 
-                    <TextField InputLabelProps={{style: { color: '#fff'}}} sx={{ input: { color: 'white' } }} style={{margin: "17px 0"}} label="Email" type="email" {...register("email", {
+                    <TextField InputLabelProps={{style: {color: '#fff'}}} sx={{input: {color: 'white'}}}
+                               style={{margin: "17px 0"}} label="Email" type="email" {...register("email", {
                         required: "Это поле обязательно!",
                         pattern: {
                             value: /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i,
@@ -74,36 +78,39 @@ const Register = observer(() => {
                         },
 
                     })}
-                    error={!!errors['email']}
-                    helperText={errors['email']?.message}/>
-                    <TextField InputLabelProps={{style: { color: '#fff', }}} sx={{ input: { color: 'white' } }} style={{margin: "17px 0"}} label="Password" type="password" {...register("password", {
-                                        required: "Это поле обязательно!",
-                                        pattern: {
-                                            value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
-                                            message: "Неправильно указан пароль! Должны использоваться заглавные буквы, цифры и спец. знаки"
-                                        }
-                                    })}
+                               error={!!errors['email']}
+                               helperText={errors['email']?.message}/>
+                    <TextField InputLabelProps={{style: {color: '#fff',}}} sx={{input: {color: 'white'}}}
+                               style={{margin: "17px 0"}} label="Password" type="password" {...register("password", {
+                        required: "Это поле обязательно!",
+                        pattern: {
+                            value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
+                            message: "Неправильно указан пароль! Должны использоваться заглавные буквы, цифры и спец. знаки"
+                        }
+                    })}
                                error={!!errors['password']}
                                helperText={errors['password']?.message}/>
 
 
-                    <TextField inputProps={{style: {color: "white", }}} sx={{ input: { color: 'white' } }}  style={{margin: "17px 0"}} type="date" {...register("birthday", {
-                                        required: "Это поле обязательно!",
-                                        pattern: {
-                                            value: /^(19\d{2}|20(0[0-9]|1[0-4]))-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/,
-                                            message: "Вам должно быть не менее 10 лет!"
-                                        }
-                                    })}
+                    <TextField inputProps={{style: {color: "white",}}} sx={{input: {color: 'white'}}}
+                               style={{margin: "17px 0"}} type="date" {...register("birthday", {
+                        required: "Это поле обязательно!",
+                        pattern: {
+                            value: /^(19\d{2}|20(0[0-9]|1[0-4]))-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/,
+                            message: "Вам должно быть не менее 10 лет!"
+                        }
+                    })}
                                error={!!errors['birthday']}
                                helperText={errors['birthday']?.message}
                     />
 
-                    <Button className={cls.submit} type="submit" variant="contained" color="primary">
+                    <Button type="submit" variant="contained" color="primary">
                         Зарегистрироваться
                     </Button>
+                    <p className={cls.link}>Есть аккаунт? <Link to="/login">Войдите</Link></p>
                 </Stack>
             </form>
-        </>
+        </div>
     )
     // const navigate = useNavigate();
     // const {register, handleSubmit, formState} = useForm<IRegister>({
