@@ -23,7 +23,7 @@ export interface ILoginResponse {
         "image": string,
         "birthday": string
     },
-    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjE1NjgzNTMsImlkIjoxOH0.y9IVx1xliP8L4fkmlNoxLhnHHQyxboNLq9AYKvpzGYM"
+    "refresh": string
 }
 
 export interface IRegisterRequest {
@@ -52,5 +52,6 @@ export interface IRegisterResponse {
         "image": string,
         "birthday": string
     },
-    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjE1NjgzNTMsImlkIjoxOH0.y9IVx1xliP8L4fkmlNoxLhnHHQyxboNLq9AYKvpzGYM"
+    "refresh": string
 }
+

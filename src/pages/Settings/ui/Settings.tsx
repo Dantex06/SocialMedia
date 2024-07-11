@@ -1,13 +1,21 @@
 import {Button} from "@mui/material";
 import {observer} from "mobx-react-lite";
 import {useStores} from "../../../app/store/root-store.context.ts";
+import {useNavigate} from "react-router-dom";
+
 
 const Settings = observer(() => {
     const {logout} = useStores();
+    const navigate = useNavigate();
+
+    const handleQuit = () => {
+        logout()
+        navigate('/login')
+    }
 
     return (
         <div>
-            <Button variant="contained" color="secondary" onClick={()=>logout()}>Выйти из аккаунта</Button>
+            <Button variant="contained" color="secondary" onClick={()=>handleQuit()}>Выйти из аккаунта</Button>
         </div>
     );
 });

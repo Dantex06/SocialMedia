@@ -1,5 +1,4 @@
 import cls from "./SideBar.module.scss"
-
 import ExampleAvatar from "../../../shared/assets/SideBarIcons/ExampleAvatar.png"
 import Notification from "../../../shared/assets/SideBarIcons/Notification.svg"
 import Menu from "../../../shared/assets/SideBarIcons/Menu.svg"
@@ -8,22 +7,20 @@ import ExampleFriend from "../../../shared/assets/SideBarIcons/ExampleFriend.png
 import Search from "../../../shared/assets/SideBarIcons/Search.svg"
 import Online from "../../../shared/assets/SideBarIcons/Online.png"
 import Offline from "../../../shared/assets/SideBarIcons/Offline.png"
-import axios from "axios"
+import {Link} from "react-router-dom";
 
 
 
 const SideBar = () => {
-    const getRes = () => {
-        axios.get("https://jsonplaceholder.typicode.com/todos/1")
-            .then(response => console.log("response", response))
-    }
-    getRes()
-    
+
     return (
             <div className={cls.sideBar}>
                 <div className={cls.buttonHeader}>
                     <div className={cls.avatar}>
-                        <img src={ExampleAvatar} alt="Avatar"/>
+                        <Link to="/profile">
+                            <img src={ExampleAvatar} alt="Avatar"/>
+                        </Link>
+
                     </div>
                     <div className={cls.button}>
                         <Notification/>

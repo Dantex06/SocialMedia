@@ -5,6 +5,8 @@ import {Button, Stack, TextField} from "@mui/material"
 import "./Login.css";
 import {useStores} from "../../../app/store/root-store.context.ts";
 import {observer} from "mobx-react-lite";
+import {useEffect} from "react";
+import {useNavigate} from "react-router-dom";
 
 type LoginValues = {
     email: string,
@@ -15,13 +17,19 @@ const Login = observer(() => {
     const {login, initialState:{authData:{error}}} = useStores()
     const {register, handleSubmit, formState} = useForm<LoginValues>({})
     const {errors} = formState
+    const {initialState: {authData: {accessToken}}} = useStores()
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if(accessToken === 0){
+            navigate('/');
+        }
+    }, [accessToken]);
 
 
 
     const onSubmit = (data: LoginValues) => {
         login(data);
-
-
         console.log(data);
     }
     return (

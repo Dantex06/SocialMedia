@@ -5,6 +5,8 @@ import {Button, Stack, TextField} from "@mui/material"
 import "./Register.css";
 import {observer} from "mobx-react-lite";
 import {useStores} from "../../../app/store/root-store.context.ts";
+import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
 
 type RegisterValues = {
     name: string,
@@ -18,12 +20,19 @@ const Register = observer(() => {
     const {registration} = useStores()
     const {register, handleSubmit, formState} = useForm<RegisterValues>({})
     const {errors} = formState
+    const {initialState: {authData: {accessToken}}} = useStores()
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if(accessToken === 0){
+            navigate('/');
+        }
+    }, [accessToken]);
 
 
     const onSubmit = (data: RegisterValues) => {
         registration(data)
         console.log(data);
-        // axios.get('http://localhost:8080/api/ping').then((res)=>console.log(res))
 
     }
     return (

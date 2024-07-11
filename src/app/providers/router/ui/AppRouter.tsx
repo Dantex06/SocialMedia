@@ -4,14 +4,14 @@ import cls from "./AppRouter.module.scss"
 import {CamelCase} from "../../../../shared/utils/CamelCase.ts";
 
 
-const AppRouter = ({auth}: {auth: string}) => {
+const AppRouter = () => {
     return (
         <Routes>
             {Object.entries(routeConfig).map(([key, {element, path}]) => (
                 <Route key={path} element={
                     <div>
                         <p className={cls.title}>{CamelCase(key)}</p>
-                        <div className={cls.page} style={auth?{}:{background: "rgb(81 78 78 / 83%)"}}>
+                        <div className={cls.page}>
                             {element}
                         </div>
                     </div>

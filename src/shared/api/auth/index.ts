@@ -3,8 +3,12 @@ import {ILoginRequest, ILoginResponse, IRegisterRequest, IRegisterResponse} from
 import Endpoints from "../endpoints.ts";
 import {AxiosPromise} from "axios";
 
-export const login = (params: ILoginRequest): AxiosPromise<ILoginResponse> =>
+export const login = (params: ILoginRequest) =>
     axiosInstance.post(Endpoints.AUTH.LOGIN, params);
 
-export const register = (params: IRegisterRequest): AxiosPromise<IRegisterResponse> =>
+export const register = (params: IRegisterRequest)  =>
     axiosInstance.post(Endpoints.AUTH.REGISTER, params);
+
+export const profile = (): AxiosPromise => {
+    return axiosInstance.get(Endpoints.AUTH.PROFILE)
+}
