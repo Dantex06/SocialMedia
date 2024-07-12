@@ -5,6 +5,8 @@ export interface ILoginRequest {
     password: string;
 }
 
+
+
 export interface ILoginResponse {
     "access": string,
     "profile": {
@@ -24,6 +26,15 @@ export interface ILoginResponse {
         "birthday": string
     },
     "refresh": string
+}
+
+export interface IRefreshRequest {
+    refresh: string | null;
+}
+
+export interface IRefreshResponse {
+    "access": string,
+    "refresh": string,
 }
 
 export interface IRegisterRequest {
