@@ -12,3 +12,4 @@ export const register = (params: IRegisterRequest)  =>
 export const profile = (): AxiosPromise => {
     return axiosInstance.get(Endpoints.AUTH.PROFILE)
 }
+

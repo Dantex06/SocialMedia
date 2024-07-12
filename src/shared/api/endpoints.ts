@@ -4,7 +4,7 @@ const Endpoints = {
         LOGIN: 'api/auth/sign-in',
         LOGOUT: 'api/auth/logout',
         REFRESH: 'api/auth/refresh',
-        PROFILE: 'api/me/profile',
+        PROFILE: 'api/me',
     }
 }
 
