@@ -20,7 +20,7 @@ const Login = observer(() => {
     const [showPassword, setShowPassword] = useState(false);
 
     useEffect(() => {
-        if(accessToken === 0){
+        if(accessToken){
             navigate('/');
         }
         initialState.authData.error = null

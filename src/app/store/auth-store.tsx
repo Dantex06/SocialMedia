@@ -1,16 +1,19 @@
 import {makeAutoObservable} from "mobx";
 import {login, profile, register} from "../../shared/api/auth";
 import {ILoginRequest, ILoginResponse, IRegisterRequest} from "../../shared/api/auth/types.ts";
+// import Cookies from "universal-cookie"
+// import jwt from "jwt-decode"
 
-enum accessState {
-    "join",
-    "exit"
-}
+// enum accessState {
+//     "join",
+//     "exit"
+// }
 
 
 export interface AuthState {
     authData: {
-        accessToken: accessState | null,
+        accessToken: string | null,
+        refreshToken: string | null,
         isLoading: boolean,
         error: string | null,
     },
@@ -39,6 +42,7 @@ class AuthStore {
     initialState: AuthState = {
         authData: {
             accessToken: null,
+            refreshToken: null,
             isLoading: false,
             error: null,
         },
@@ -64,30 +68,29 @@ class AuthStore {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     login = (data: ILoginRequest): Promise<ILoginResponse> => {
-        console.log("start login")
         this.initialState.authData.error = null;
         this.initialState.authData.isLoading = true;
         login(data).then(response => {
             window.localStorage.setItem('access_token', response.data.access);
-            this.initialState.authData.accessToken = accessState.join;
+            this.initialState.authData.accessToken = response.data.access;
         })
             .catch(err => {
                 this.initialState.authData.error = err;
             })
             .finally(() => {
                 this.initialState.authData.isLoading = false;
+
             });
     }
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     registration = (data: IRegisterRequest): Promise<IRegisterRequest> => {
-        console.log("start login")
         this.initialState.authData.error = null;
         this.initialState.authData.isLoading = true;
         register(data).then(response => {
             window.localStorage.setItem('access_token', response.data.access);
-            this.initialState.authData.accessToken = accessState.join;
+            this.initialState.authData.accessToken = response.data.access
         })
             .catch(err => {
                 this.initialState.authData.error = err;
@@ -118,7 +121,7 @@ class AuthStore {
     logout = () => {
         this.initialState.authData.isLoading = true;
         window.localStorage.removeItem('access_token');
-        this.initialState.authData.accessToken = accessState.exit;
+        this.initialState.authData.accessToken = null;
         this.initialState.authData.isLoading = false;
     }
 
