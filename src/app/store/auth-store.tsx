@@ -73,6 +73,7 @@ class AuthStore {
         login(data).then(response => {
             window.localStorage.setItem('access_token', response.data.access);
             this.initialState.authData.accessToken = response.data.access;
+            this.initialState.authData.refreshToken = response.data.refresh
         })
             .catch(err => {
                 this.initialState.authData.error = err;
@@ -91,6 +92,7 @@ class AuthStore {
         register(data).then(response => {
             window.localStorage.setItem('access_token', response.data.access);
             this.initialState.authData.accessToken = response.data.access
+            this.initialState.authData.refreshToken = response.data.refresh
         })
             .catch(err => {
                 this.initialState.authData.error = err;
@@ -122,6 +124,7 @@ class AuthStore {
         this.initialState.authData.isLoading = true;
         window.localStorage.removeItem('access_token');
         this.initialState.authData.accessToken = null;
+        this.initialState.authData.refreshToken = null;
         this.initialState.authData.isLoading = false;
     }
 
