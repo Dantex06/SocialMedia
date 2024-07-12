@@ -2,6 +2,12 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 }
 
+.errorJoin{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  color: #ff2929;
+  text-align: center;
+}
+
 .title{
   padding-top: 155px;
   color: white;
@@ -17,4 +23,7 @@
     color: #0449e0;
   }
   text-align: center;
+}
+.pass{
+  data-shrink: "true"
 }

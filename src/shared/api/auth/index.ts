@@ -1,5 +1,5 @@
 import {axiosInstance} from "../instance.ts";
-import {ILoginRequest, ILoginResponse, IRegisterRequest, IRegisterResponse} from "./types.ts";
+import {ILoginRequest, IRegisterRequest} from "./types.ts";
 import Endpoints from "../endpoints.ts";
 import {AxiosPromise} from "axios";
 
