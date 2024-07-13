@@ -1,9 +1,10 @@
 import {Navigate, Outlet} from "react-router-dom";
 import SideBar from "../../../widgets/SideBar/ui/SideBar.tsx";
 import NavBar from "../../../widgets/NavBar/ui/NavBar.tsx";
+import {useCookies} from "react-cookie";
 
 export const ProtectedWrapperUnauthorized = () => {
-    const logged = !window.localStorage.getItem("access_token");
+    const [logged] = useCookies(['refresh']);
     return logged ?
         <>
             <div className="content-page">
@@ -17,7 +18,7 @@ export const ProtectedWrapperUnauthorized = () => {
 };
 
 export const ProtectedWrapperAuthorized = () => {
-    const logged = window.localStorage.getItem("access_token");
+    const [logged] = useCookies(['refresh']);
     return logged ?
         <div>
             <div className="content-page">

@@ -15,3 +15,10 @@ export const profile = (): AxiosPromise => {
 
 export const refresh = (params: IRefreshRequest) =>
     axiosInstance.post(Endpoints.AUTH.REFRESH, params)
+
+export const postSend = (newpost): AxiosPromise =>
+    axiosInstance.post(Endpoints.AUTH.POST_SEND, newpost)
+
+export const postsGet = (): AxiosPromise => {
+    return axiosInstance.get(Endpoints.AUTH.POST_GET)
+}

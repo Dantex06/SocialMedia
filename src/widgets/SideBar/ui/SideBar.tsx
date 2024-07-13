@@ -31,7 +31,7 @@ const SideBar = () => {
                     </div>
                 </div>
 
-                <div className={cls.newPost} onClick={()=>navigate('/create')}>
+                <div className={cls.newPost} onClick={()=>navigate('/profile')}>
                     <p className={cls.titleNewPost}>Создать пост</p>
                     <img src={NewPostPhoto} alt="Новый пост"/>
                     <div className={cls.descriptionNewPost}>

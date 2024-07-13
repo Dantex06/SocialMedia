@@ -1,13 +1,22 @@
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useNavigate} from "react-router-dom";
 import cls from "./AppRouter.module.scss"
 import {ProtectedWrapperAuthorized, ProtectedWrapperUnauthorized}
 from "../../../../entities/Wrapper/ui/ProtectedWrapper.tsx";
 import {CamelCase} from "../../../../shared/utils/CamelCase.ts";
 import {privateConfig, publicConfig} from "../../../../shared/config/routeConfig/routeConfig.tsx";
+import {useEffect} from "react";
+import {useCookies} from "react-cookie";
 
 
 const AppRouter = () => {
+    const [refresh] = useCookies(['refresh']);
+    const navigate = useNavigate()
+    useEffect(() => {
+        if(refresh.refresh === undefined){
+            navigate('/login')
 
+        }
+    }, [])
     return (
         <Routes>
             <Route element={<ProtectedWrapperUnauthorized/>}>
