@@ -14,9 +14,8 @@ const AppRouter = () => {
     useEffect(() => {
         if(refresh.refresh === undefined){
             navigate('/login')
-
         }
-    }, [])
+    }, [refresh])
     return (
         <Routes>
             <Route element={<ProtectedWrapperUnauthorized/>}>

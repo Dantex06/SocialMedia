@@ -1,4 +1,3 @@
-import logo from "../../../shared/assets/postsFiles/ExampleAvatarPost.png";
 import cls from "./Post.module.scss"
 import {Link} from "react-router-dom";
 import websitelink from "../../../shared/assets/postsFiles/WebSiteLink.png";
@@ -7,6 +6,8 @@ import likeheart from "../../../shared/assets/postsFiles/likeheart.png";
 import LikeClick from "../../../shared/assets/postsFiles/Likebutton.svg";
 import CommentClick from "../../../shared/assets/postsFiles/CommentButton.svg";
 import ShareClick from "../../../shared/assets/postsFiles/ShareButton.svg";
+import {Avatar} from "@mui/material";
+import ava from "../../../shared/assets/SideBarIcons/cat.jpg"
 
 interface IPost {
     name: string
@@ -20,7 +21,7 @@ const Post = ({name, surname, text, photo, published}: IPost) => {
     return (
         <div className={cls.post}>
             <div className={cls.user}>
-                <img src={logo} style={{width: 42, height: 42}}/>
+                <Avatar alt="Avatar" src={ava}/>
                 <div className={cls.userInfo}>
                     <p>{name} {surname}</p>
                     <p style={{color: "rgba(197,197,197,0.8)"}}>{published} • <Link to="/about"><img src={websitelink} alt="link to website"/></Link>
