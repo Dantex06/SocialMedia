@@ -8,9 +8,11 @@ import Settings from "../../../pages/Settings/ui/Settings.tsx";
 import About from "../../../pages/About/ui/About.tsx";
 import Login from "../../../pages/Login/ui/Login.tsx";
 import Register from "../../../pages/Registration/ui/Register.tsx";
+import CreatePost from "../../../pages/CreatePost/ui/CreatePost.tsx";
 
 export enum AppRoutes {
     NEWS = "news",
+    CREATE_POST = "create_post",
     LOGIN = "login",
     REGISTER = "register",
     MY_PROFILE = "profile",
@@ -28,6 +30,7 @@ export enum PublicRoutes {
 
 export enum PrivateRoutes {
     NEWS = "news",
+    CREATE_POST = "create_post",
     MY_PROFILE = "profile",
     MESSAGES = "message",
     MUSIC = "music",
@@ -38,6 +41,7 @@ export enum PrivateRoutes {
 
 export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.NEWS]: '/',
+    [AppRoutes.CREATE_POST]: '/create',
     [AppRoutes.LOGIN]: '/login',
     [AppRoutes.REGISTER]: "/register",
     [AppRoutes.MY_PROFILE]: '/profile',
@@ -55,6 +59,7 @@ export const PublicPath: Record<PublicRoutes, string> = {
 
 export const PrivatePath: Record<PrivateRoutes, string> = {
     [AppRoutes.NEWS]: '/',
+    [AppRoutes.CREATE_POST]: '/create',
     [AppRoutes.MY_PROFILE]: '/profile',
     [AppRoutes.MESSAGES]: '/message',
     [AppRoutes.MUSIC]: '/music',
@@ -67,6 +72,10 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
     [AppRoutes.NEWS]: {
         path: RoutePath.news,
         element: <NewsPage/>
+    },
+    [AppRoutes.CREATE_POST]: {
+        path: RoutePath.create_post,
+        element: <CreatePost/>
     },
     [AppRoutes.LOGIN]: {
         path: RoutePath.login,
@@ -117,6 +126,10 @@ export const privateConfig: Record<PrivateRoutes, RouteProps> = {
     [AppRoutes.NEWS]: {
         path: RoutePath.news,
         element: <NewsPage/>
+    },
+    [AppRoutes.CREATE_POST]: {
+        path: RoutePath.create_post,
+        element: <CreatePost/>
     },
     [AppRoutes.MY_PROFILE]: {
         path: RoutePath.profile,

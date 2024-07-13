@@ -24,3 +24,7 @@
 .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
     border-color: white !important;
 }
+
+.MuiInputBase-input.MuiOutlinedInput-input.MuiInputBase-inputMultiline.css-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input{
+    color: white !important;
+}

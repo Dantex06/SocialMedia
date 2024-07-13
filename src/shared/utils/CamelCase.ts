@@ -7,7 +7,8 @@ const translation = {
     "Music": "Музыка",
     "Settings": "Настройки",
     "About": "О сайте",
-    "Not_found": "Страница не найдена"
+    "Not_found": "Страница не найдена",
+    "Create_post": "Создание поста"
 }
 
 export const CamelCase = (word: string) => {

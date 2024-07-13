@@ -1,7 +1,12 @@
-import { useEffect, Suspense} from 'react';
+import { useEffect} from 'react';
 import {observer} from "mobx-react-lite";
 import {useStores} from "../../../app/store/root-store.context.ts";
 import {useCookies} from "react-cookie";
+import {Avatar} from "@mui/material";
+import ava from "../../../shared/assets/SideBarIcons/cat.jpg"
+import cls from "./MyProfile.module.scss"
+import SettingsIcon from '@mui/icons-material/Settings';
+import ShareIcon from '@mui/icons-material/Share';
 
 const MyProfile = observer(() => {
     const {
@@ -33,17 +38,26 @@ if (error) {
 }
 
 return (
-    <Suspense fallback="loading..">
-        <div>
-            <h1>Name {name}</h1>
-            <h2>Surname {surname}</h2>
-            <p>Email {email}</p>
-            <p>Birthday {birthday}</p>
-            <span>id: {id}</span>
+    <div>
+        <div className={cls.backgroundProfileAndAvatar}>
+            <Avatar alt="Avatar" src={ava} sx={{width: 144, height: 144}}/>
+            <div className={cls.icons}>
+                <ShareIcon sx={{ color: "white" }}/>
+                <SettingsIcon sx={{ color: "white" }}/>
+            </div>
         </div>
-    </Suspense>
+        <div className={cls.profile}>
+            <h1>{name} {surname}</h1>
+            <p>Email: {email}</p>
+            <p>Birthday: {birthday}</p>
+            <div className={cls.follow}>
+                <p>253 Following</p>
+                <p>555 Followers</p>
+            </div>
+        </div>
+    </div>
 );
-})
+    })
 ;
 
 export default MyProfile

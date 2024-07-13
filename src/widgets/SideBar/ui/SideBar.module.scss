@@ -1,8 +1,10 @@
 .sideBar {
+  cursor: pointer;
+  margin-top: 2vh;
   border-radius: 30px;
   background: rgba(128, 128, 128, 0.8);
   width: 335px;
-  height: 831px;
+  height: 90vh;
   margin-right: 28px;
 }
 .buttonHeader{
@@ -16,9 +18,10 @@
   cursor: pointer;
   width: 40px;
   height: 40px;
-  background: url("../../../shared/assets/SideBarIcons/ExampleAvatar.png");
   margin-right: 15px;
 }
+
+
 
 
 
@@ -36,7 +39,6 @@
 }
 
 .newPost{
-
   background: rgba(255, 255, 255, 0.2);
   width: 310px;
   height: auto;
@@ -53,6 +55,7 @@
   text-align: left;
   color: white;
   margin-bottom: 10px;
+  text-decoration: none;
 }
 
 .descriptionNewPost{

@@ -7,18 +7,19 @@ import ExampleFriend from "../../../shared/assets/SideBarIcons/ExampleFriend.png
 import Search from "../../../shared/assets/SideBarIcons/Search.svg"
 import Online from "../../../shared/assets/SideBarIcons/Online.png"
 import Offline from "../../../shared/assets/SideBarIcons/Offline.png"
-import {Link} from "react-router-dom";
-
+import {Link, useNavigate} from "react-router-dom";
+import {Avatar} from "@mui/material";
+import ava from "../../../shared/assets/SideBarIcons/cat.jpg"
 
 
 const SideBar = () => {
-
+    const navigate = useNavigate();
     return (
             <div className={cls.sideBar}>
                 <div className={cls.buttonHeader}>
                     <div className={cls.avatar}>
                         <Link to="/profile">
-                            <img src={ExampleAvatar} alt="Avatar"/>
+                            <Avatar src={ava}/>
                         </Link>
 
                     </div>
@@ -30,11 +31,11 @@ const SideBar = () => {
                     </div>
                 </div>
 
-                <div className={cls.newPost}>
-                    <p className={cls.titleNewPost}>New post</p>
-                    <img src={NewPostPhoto} alt="New Post"/>
+                <div className={cls.newPost} onClick={()=>navigate('/create')}>
+                    <p className={cls.titleNewPost}>Создать пост</p>
+                    <img src={NewPostPhoto} alt="Новый пост"/>
                     <div className={cls.descriptionNewPost}>
-                        <p style={{width: 180, marginLeft: 15}}>Tell your friends about your news! </p>
+                        <p style={{width: 180, marginLeft: 15}}>Расскажи друзьям о своих новостях! </p>
                         <div className={cls.frinedsListPost}>
                             <img style={{marginRight: 5}} className={cls.friend} src={ExampleFriend} alt="Friends"/>
                             <img style={{marginRight: 5}} className={cls.friend} src={ExampleFriend} alt="Friends"/>
@@ -44,7 +45,7 @@ const SideBar = () => {
 
                 <div className={cls.contacts}>
                     <div className={cls.header}>
-                        <p className={cls.titleSideBar}>Contacts</p>
+                        <p className={cls.titleSideBar}>Контакты</p>
                         <Search/>
                     </div>
                     <div className={cls.friendsSearch}>
