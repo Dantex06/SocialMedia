@@ -10,7 +10,7 @@ const AppRouter = () => {
 
     return (
         <Routes>
-            <Route element={<ProtectedWrapperAuthorized/>}>
+            <Route element={<ProtectedWrapperUnauthorized/>}>
                 {Object.entries(publicConfig).map(([, {element, path}]) => (
                     <Route key={path} element={
                         <div>
@@ -22,7 +22,7 @@ const AppRouter = () => {
                 ))}
             </Route>
 
-            <Route element={<ProtectedWrapperUnauthorized/>}>
+            <Route element={<ProtectedWrapperAuthorized/>}>
                 {Object.entries(privateConfig).map(([key, {element, path}]) => (
                     <Route key={path} element={
                         <div>

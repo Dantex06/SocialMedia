@@ -132,18 +132,18 @@ class AuthStore {
         this.initialState.authData.error = null;
         return profile().then(response => {
             if (response.data) {
-                const { id, name, lastname, email, birthday } = response.data;
+                const { id, name, surname, email, birthday } = response.data;
                 this.initialState.profileData = {
                     id,
                     name,
-                    surname: lastname,
+                    surname,
                     email,
                     birthday
                 };
             }
         }).catch(error => {
             if(error.response.statusText === 'Unauthorized' && check!==true){
-                console.log('unauthhh')
+                console.log('unauthhh', refresh)
                 // Возвращаем промис, чтобы гарантировать выполнение обновления токенов до повторного запроса пользователей
                 return this.updateToken(refresh).then(() => {
                     // Повторный запрос пользователей после успешного обновления токенов

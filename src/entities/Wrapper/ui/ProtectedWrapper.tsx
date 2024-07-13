@@ -3,29 +3,29 @@ import SideBar from "../../../widgets/SideBar/ui/SideBar.tsx";
 import NavBar from "../../../widgets/NavBar/ui/NavBar.tsx";
 
 export const ProtectedWrapperUnauthorized = () => {
-    const logged = window.localStorage.getItem("access_token");
+    const logged = !window.localStorage.getItem("access_token");
     return logged ?
         <>
             <div className="content-page">
-                {logged ? <SideBar/> : ""}
+                {!logged ? <SideBar/> : ""}
                     <Outlet/>
             </div>
-            {logged ? <NavBar/> : ""}
+            {!logged ? <NavBar/> : ""}
         </>
         :
         <Navigate to="/login"/>
 };
 
 export const ProtectedWrapperAuthorized = () => {
-    const logged = !window.localStorage.getItem("access_token");
+    const logged = window.localStorage.getItem("access_token");
     return logged ?
-        <>
+        <div>
             <div className="content-page">
-                {!logged ? <SideBar/> : ""}
+                {logged ? <SideBar/> : ""}
                 <Outlet/>
             </div>
-            {!logged ? <NavBar/> : ""}
-        </>
+            {logged ? <NavBar/> : ""}
+        </div>
         :
         <Navigate to="/"/>
 };
