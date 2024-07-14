@@ -13,7 +13,6 @@ axiosInstance.interceptors.request.use(async (config)=>{
     }
 
     const accessToken = window.localStorage.getItem("access_token");
-    console.log(accessToken);
     if(accessToken){
         const authorization = `Bearer ${accessToken}`
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment

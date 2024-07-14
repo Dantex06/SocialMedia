@@ -215,7 +215,7 @@ class AuthStore {
         return postsGet().then(response => {
             if (response.data) {
                 const {current, first, last, posts,} = response.data;
-                console.log(response.data.posts)
+                // console.log(response.data.posts)
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-expect-error
                 this.initialState.postsData = {
@@ -225,18 +225,21 @@ class AuthStore {
                     posts
                 };
             }
+        }).then(()=>{
+            this.getProfile(refresh, check=true)
         }).catch(error => {
             if (error.response.statusText === 'Unauthorized' && check !== true) {
                 console.log('unauthhh', refresh)
                 return this.updateToken(refresh).then(() => {
-                    return this.getPosts(refresh, true);
+                    return this.getProfile(refresh, check=true).then(()=>{
+                        return this.getPosts(refresh, true);
+                    })
                 });
             } else {
                 console.log("Yesssss", error);
                 this.initialState.postsData.errors = error.response.statusText;
             }
         }).finally(() => {
-            console.log('final')
             this.initialState.postsData.loading = false;
         });
     }

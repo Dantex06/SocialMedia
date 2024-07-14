@@ -21,12 +21,12 @@ interface IPost {
 
 
 const Post = ({name, surname, text, photo, published, idUser, myId}: IPost) => {
-    const api = import.meta.env.VITE_BACKEND_API
-
+    const url = import.meta.env.VITE_BACKEND_URL
+    console.log('his', idUser, 'my', myId)
     return (
         <div className={cls.post}>
             <div className={cls.user}>
-                <Link to={myId === idUser && typeof api !== "undefined"? api: typeof api !== "undefined"? api+{idUser}: ""}>
+                <Link to={myId === idUser && typeof url !== "undefined"? `${url}profile`: typeof url !== "undefined"? `${url}profile/${idUser}`: ""}>
                 <Avatar alt="Avatar" src={ava}/>
                 </Link>
                 <div className={cls.userInfo}>

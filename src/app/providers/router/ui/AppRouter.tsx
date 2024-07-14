@@ -1,4 +1,4 @@
-import {Route, Routes, useNavigate} from "react-router-dom";
+import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import cls from "./AppRouter.module.scss"
 import {ProtectedWrapperAuthorized, ProtectedWrapperUnauthorized}
 from "../../../../entities/Wrapper/ui/ProtectedWrapper.tsx";
@@ -11,9 +11,13 @@ import Cookies from 'js-cookie'
 const AppRouter = () => {
     const [refresh] = useCookies(['refresh']);
     const navigate = useNavigate()
+    const location = useLocation();
     useEffect(() => {
         if(Cookies.get('refresh') === undefined){
             navigate('/login')
+        }
+        if(Cookies.get('refresh')&& (location.pathname==="/login" || location.pathname==="/register")){
+            navigate('/')
         }
     }, [refresh])
     return (

@@ -32,7 +32,7 @@ const NewsPage = observer(() => {
     return (
         <div className={cls.posts}>
             {posts.map((post)=>(
-                    <Post name={post.author.name} surname={post.author.surname} text={post.content} photo={null} published={post.published_at} idUser={post.author.id} myId={typeof id === "number"?id:null}/>
+                    <Post key={post.id} name={post.author.name} surname={post.author.surname} text={post.content} photo={null} published={post.published_at} idUser={post.author.id} myId={typeof id === "number"?id:null}/>
 
             ))}
         </div>

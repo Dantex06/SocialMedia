@@ -18,6 +18,7 @@ const UserPage = observer(() => {
     const refresh = Cookies.get('refresh');
     useEffect(() => {
         if(refresh){
+            console.log('start checking profile')
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error
             getUserData(id, refresh).catch((err)=>console.log(err))

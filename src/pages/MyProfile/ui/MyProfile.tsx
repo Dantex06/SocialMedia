@@ -32,8 +32,6 @@ const MyProfile = observer(() => {
     }
 
     useEffect(() => {
-        console.log(error)
-        console.log("start")
         try {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error

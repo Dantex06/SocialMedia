@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 
 export const ProtectedWrapperUnauthorized = () => {
     const logged = Cookies.get('refresh')
-    console.log('bobob')
+
     return (
         <div className="content-page">
             {logged ? <SideBar/> : ""}
