@@ -25,10 +25,9 @@ const MyProfile = observer(() => {
     const {handleSubmit, register, formState: {errors}} = useForm<PostRequest>()
     const [post, setPost] = useState(false);
     const onSubmit = (data: PostRequest) => {
-        console.log({...data, images_urls: []});
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
-        createPost({...data, images_urls: []}, Cookies.get('refresh'))
+        createPost({content: data.text, images_urls: []}, Cookies.get('refresh'))
         setPost(true);
     }
 
