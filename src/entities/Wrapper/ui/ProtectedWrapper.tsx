@@ -1,25 +1,23 @@
 import {Navigate, Outlet} from "react-router-dom";
 import SideBar from "../../../widgets/SideBar/ui/SideBar.tsx";
 import NavBar from "../../../widgets/NavBar/ui/NavBar.tsx";
-import {useCookies} from "react-cookie";
+import Cookies from "js-cookie";
 
 export const ProtectedWrapperUnauthorized = () => {
-    const [logged] = useCookies(['refresh']);
-    return logged ?
-        <>
-            <div className="content-page">
-                {!logged ? <SideBar/> : ""}
-                    <Outlet/>
-            </div>
-            {!logged ? <NavBar/> : ""}
-        </>
-        :
-        <Navigate to="/login"/>
+    const logged = Cookies.get('refresh')
+    console.log('bobob')
+    return (
+        <div className="content-page">
+            {logged ? <SideBar/> : ""}
+            <Outlet/>
+        </div>
+)
+
 };
 
 export const ProtectedWrapperAuthorized = () => {
-    const [logged] = useCookies(['refresh']);
-    return logged ?
+    const logged = Cookies.get('refresh')
+    return (
         <div>
             <div className="content-page">
                 {logged ? <SideBar/> : ""}
@@ -27,6 +25,6 @@ export const ProtectedWrapperAuthorized = () => {
             </div>
             {logged ? <NavBar/> : ""}
         </div>
-        :
-        <Navigate to="/"/>
+    )
+
 };

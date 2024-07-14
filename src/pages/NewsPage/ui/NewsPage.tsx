@@ -2,13 +2,13 @@ import cls from "./NewsPage.module.scss"
 import {useEffect} from "react";
 import {observer} from "mobx-react-lite";
 import {useStores} from "../../../app/store/root-store.context.ts";
-import {useCookies} from "react-cookie";
+// import {useCookies} from "react-cookie";
 import Post from "../../../widgets/Post/ui/Post.tsx";
+import Cookies from "js-cookie";
 
 const NewsPage = observer(() => {
     const {getPosts, initialState:{postsData: {posts, errors, loading}}} = useStores()
-    const [refresh] = useCookies(['refresh']);
-
+    const refresh = Cookies.get('refresh')
     useEffect(() => {
         getPosts(refresh)
     }, []);

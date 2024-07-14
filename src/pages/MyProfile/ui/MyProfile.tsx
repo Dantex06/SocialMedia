@@ -1,14 +1,15 @@
 import {useEffect, useState} from 'react';
 import {observer} from "mobx-react-lite";
 import {useStores} from "../../../app/store/root-store.context.ts";
-import {useCookies} from "react-cookie";
+// import {useCookies} from "react-cookie";
 import {Avatar, Button, Stack, TextField} from "@mui/material";
 import ava from "../../../shared/assets/SideBarIcons/cat.jpg"
 import cls from "./MyProfile.module.scss"
 import SettingsIcon from '@mui/icons-material/Settings';
 import ShareIcon from '@mui/icons-material/Share';
 import {useForm} from "react-hook-form";
-import Post from "../../../widgets/Post/ui/Post.tsx";
+// import Post from "../../../widgets/Post/ui/Post.tsx";
+import Cookies from "js-cookie";
 
 
 type PostRequest = {
@@ -20,24 +21,24 @@ const MyProfile = observer(() => {
     const {
         getProfile,
         createPost,
-        initialState: {profileData: {id, name, surname, email, birthday}, authData:{isLoading, error, refreshToken}}
+        initialState: {profileData: { name, surname, email, birthday}, authData:{isLoading, error}}
     } = useStores();
-    const [refresh, setRefresh] = useCookies(['refresh']);
+    // const [refresh, setRefresh] = useCookies(['refresh']);
     const {handleSubmit, register, formState: {errors}} = useForm()
     const [post, setPost] = useState(false);
     const onSubmit = (data: PostRequest) => {
         console.log({...data, images_urls: []});
-        createPost({...data, images_urls: []}, refresh)
+        createPost({...data, images_urls: []}, Cookies.get('refresh'))
         setPost(true);
     }
 
     useEffect(() => {
         console.log("start")
         try {
-            getProfile(refresh);
-            if(refreshToken!==null){
-                setRefresh('refresh', refreshToken);
-            }
+            getProfile(Cookies.get('refresh'));
+            // if(refreshToken!==null){
+            //     setRefresh('refresh', refreshToken);
+            // }
         }
         catch (e){
             console.log(e);

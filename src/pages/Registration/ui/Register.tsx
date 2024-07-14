@@ -7,7 +7,8 @@ import {useStores} from "../../../app/store/root-store.context.ts";
 import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
-import {useCookies} from "react-cookie";
+// import {useCookies} from "react-cookie";
+import Cookies from 'js-cookie'
 
 type RegisterValues = {
     name: string,
@@ -24,10 +25,12 @@ const Register = observer(() => {
     const {initialState: {authData: {accessToken, refreshToken}}} = useStores()
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
-    const [, setCookie] = useCookies(['refresh']);
+    // const [, setCookie] = useCookies(['refresh']);
+
     useEffect(() => {
         if(accessToken){
-            setCookie( 'refresh', refreshToken);
+            Cookies.set('refresh', refreshToken, {expires: 7});
+            // setCookie( 'refresh', refreshToken);
             navigate('/');
         }
     }, [accessToken, navigate]);

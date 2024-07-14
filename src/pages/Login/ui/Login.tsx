@@ -6,7 +6,8 @@ import {observer} from "mobx-react-lite";
 import {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
-import {useCookies} from "react-cookie";
+// import {useCookies} from "react-cookie";
+import Cookies from "js-cookie";
 
 
 type LoginValues = {
@@ -20,10 +21,11 @@ const Login = observer(() => {
     const {initialState} = useStores()
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
-    const [, setCookie] = useCookies(['refresh']);
+    // const [, setCookie] = useCookies(['refresh']);
     useEffect(() => {
         if(accessToken){
-            setCookie( 'refresh', refreshToken);
+            Cookies.set('refresh', refreshToken, {expires: 7});
+            // setCookie( 'refresh', refreshToken);
             navigate('/');
         }
         initialState.authData.error = null

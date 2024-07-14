@@ -6,13 +6,15 @@ import {CamelCase} from "../../../../shared/utils/CamelCase.ts";
 import {privateConfig, publicConfig} from "../../../../shared/config/routeConfig/routeConfig.tsx";
 import {useEffect} from "react";
 import {useCookies} from "react-cookie";
-
+import Cookies from 'js-cookie'
 
 const AppRouter = () => {
     const [refresh] = useCookies(['refresh']);
     const navigate = useNavigate()
     useEffect(() => {
-        if(refresh.refresh === undefined){
+        console.log(Cookies.get('refresh'))
+        if(Cookies.get('refresh') === undefined){
+            console.log('navigate')
             navigate('/login')
         }
     }, [refresh])
