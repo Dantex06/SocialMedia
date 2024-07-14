@@ -23,7 +23,7 @@ export const refresh = (params: IRefreshRequest) =>
             "refresh": params
         })
 
-export const postSend = (newpost): AxiosPromise =>
+export const postSend = (newpost: never): AxiosPromise =>
     axiosInstance.post(Endpoints.AUTH.POST_SEND, newpost)
 
 export const postsGet = (): AxiosPromise => {

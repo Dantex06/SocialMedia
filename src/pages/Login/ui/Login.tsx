@@ -23,7 +23,7 @@ const Login = observer(() => {
     const [showPassword, setShowPassword] = useState(false);
     // const [, setCookie] = useCookies(['refresh']);
     useEffect(() => {
-        if(accessToken){
+        if(accessToken && refreshToken!==null){
             Cookies.set('refresh', refreshToken, {expires: 7});
             // setCookie( 'refresh', refreshToken);
             navigate('/');
@@ -35,7 +35,6 @@ const Login = observer(() => {
 
     const onSubmit = (data: LoginValues) => {
         login(data);
-        console.log(data);
     }
 
     return (

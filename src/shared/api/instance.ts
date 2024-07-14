@@ -16,7 +16,8 @@ axiosInstance.interceptors.request.use(async (config)=>{
     console.log(accessToken);
     if(accessToken){
         const authorization = `Bearer ${accessToken}`
-
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
         config.headers = {
             ...config.headers,
             "Authorization": authorization

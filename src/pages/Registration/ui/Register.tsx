@@ -28,7 +28,7 @@ const Register = observer(() => {
     // const [, setCookie] = useCookies(['refresh']);
 
     useEffect(() => {
-        if(accessToken){
+        if(accessToken && refreshToken!==null){
             Cookies.set('refresh', refreshToken, {expires: 7});
             // setCookie( 'refresh', refreshToken);
             navigate('/');

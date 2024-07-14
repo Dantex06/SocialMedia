@@ -13,14 +13,14 @@ type PostRequest = {
     url: string|null
     date: string
 }
-
 const CreatePost = observer(() => {
-    const {handleSubmit, register} = useForm()
+    const {handleSubmit, register} = useForm<PostRequest>()
 
     const onSubmit = (data: PostRequest) => {
         console.log(data);
 
     }
+
 
     return (
         <div className={cls.post}>

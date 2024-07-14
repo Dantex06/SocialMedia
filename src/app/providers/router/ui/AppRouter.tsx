@@ -12,9 +12,7 @@ const AppRouter = () => {
     const [refresh] = useCookies(['refresh']);
     const navigate = useNavigate()
     useEffect(() => {
-        console.log(Cookies.get('refresh'))
         if(Cookies.get('refresh') === undefined){
-            console.log('navigate')
             navigate('/login')
         }
     }, [refresh])

@@ -29,7 +29,7 @@ export interface ILoginResponse {
 }
 
 export interface IRefreshRequest {
-    refresh: string | null;
+    refresh: string;
 }
 
 export interface IRefreshResponse {

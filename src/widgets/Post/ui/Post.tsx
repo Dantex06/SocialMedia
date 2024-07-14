@@ -15,8 +15,8 @@ interface IPost {
     text: string
     photo: string | null
     published: string
-    idUser: string
-    myId: string
+    idUser: number
+    myId: number | null
 }
 
 const Post = ({name, surname, text, photo, published, idUser, myId}: IPost) => {

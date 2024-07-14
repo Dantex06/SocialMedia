@@ -1,14 +1,12 @@
 import {useEffect, useState} from 'react';
 import {observer} from "mobx-react-lite";
 import {useStores} from "../../../app/store/root-store.context.ts";
-// import {useCookies} from "react-cookie";
 import {Avatar, Button, Stack, TextField} from "@mui/material";
 import ava from "../../../shared/assets/SideBarIcons/cat.jpg"
 import cls from "./MyProfile.module.scss"
 import SettingsIcon from '@mui/icons-material/Settings';
 import ShareIcon from '@mui/icons-material/Share';
 import {useForm} from "react-hook-form";
-// import Post from "../../../widgets/Post/ui/Post.tsx";
 import Cookies from "js-cookie";
 
 
@@ -21,24 +19,26 @@ const MyProfile = observer(() => {
     const {
         getProfile,
         createPost,
-        initialState: {profileData: { name, surname, email, birthday}, authData:{isLoading, error}}
+        initialState: {profileData: { name, surname, email, birthday, error}, authData:{isLoading}}
     } = useStores();
     // const [refresh, setRefresh] = useCookies(['refresh']);
-    const {handleSubmit, register, formState: {errors}} = useForm()
+    const {handleSubmit, register, formState: {errors}} = useForm<PostRequest>()
     const [post, setPost] = useState(false);
     const onSubmit = (data: PostRequest) => {
         console.log({...data, images_urls: []});
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
         createPost({...data, images_urls: []}, Cookies.get('refresh'))
         setPost(true);
     }
 
     useEffect(() => {
+        console.log(error)
         console.log("start")
         try {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
             getProfile(Cookies.get('refresh'));
-            // if(refreshToken!==null){
-            //     setRefresh('refresh', refreshToken);
-            // }
         }
         catch (e){
             console.log(e);
@@ -50,11 +50,15 @@ if (isLoading) {
     return <div>Loading...</div>;
 }
 
-if (error) {
-    return <div>{error.message}</div>;
+if(error ){
+    return (
+        <div>
+            {error}
+        </div>
+    )
 }
 
-return (
+return (name&&
     <div>
         <div className={cls.backgroundProfileAndAvatar}>
             <Avatar alt="Avatar" src={ava} sx={{width: 144, height: 144}}/>
@@ -81,7 +85,7 @@ return (
                             id="outlined-textarea"
                             placeholder="Что у вас нового?"
                             multiline
-                            {...register("content", {
+                            {...register("text", {
                                 required: "Это поле обязательно!",
                                 minLength: {
                                     value: 3, message: "Слишком мало символов"
@@ -90,8 +94,8 @@ return (
                                     value: 400, message: "Слишком много символов"
                                 }
                             })}
-                            error={!!errors['content']}
-                            helperText={errors['content']?.message}
+                            error={!!errors['text']}
+                            helperText={errors['text']?.message}
                         />
 
                         <Button style={{marginLeft: "2vh"}} type="submit" variant="contained" color="primary">

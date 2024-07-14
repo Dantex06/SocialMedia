@@ -1,5 +1,4 @@
 import cls from "./SideBar.module.scss"
-import ExampleAvatar from "../../../shared/assets/SideBarIcons/ExampleAvatar.png"
 import Notification from "../../../shared/assets/SideBarIcons/Notification.svg"
 import Menu from "../../../shared/assets/SideBarIcons/Menu.svg"
 import NewPostPhoto from "../../../shared/assets/SideBarIcons/PhotoNewPost.png"

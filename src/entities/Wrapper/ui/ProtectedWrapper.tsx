@@ -1,4 +1,4 @@
-import {Navigate, Outlet} from "react-router-dom";
+import {Outlet} from "react-router-dom";
 import SideBar from "../../../widgets/SideBar/ui/SideBar.tsx";
 import NavBar from "../../../widgets/NavBar/ui/NavBar.tsx";
 import Cookies from "js-cookie";
