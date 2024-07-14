@@ -19,11 +19,14 @@ interface IPost {
     myId: number | null
 }
 
+
 const Post = ({name, surname, text, photo, published, idUser, myId}: IPost) => {
+    const api = import.meta.env.VITE_BACKEND_API
+
     return (
         <div className={cls.post}>
             <div className={cls.user}>
-                <Link to={myId === idUser ? `http://localhost:5173/profile`: `http://localhost:5173/profile/${idUser}`}>
+                <Link to={myId === idUser && typeof api !== "undefined"? api: typeof api !== "undefined"? api+{idUser}: ""}>
                 <Avatar alt="Avatar" src={ava}/>
                 </Link>
                 <div className={cls.userInfo}>

@@ -2,7 +2,7 @@ import axios from "axios";
 import Endpoints from "./endpoints.ts";
 
 export const axiosInstance = axios.create({
-    baseURL: "http://localhost:8080/",
+    baseURL: import.meta.env.VITE_BACKEND_API,
 })
 
 const urlSckipAuth = [Endpoints.AUTH.LOGIN, Endpoints.AUTH.REGISTER, Endpoints.AUTH.LOGOUT, Endpoints.AUTH.REFRESH];
