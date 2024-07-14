@@ -141,12 +141,14 @@ class AuthStore {
     updateToken = (data: IRefreshRequest): Promise<IRefreshResponse> => {
         this.initialState.authData.error = null;
         this.initialState.authData.isLoading = true;
+        console.log(data);
         return refresh(data).then(response=>{
             window.localStorage.setItem('access_token', response.data.access);
             this.initialState.authData.accessToken = response.data.access
             this.initialState.authData.refreshToken = response.data.refresh
         })
             .catch(err => {
+                console.log(err)
                 this.initialState.authData.error = err;
             })
             .finally(() => {

@@ -6,7 +6,7 @@ import {AxiosPromise} from "axios";
 export const login = (params: ILoginRequest) =>
     axiosInstance.post(Endpoints.AUTH.LOGIN, params);
 
-export const register = (params: IRegisterRequest)  =>
+export const register = (params: IRegisterRequest) =>
     axiosInstance.post(Endpoints.AUTH.REGISTER, params);
 
 export const profile = (): AxiosPromise => {
@@ -14,7 +14,10 @@ export const profile = (): AxiosPromise => {
 }
 
 export const refresh = (params: IRefreshRequest) =>
-    axiosInstance.post(Endpoints.AUTH.REFRESH, params)
+    axiosInstance.post(Endpoints.AUTH.REFRESH,
+        {
+            "refresh": params
+        })
 
 export const postSend = (newpost): AxiosPromise =>
     axiosInstance.post(Endpoints.AUTH.POST_SEND, newpost)
