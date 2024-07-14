@@ -3,10 +3,10 @@ import {observer} from "mobx-react-lite";
 import {useStores} from "../../../app/store/root-store.context.ts";
 import {Avatar, Button, Stack, TextField} from "@mui/material";
 import ava from "../../../shared/assets/SideBarIcons/cat.jpg"
-import cls from "./MyProfile.module.scss"
+import userAva from "../../../shared/assets/SideBarIcons/chapo.png";
+import cls from "./UserPage.module.scss"
 import SettingsIcon from '@mui/icons-material/Settings';
 import ShareIcon from '@mui/icons-material/Share';
-import {useForm} from "react-hook-form";
 // import Post from "../../../widgets/Post/ui/Post.tsx";
 import Cookies from "js-cookie";
 import {useLocation} from "react-router-dom";
@@ -15,10 +15,11 @@ import {useLocation} from "react-router-dom";
 
 const UserPage = observer(() => {
     const location = useLocation();
-    const {getUserData} = useStores()
+    const {getUserData, initialState:{userData:{name, surname, email, birthday, error, loading}}} = useStores()
     const id = location.pathname.split("/")[2];
+
     useEffect(() => {
-        getUserData(id, Cookies.get('refresh')).then(()=>console.log('bomba'))
+        getUserData(id, Cookies.get('refresh')).catch((err)=>console.log(err))
     }, []);
         // const {
         //     getProfile,
@@ -56,28 +57,44 @@ const UserPage = observer(() => {
         //     return <div>{error.message}</div>;
         // }
 
+
+        if(loading){
+            return(
+                <div>Loading...</div>
+            )
+        }
+
+        if(error){
+            return (
+                <div>
+                    {error.response.statusText}
+                </div>
+            )
+        }
+
         return (
             <div>
-                user
+                <div className={cls.backgroundProfileAndAvatar}>
+                    <Avatar alt="Avatar" src={ava} sx={{width: 144, height: 144}}/>
+                    <div className={cls.icons}>
+                        <Button style={{marginRight: "2vh"}} variant="contained">Подписаться</Button>
+                        <ShareIcon style={{marginRight: "2vh"}} sx={{color: "white"}}/>
+                        <SettingsIcon sx={{color: "white"}}/>
+                    </div>
+                </div>
+                <div className={cls.personal}>
+                    <div className={cls.profile}>
+                        <h1>{name} {surname}</h1>
+                        <p>Email: {email}</p>
+                        <p>Birthday: {birthday}</p>
+                        <div className={cls.follow}>
+                            <p>253 Following</p>
+                            <p>555 Followers</p>
+                        </div>
+                    </div>
+                </div>
             </div>
             // <div>
-            //     <div className={cls.backgroundProfileAndAvatar}>
-            //         <Avatar alt="Avatar" src={ava} sx={{width: 144, height: 144}}/>
-            //         <div className={cls.icons}>
-            //             <ShareIcon sx={{color: "white"}}/>
-            //             <SettingsIcon sx={{color: "white"}}/>
-            //         </div>
-            //     </div>
-            //     <div className={cls.personal}>
-            //         <div className={cls.profile}>
-            //             <h1>{name} {surname}</h1>
-            //             <p>Email: {email}</p>
-            //             <p>Birthday: {birthday}</p>
-            //             <div className={cls.follow}>
-            //                 <p>253 Following</p>
-            //                 <p>555 Followers</p>
-            //             </div>
-            //         </div>
             //         <div className={cls.post}>
             //             <form onSubmit={handleSubmit(onSubmit)}>
             //                 <Stack spacing={2} width={400}>
@@ -111,7 +128,7 @@ const UserPage = observer(() => {
             //     {/*        absolutely thrilled to embark on a new adventure that's just around the corner! 😍✨🌟🌈" photo={null}/>*/}
             //
             // </div>
-        );
+        )
     })
 ;
 

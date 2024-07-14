@@ -1,0 +1,41 @@
+.follow {
+  display: flex;
+  justify-content: space-between;
+  width: 24vh;
+}
+
+.profile{
+  padding-top: 2vh;
+  margin: 0 auto;
+  width: 85vh;
+  color: #e3e3e3;
+}
+
+.icons{
+  display: flex;
+  padding-right: 3vh;
+  justify-content: space-between;
+  align-items: flex-end;
+
+}
+
+.post{
+  color: white;
+}
+
+.personal{
+  margin-top: 1vh;
+  display: flex;
+  padding: 0 2vh;
+}
+
+.backgroundProfileAndAvatar{
+  display: flex;
+  justify-content: space-between;
+  padding: 1vh 0 1vh 1vh;
+  border-top-right-radius: 30px;
+  border-top-left-radius: 30px;
+  width: 89vh;
+  text-align: center;
+  background: #6e9acc;
+}

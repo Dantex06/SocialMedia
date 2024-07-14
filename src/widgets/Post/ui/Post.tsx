@@ -15,13 +15,17 @@ interface IPost {
     text: string
     photo: string | null
     published: string
+    idUser: string
+    myId: string
 }
 
-const Post = ({name, surname, text, photo, published}: IPost) => {
+const Post = ({name, surname, text, photo, published, idUser, myId}: IPost) => {
     return (
         <div className={cls.post}>
             <div className={cls.user}>
+                <Link to={myId === idUser ? `http://localhost:5173/profile`: `http://localhost:5173/profile/${idUser}`}>
                 <Avatar alt="Avatar" src={ava}/>
+                </Link>
                 <div className={cls.userInfo}>
                     <p>{name} {surname}</p>
                     <p style={{color: "rgba(197,197,197,0.8)"}}>{published} • <Link to="/about"><img src={websitelink} alt="link to website"/></Link>

@@ -62,6 +62,7 @@ export interface AuthState {
         "error": string | null
     },
     userData: {
+        "loading": boolean,
         "id": number | null,
         "name": string | null,
         "surname": string | null,
@@ -116,6 +117,7 @@ class AuthStore {
             error: null
         },
         userData: {
+            loading: false,
             id: null,
             name: null,
             surname: null,
@@ -176,7 +178,7 @@ class AuthStore {
         this.initialState.authData.error = null;
         this.initialState.authData.isLoading = true;
         console.log(data);
-        return refresh(data).then(response=>{
+        return refresh(data).then(response => {
             window.localStorage.setItem('access_token', response.data.access);
             this.initialState.authData.accessToken = response.data.access
             this.initialState.authData.refreshToken = response.data.refresh
@@ -190,13 +192,13 @@ class AuthStore {
             });
     }
 
-    createPost = (newpost, refresh, check=false): Promise<void> => {
+    createPost = (newpost, refresh, check = false): Promise<void> => {
         this.initialState.authData.isLoading = true;
         this.initialState.authData.error = null;
         return postSend(newpost).then(response => {
             console.log(response);
         }).catch(error => {
-            if(error.response.statusText === 'Unauthorized' && check!==true){
+            if (error.response.statusText === 'Unauthorized' && check !== true) {
                 console.log('Error cause unauth', error)
                 // Возвращаем промис, чтобы гарантировать выполнение обновления токенов до повторного запроса пользователей
                 return this.updateToken(refresh).then(() => {
@@ -207,17 +209,17 @@ class AuthStore {
                 console.log("Error real", error);
                 this.initialState.authData.error = error;
             }
-        }).finally(()=>{
+        }).finally(() => {
             this.initialState.authData.isLoading = false;
         });
     }
 
-    getPosts = (refresh, check=false): Promise<void> => {
+    getPosts = (refresh, check = false): Promise<void> => {
         this.initialState.postsData.loading = true;
         this.initialState.postsData.errors = null;
         return postsGet().then(response => {
             if (response.data) {
-                const { current, first, last, posts, } = response.data;
+                const {current, first, last, posts,} = response.data;
                 console.log(response.data.posts)
                 this.initialState.postsData = {
                     current,
@@ -227,7 +229,7 @@ class AuthStore {
                 };
             }
         }).catch(error => {
-            if(error.response.statusText === 'Unauthorized' && check!==true){
+            if (error.response.statusText === 'Unauthorized' && check !== true) {
                 console.log('unauthhh', refresh)
                 // Возвращаем промис, чтобы гарантировать выполнение обновления токенов до повторного запроса пользователей
                 return this.updateToken(refresh).then(() => {
@@ -238,18 +240,18 @@ class AuthStore {
                 console.log("Yesssss", error);
                 this.initialState.postsData.errors = error.response.statusText;
             }
-        }).finally(()=>{
+        }).finally(() => {
             console.log('final')
             this.initialState.postsData.loading = false;
         });
     }
 
-    getProfile = (refresh, check=false): Promise<void> => {
+    getProfile = (refresh, check = false): Promise<void> => {
         this.initialState.authData.isLoading = true;
         this.initialState.authData.error = null;
         return profile().then(response => {
             if (response.data) {
-                const { id, name, surname, email, birthday } = response.data;
+                const {id, name, surname, email, birthday} = response.data;
                 this.initialState.profileData = {
                     id,
                     name,
@@ -259,7 +261,7 @@ class AuthStore {
                 };
             }
         }).catch(error => {
-            if(error.response.statusText === 'Unauthorized' && check!==true){
+            if (error.response.statusText === 'Unauthorized' && check !== true) {
                 console.log('unauthhh', refresh)
                 // Возвращаем промис, чтобы гарантировать выполнение обновления токенов до повторного запроса пользователей
                 return this.updateToken(refresh).then(() => {
@@ -270,17 +272,17 @@ class AuthStore {
                 console.log("Yesssss", error);
                 this.initialState.authData.error = error;
             }
-        }).finally(()=>{
+        }).finally(() => {
             this.initialState.authData.isLoading = false;
         });
     }
 
-    getUserData = (id, refresh, check=false): Promise<void> => {
-        this.initialState.authData.isLoading = true;
-        this.initialState.authData.error = null;
+    getUserData = (id, refresh, check = false): Promise<void> => {
+        this.initialState.userData.error = null;
+        this.initialState.userData.loading = true;
         return userGetProfile(id).then(response => {
             if (response.data) {
-                const { id, name, surname, email, birthday } = response.data;
+                const {id, name, surname, email, birthday} = response.data;
                 this.initialState.userData = {
                     id,
                     name,
@@ -289,20 +291,28 @@ class AuthStore {
                     birthday
                 };
             }
+        }).then(() => {
+            if (this.initialState.profileData.id === null) {
+                return this.getProfile(refresh, true);
+            }
         }).catch(error => {
-            if(error.response.statusText === 'Unauthorized' && check!==true){
+            if (error.response.statusText === 'Unauthorized' && check !== true) {
                 console.log('unauthhh', refresh)
                 // Возвращаем промис, чтобы гарантировать выполнение обновления токенов до повторного запроса пользователей
                 return this.updateToken(refresh).then(() => {
                     // Повторный запрос пользователей после успешного обновления токенов
-                    return this.getUserData(id, refresh, true);
+                    return this.getUserData(id, refresh, true).then(() => {
+                        if (this.initialState.profileData.id === null) {
+                            return this.getProfile(refresh, true);
+                        }
+                    });
                 });
             } else {
                 console.log("Yesssss", error);
-                this.initialState.authData.error = error;
+                this.initialState.userData.error = error;
             }
-        }).finally(()=>{
-            this.initialState.authData.isLoading = false;
+        }).finally(() => {
+            this.initialState.userData.loading = false;
         });
     }
 

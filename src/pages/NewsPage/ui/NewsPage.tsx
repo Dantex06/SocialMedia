@@ -5,9 +5,10 @@ import {useStores} from "../../../app/store/root-store.context.ts";
 // import {useCookies} from "react-cookie";
 import Post from "../../../widgets/Post/ui/Post.tsx";
 import Cookies from "js-cookie";
+import {Link} from "react-router-dom";
 
 const NewsPage = observer(() => {
-    const {getPosts, initialState:{postsData: {posts, errors, loading}}} = useStores()
+    const {getPosts, initialState:{postsData: {posts, errors, loading}, profileData: {id}}} = useStores()
     const refresh = Cookies.get('refresh')
     useEffect(() => {
         getPosts(refresh)
@@ -28,7 +29,9 @@ const NewsPage = observer(() => {
     return (
         <div className={cls.posts}>
             {posts.map((post)=>(
-                    <Post name={post.author.name} surname={post.author.surname} text={post.content} photo={null} published={post.published_at} />
+
+                    <Post name={post.author.name} surname={post.author.surname} text={post.content} photo={null} published={post.published_at} idUser={post.author.id} myId={id}/>
+
             ))}
         </div>
         // <div className={cls.posts}>
