@@ -8,12 +8,14 @@ import Settings from "../../../pages/Settings/ui/Settings.tsx";
 import About from "../../../pages/About/ui/About.tsx";
 import Login from "../../../pages/Login/ui/Login.tsx";
 import Register from "../../../pages/Registration/ui/Register.tsx";
+import UserPage from "../../../pages/UserPage/ui/UserPage.tsx";
 
 export enum AppRoutes {
     NEWS = "news",
     LOGIN = "login",
     REGISTER = "register",
     MY_PROFILE = "profile",
+    USER_PAGE = "user_page",
     MESSAGES = "message",
     MUSIC = "music",
     SETTINGS = "settings",
@@ -29,6 +31,7 @@ export enum PublicRoutes {
 export enum PrivateRoutes {
     NEWS = "news",
     MY_PROFILE = "profile",
+    USER_PAGE = "user_page",
     MESSAGES = "message",
     MUSIC = "music",
     SETTINGS = "settings",
@@ -41,6 +44,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.LOGIN]: '/login',
     [AppRoutes.REGISTER]: "/register",
     [AppRoutes.MY_PROFILE]: '/profile',
+    [AppRoutes.USER_PAGE]: '/profile/:id',
     [AppRoutes.MESSAGES]: '/message',
     [AppRoutes.MUSIC]: '/music',
     [AppRoutes.SETTINGS]: '/settings',
@@ -56,6 +60,7 @@ export const PublicPath: Record<PublicRoutes, string> = {
 export const PrivatePath: Record<PrivateRoutes, string> = {
     [AppRoutes.NEWS]: '/',
     [AppRoutes.MY_PROFILE]: '/profile',
+    [AppRoutes.USER_PAGE]: '/profile/:id',
     [AppRoutes.MESSAGES]: '/message',
     [AppRoutes.MUSIC]: '/music',
     [AppRoutes.SETTINGS]: '/settings',
@@ -79,6 +84,10 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
     [AppRoutes.MY_PROFILE]: {
         path: RoutePath.profile,
         element: <MyProfile/>
+    },
+    [AppRoutes.USER_PAGE]: {
+        path: RoutePath.user_page,
+        element: <UserPage/>
     },
     [AppRoutes.MESSAGES]: {
         path: RoutePath.message,
@@ -122,6 +131,10 @@ export const privateConfig: Record<PrivateRoutes, RouteProps> = {
     [AppRoutes.MY_PROFILE]: {
         path: RoutePath.profile,
         element: <MyProfile/>
+    },
+    [AppRoutes.USER_PAGE]: {
+        path: RoutePath.user_page,
+        element: <UserPage/>
     },
     [AppRoutes.MESSAGES]: {
         path: RoutePath.message,

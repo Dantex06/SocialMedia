@@ -1,5 +1,5 @@
 import {makeAutoObservable} from "mobx";
-import {login, postSend, postsGet, profile, refresh, register} from "../../shared/api/auth";
+import {login, postSend, postsGet, profile, refresh, register, userGetProfile} from "../../shared/api/auth";
 import {
     ILoginRequest,
     ILoginResponse,
@@ -60,6 +60,23 @@ export interface AuthState {
         "image": string | null,
         "birthday": string | null
         "error": string | null
+    },
+    userData: {
+        "id": number | null,
+        "name": string | null,
+        "surname": string | null,
+        "email": string | null,
+        "country": {
+            "id": 70,
+            "name": "Estonia",
+            "alpha2": "EE",
+            "alpha3": "EST",
+            "region": "Europe"
+        },
+        "is_public": true,
+        "image": string | null,
+        "birthday": string | null
+        "error": string | null
     }
 }
 
@@ -82,6 +99,23 @@ class AuthStore {
             "posts": []
         },
         profileData: {
+            id: null,
+            name: null,
+            surname: null,
+            email: null,
+            "country": {
+                "id": 70,
+                "name": "Estonia",
+                "alpha2": "EE",
+                "alpha3": "EST",
+                "region": "Europe"
+            },
+            "is_public": true,
+            image: null,
+            birthday: null,
+            error: null
+        },
+        userData: {
             id: null,
             name: null,
             surname: null,
@@ -191,9 +225,6 @@ class AuthStore {
                     last,
                     posts
                 };
-                // console.log(JSON.parse(response.data.posts))
-                // console.log(response.data)
-                // this.initialState.postsData.posts = response.data
             }
         }).catch(error => {
             if(error.response.statusText === 'Unauthorized' && check!==true){
@@ -234,6 +265,37 @@ class AuthStore {
                 return this.updateToken(refresh).then(() => {
                     // Повторный запрос пользователей после успешного обновления токенов
                     return this.getProfile(refresh, true);
+                });
+            } else {
+                console.log("Yesssss", error);
+                this.initialState.authData.error = error;
+            }
+        }).finally(()=>{
+            this.initialState.authData.isLoading = false;
+        });
+    }
+
+    getUserData = (id, refresh, check=false): Promise<void> => {
+        this.initialState.authData.isLoading = true;
+        this.initialState.authData.error = null;
+        return userGetProfile(id).then(response => {
+            if (response.data) {
+                const { id, name, surname, email, birthday } = response.data;
+                this.initialState.userData = {
+                    id,
+                    name,
+                    surname,
+                    email,
+                    birthday
+                };
+            }
+        }).catch(error => {
+            if(error.response.statusText === 'Unauthorized' && check!==true){
+                console.log('unauthhh', refresh)
+                // Возвращаем промис, чтобы гарантировать выполнение обновления токенов до повторного запроса пользователей
+                return this.updateToken(refresh).then(() => {
+                    // Повторный запрос пользователей после успешного обновления токенов
+                    return this.getUserData(id, refresh, true);
                 });
             } else {
                 console.log("Yesssss", error);

@@ -13,6 +13,10 @@ export const profile = (): AxiosPromise => {
     return axiosInstance.get(Endpoints.AUTH.PROFILE)
 }
 
+export const userGetProfile = (id: number): AxiosPromise => {
+    return axiosInstance.get(Endpoints.AUTH.PROFILE_GET+id)
+}
+
 export const refresh = (params: IRefreshRequest) =>
     axiosInstance.post(Endpoints.AUTH.REFRESH,
         {
