@@ -1,30 +1,27 @@
-import {Outlet} from "react-router-dom";
-import SideBar from "../../../widgets/SideBar/ui/SideBar.tsx";
-import NavBar from "../../../widgets/NavBar/ui/NavBar.tsx";
-import Cookies from "js-cookie";
+import { Outlet } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import { SideBar } from '@/widgets/SideBar';
+import { NavBar } from '@/widgets/NavBar';
 
 export const ProtectedWrapperUnauthorized = () => {
-    const logged = Cookies.get('refresh')
-
+    const logged = Cookies.get('refresh');
     return (
         <div className="content-page">
-            {logged ? <SideBar/> : ""}
-            <Outlet/>
+            {logged ? <SideBar /> : ''}
+            <Outlet />
         </div>
-)
-
+    );
 };
 
 export const ProtectedWrapperAuthorized = () => {
-    const logged = Cookies.get('refresh')
+    const logged = Cookies.get('refresh');
     return (
         <div>
             <div className="content-page">
-                {logged ? <SideBar/> : ""}
-                <Outlet/>
+                {logged ? <SideBar /> : ''}
+                <Outlet />
             </div>
-            {logged ? <NavBar/> : ""}
+            {logged ? <NavBar /> : ''}
         </div>
-    )
-
+    );
 };

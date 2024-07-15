@@ -1,40 +1,41 @@
-//login
-
 export interface ILoginRequest {
     email: string;
     password: string;
 }
 
-
-
 export interface ILoginResponse {
-    "access": string,
-    "profile": {
-        "id": number,
-        "name": string,
-        "surname": string,
-        "email": string,
-        "country": {
-            "id": number,
-            "name": "Estonia",
-            "alpha2": "EE",
-            "alpha3": "EST",
-            "region": "Europe"
-        },
-        "is_public": boolean,
-        "image": string,
-        "birthday": string
-    },
-    "refresh": string
+    access: string;
+    profile: {
+        id: number;
+        name: string;
+        surname: string;
+        email: string;
+        country: {
+            id: number;
+            name: 'Estonia';
+            alpha2: 'EE';
+            alpha3: 'EST';
+            region: 'Europe';
+        };
+        is_public: boolean;
+        image: string;
+        birthday: string;
+    };
+    refresh: string;
 }
 
 export interface IRefreshRequest {
     refresh: string;
 }
 
+export interface IPostSendRequest {
+    images_urls: string[];
+    content: string;
+}
+
 export interface IRefreshResponse {
-    "access": string,
-    "refresh": string,
+    access: string;
+    refresh: string;
 }
 
 export interface IRegisterRequest {
@@ -46,23 +47,22 @@ export interface IRegisterRequest {
 }
 
 export interface IRegisterResponse {
-    "access": string,
-    "profile": {
-        "id": number,
-        "name": string,
-        "surname": string,
-        "email": string,
-        "country": {
-            "id": number,
-            "name": "Estonia",
-            "alpha2": "EE",
-            "alpha3": "EST",
-            "region": "Europe"
-        },
-        "is_public": boolean,
-        "image": string,
-        "birthday": string
-    },
-    "refresh": string
+    access: string;
+    profile: {
+        id: number;
+        name: string;
+        surname: string;
+        email: string;
+        country: {
+            id: number;
+            name: 'Estonia';
+            alpha2: 'EE';
+            alpha3: 'EST';
+            region: 'Europe';
+        };
+        is_public: boolean;
+        image: string;
+        birthday: string;
+    };
+    refresh: string;
 }
-

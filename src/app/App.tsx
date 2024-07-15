@@ -1,16 +1,13 @@
 import './styles/index.css';
-import "./styles/reset.css";
+import './styles/reset.css';
+import { AppRouter } from '@/app/providers/router';
 
-import AppRouter from "./providers/router/ui/AppRouter.tsx";
-
-
-const App = ()=> {
+const App = () => {
     return (
         <div className="app">
-            <AppRouter/>
+            <AppRouter />
         </div>
+    );
+};
 
-    )
-}
-
-export default App
+export default App;

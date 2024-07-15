@@ -1,31 +1,27 @@
-import {axiosInstance} from "../instance.ts";
-import {ILoginRequest, IRefreshRequest, IRegisterRequest} from "./types.ts";
-import Endpoints from "../endpoints.ts";
-import {AxiosPromise} from "axios";
+import { axiosInstance } from '../instance.ts';
+import { ILoginRequest, IPostSendRequest, IRefreshRequest, IRegisterRequest } from './types.ts';
+import Endpoints from '../endpoints.ts';
+import { AxiosPromise } from 'axios';
 
-export const login = (params: ILoginRequest) =>
-    axiosInstance.post(Endpoints.AUTH.LOGIN, params);
+export const login = (params: ILoginRequest) => axiosInstance.post(Endpoints.AUTH.LOGIN, params);
 
-export const register = (params: IRegisterRequest) =>
-    axiosInstance.post(Endpoints.AUTH.REGISTER, params);
+export const register = (params: IRegisterRequest) => axiosInstance.post(Endpoints.AUTH.REGISTER, params);
 
 export const profile = (): AxiosPromise => {
-    return axiosInstance.get(Endpoints.AUTH.PROFILE)
-}
+    return axiosInstance.get(Endpoints.AUTH.PROFILE);
+};
 
 export const userGetProfile = (id: number): AxiosPromise => {
-    return axiosInstance.get(Endpoints.AUTH.PROFILE_GET+id)
-}
+    return axiosInstance.get(Endpoints.AUTH.PROFILE_GET + id);
+};
 
 export const refresh = (params: IRefreshRequest) =>
-    axiosInstance.post(Endpoints.AUTH.REFRESH,
-        {
-            "refresh": params
-        })
+    axiosInstance.post(Endpoints.AUTH.REFRESH, {
+        refresh: params,
+    });
 
-export const postSend = (newpost: never): AxiosPromise =>
-    axiosInstance.post(Endpoints.AUTH.POST_SEND, newpost)
+export const postSend = (newpost: IPostSendRequest): AxiosPromise => axiosInstance.post(Endpoints.AUTH.POST_SEND, newpost);
 
 export const postsGet = (): AxiosPromise => {
-    return axiosInstance.get(Endpoints.AUTH.POST_GET)
-}
+    return axiosInstance.get(Endpoints.AUTH.POST_GET);
+};

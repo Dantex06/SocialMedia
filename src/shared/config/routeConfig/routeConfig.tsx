@@ -1,61 +1,62 @@
-import {RouteProps} from "react-router-dom";
-import NewsPage from "../../../pages/NewsPage/ui/NewsPage.tsx";
-import MyProfile from "../../../pages/MyProfile/ui/MyProfile.tsx";
-import Messages from "../../../pages/Messages/ui/Messages.tsx";
-import Music from "../../../pages/Music/ui/Music.tsx";
-import NotFoundPage from "../../../pages/NotFoundPage/ui/NotFoundPage.tsx";
-import Settings from "../../../pages/Settings/ui/Settings.tsx";
-import About from "../../../pages/About/ui/About.tsx";
-import Login from "../../../pages/Login/ui/Login.tsx";
-import Register from "../../../pages/Registration/ui/Register.tsx";
-import UserPage from "../../../pages/UserPage/ui/UserPage.tsx";
+import { RouteProps } from 'react-router-dom';
+import { NewsPage } from '@/pages/NewsPage';
+import { Login } from '@/pages/Login';
+import { Register } from '@/pages/Registration';
+import { MyProfile } from '@/pages/MyProfile';
+import { UserPage } from '@/pages/UserPage';
+import { Messages } from '@/pages/Messages';
+import { Music } from '@/pages/Music';
+import { Settings } from '@/pages/Settings';
+import { About } from '@/pages/About';
+import { NotFoundPage } from '@/pages/NotFoundPage';
+
 
 export enum AppRoutes {
-    NEWS = "news",
-    LOGIN = "login",
-    REGISTER = "register",
-    MY_PROFILE = "profile",
-    USER_PAGE = "user_page",
-    MESSAGES = "message",
-    MUSIC = "music",
-    SETTINGS = "settings",
-    ABOUT = "about",
-    NOT_FOUND = "not_found",
+    NEWS = 'news',
+    LOGIN = 'login',
+    REGISTER = 'register',
+    MY_PROFILE = 'profile',
+    USER_PAGE = 'user_page',
+    MESSAGES = 'message',
+    MUSIC = 'music',
+    SETTINGS = 'settings',
+    ABOUT = 'about',
+    NOT_FOUND = 'not_found',
 }
 
 export enum PublicRoutes {
-    LOGIN = "login",
-    REGISTER = "register",
+    LOGIN = 'login',
+    REGISTER = 'register',
 }
 
 export enum PrivateRoutes {
-    NEWS = "news",
-    MY_PROFILE = "profile",
-    USER_PAGE = "user_page",
-    MESSAGES = "message",
-    MUSIC = "music",
-    SETTINGS = "settings",
-    ABOUT = "about",
-    NOT_FOUND = "not_found",
+    NEWS = 'news',
+    MY_PROFILE = 'profile',
+    USER_PAGE = 'user_page',
+    MESSAGES = 'message',
+    MUSIC = 'music',
+    SETTINGS = 'settings',
+    ABOUT = 'about',
+    NOT_FOUND = 'not_found',
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.NEWS]: '/',
     [AppRoutes.LOGIN]: '/login',
-    [AppRoutes.REGISTER]: "/register",
+    [AppRoutes.REGISTER]: '/register',
     [AppRoutes.MY_PROFILE]: '/profile',
     [AppRoutes.USER_PAGE]: '/profile/:id',
     [AppRoutes.MESSAGES]: '/message',
     [AppRoutes.MUSIC]: '/music',
     [AppRoutes.SETTINGS]: '/settings',
     [AppRoutes.ABOUT]: '/about',
-    [AppRoutes.NOT_FOUND]: '*'
-}
+    [AppRoutes.NOT_FOUND]: '*',
+};
 
 export const PublicPath: Record<PublicRoutes, string> = {
     [AppRoutes.LOGIN]: '/login',
-    [AppRoutes.REGISTER]: "/register",
-}
+    [AppRoutes.REGISTER]: '/register',
+};
 
 export const PrivatePath: Record<PrivateRoutes, string> = {
     [AppRoutes.NEWS]: '/',
@@ -65,95 +66,95 @@ export const PrivatePath: Record<PrivateRoutes, string> = {
     [AppRoutes.MUSIC]: '/music',
     [AppRoutes.SETTINGS]: '/settings',
     [AppRoutes.ABOUT]: '/about',
-    [AppRoutes.NOT_FOUND]: '*'
-}
+    [AppRoutes.NOT_FOUND]: '*',
+};
 
 export const routeConfig: Record<AppRoutes, RouteProps> = {
     [AppRoutes.NEWS]: {
         path: RoutePath.news,
-        element: <NewsPage/>
+        element: <NewsPage />,
     },
     [AppRoutes.LOGIN]: {
         path: RoutePath.login,
-        element: <Login/>
+        element: <Login />,
     },
     [AppRoutes.REGISTER]: {
         path: RoutePath.register,
-        element: <Register/>
+        element: <Register />,
     },
     [AppRoutes.MY_PROFILE]: {
         path: RoutePath.profile,
-        element: <MyProfile/>
+        element: <MyProfile />,
     },
     [AppRoutes.USER_PAGE]: {
         path: RoutePath.user_page,
-        element: <UserPage/>
+        element: <UserPage />,
     },
     [AppRoutes.MESSAGES]: {
         path: RoutePath.message,
-        element: <Messages/>
+        element: <Messages />,
     },
     [AppRoutes.MUSIC]: {
         path: RoutePath.music,
-        element: <Music/>
+        element: <Music />,
     },
     [AppRoutes.SETTINGS]: {
         path: RoutePath.settings,
-        element: <Settings/>
+        element: <Settings />,
     },
     [AppRoutes.ABOUT]: {
         path: RoutePath.about,
-        element: <About/>
+        element: <About />,
     },
     [AppRoutes.NOT_FOUND]: {
         path: RoutePath.not_found,
-        element: <NotFoundPage/>
-    }
-}
+        element: <NotFoundPage />,
+    },
+};
 
 export const publicConfig: Record<PublicRoutes, RouteProps> = {
     [AppRoutes.LOGIN]: {
         path: RoutePath.login,
-        element: <Login/>
+        element: <Login />,
     },
     [AppRoutes.REGISTER]: {
         path: RoutePath.register,
-        element: <Register/>
-    }
-}
+        element: <Register />,
+    },
+};
 
 export const privateConfig: Record<PrivateRoutes, RouteProps> = {
     [AppRoutes.NEWS]: {
         path: RoutePath.news,
-        element: <NewsPage/>
+        element: <NewsPage />,
     },
 
     [AppRoutes.MY_PROFILE]: {
         path: RoutePath.profile,
-        element: <MyProfile/>
+        element: <MyProfile />,
     },
     [AppRoutes.USER_PAGE]: {
         path: RoutePath.user_page,
-        element: <UserPage/>
+        element: <UserPage />,
     },
     [AppRoutes.MESSAGES]: {
         path: RoutePath.message,
-        element: <Messages/>
+        element: <Messages />,
     },
     [AppRoutes.MUSIC]: {
         path: RoutePath.music,
-        element: <Music/>
+        element: <Music />,
     },
     [AppRoutes.SETTINGS]: {
         path: RoutePath.settings,
-        element: <Settings/>
+        element: <Settings />,
     },
     [AppRoutes.ABOUT]: {
         path: RoutePath.about,
-        element: <About/>
+        element: <About />,
     },
     [AppRoutes.NOT_FOUND]: {
         path: RoutePath.not_found,
-        element: <NotFoundPage/>
-    }
-}
+        element: <NotFoundPage />,
+    },
+};

@@ -1,29 +1,29 @@
-import axios from "axios";
-import Endpoints from "./endpoints.ts";
+import axios from 'axios';
+import Endpoints from './endpoints.ts';
 
 export const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_API,
-})
+});
 
-const urlSckipAuth = [Endpoints.AUTH.LOGIN, Endpoints.AUTH.REGISTER, Endpoints.AUTH.LOGOUT, Endpoints.AUTH.REFRESH];
+const urlSkipAuth = [Endpoints.AUTH.LOGIN, Endpoints.AUTH.REGISTER, Endpoints.AUTH.LOGOUT, Endpoints.AUTH.REFRESH];
 
-axiosInstance.interceptors.request.use(async (config)=>{
-    if(config.url && urlSckipAuth.includes(config.url)){
+axiosInstance.interceptors.request.use(async (config) => {
+    if (config.url && urlSkipAuth.includes(config.url)) {
         return config;
     }
 
-    const accessToken = window.localStorage.getItem("access_token");
-    if(accessToken){
-        const authorization = `Bearer ${accessToken}`
+    const accessToken = window.localStorage.getItem('access_token');
+    if (accessToken) {
+        const authorization = `Bearer ${accessToken}`;
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
         config.headers = {
             ...config.headers,
-            "Authorization": authorization
-        }
+            Authorization: authorization,
+        };
     }
     return config;
-})
+});
 
 // axiosInstance.interceptors.response.use(
 //     (response) => response,
