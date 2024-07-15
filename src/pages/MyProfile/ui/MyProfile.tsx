@@ -23,17 +23,26 @@ const MyProfile = observer(() => {
             },
         },
     } = useStores();
-    console.log()
     // const [refresh, setRefresh] = useCookies(['refresh']);
     const {
+        reset,
         handleSubmit,
         register,
         formState: { errors },
     } = useForm<PostRequest>();
     const [post, setPost] = useState(false);
+    const [errorRequest, setErrorRequest] = useState('')
     const onSubmit = (data: PostRequest) => {
-        createPost({ content: data.text, images_urls: [] }, Cookies.get('refresh'));
+        const trimmedText = data.text.trim();
+        reset()
+        if (trimmedText.replace(/\s/g, '').length === 0) {
+            setErrorRequest('Ошибка при отправке сообщения')
+            return;
+        }
+        setErrorRequest('');
+        createPost({ content: trimmedText, images_urls: [] }, Cookies.get('refresh'));
         setPost(true);
+
     };
     const storedProfile = window.localStorage.getItem('profile_id');
     const userData = storedProfile ? JSON.parse(storedProfile) : null;
@@ -104,7 +113,8 @@ const MyProfile = observer(() => {
                                 <Button style={{ marginLeft: '2vh' }} type="submit" variant="contained" color="primary">
                                     Опубликовать
                                 </Button>
-                                {post ? <p style={{ textAlign: 'center' }}>Пост успешно создан!</p> : ''}
+                                {(errorRequest && !post) && <p style={{ textAlign: 'center' }}>{errorRequest}</p>}
+                                {(post && !errorRequest) && <p style={{ textAlign: 'center' }}>Пост успешно создан!</p>}
                             </Stack>
                         </form>
                     </div>
