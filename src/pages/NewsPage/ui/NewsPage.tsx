@@ -6,8 +6,10 @@ import Post from "../../../widgets/Post/ui/Post.tsx";
 import Cookies from "js-cookie";
 
 const NewsPage = observer(() => {
-    const {getPosts, initialState:{postsData: {posts, errors, loading}, profileData: {id}}} = useStores()
+    const {getPosts, initialState:{postsData: {posts, errors, loading}}} = useStores()
     const refresh = Cookies.get('refresh')
+    const storedProfile = window.localStorage.getItem('profile_id');
+    const userData = storedProfile ? JSON.parse(storedProfile) : null;
     useEffect(() => {
             if(refresh){
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -28,15 +30,17 @@ const NewsPage = observer(() => {
             <div>{errors}</div>
         )
     }
+    if(!loading && !errors){
+        return (
+            <div className={cls.posts}>
+                {posts.map((post)=>(
+                    <Post key={post.id} name={post.author.name} surname={post.author.surname} text={post.content} photo={null} published={post.published_at} idUser={post.author.id} myId={userData ? userData.id: null}/>
 
-    return (
-        <div className={cls.posts}>
-            {posts.map((post)=>(
-                    <Post key={post.id} name={post.author.name} surname={post.author.surname} text={post.content} photo={null} published={post.published_at} idUser={post.author.id} myId={typeof id === "number"?id:null}/>
+                ))}
+            </div>
+        );
+    }
 
-            ))}
-        </div>
-    );
 });
 
 export default NewsPage;

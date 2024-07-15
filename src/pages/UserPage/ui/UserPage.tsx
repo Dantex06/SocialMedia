@@ -7,16 +7,22 @@ import cls from "./UserPage.module.scss"
 import SettingsIcon from '@mui/icons-material/Settings';
 import ShareIcon from '@mui/icons-material/Share';
 import Cookies from "js-cookie";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 
 
 const UserPage = observer(() => {
     const location = useLocation();
+    const navigate = useNavigate()
     const {getUserData, initialState:{userData:{name, surname, email, birthday, error, loading}}} = useStores()
     const id = Number(location.pathname.split("/")[2]);
     const refresh = Cookies.get('refresh');
+    const storedProfile = window.localStorage.getItem('profile_id');
+    const userData = storedProfile ? JSON.parse(storedProfile) : null;
     useEffect(() => {
+        if(id === userData.id){
+            navigate('/profile')
+        }
         if(refresh){
             console.log('start checking profile')
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment

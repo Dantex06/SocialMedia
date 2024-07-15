@@ -19,8 +19,9 @@ const MyProfile = observer(() => {
     const {
         getProfile,
         createPost,
-        initialState: {profileData: { name, surname, email, birthday, error}, authData:{isLoading}}
+        initialState:{profileData:{loading, error}}
     } = useStores();
+
     // const [refresh, setRefresh] = useCookies(['refresh']);
     const {handleSubmit, register, formState: {errors}} = useForm<PostRequest>()
     const [post, setPost] = useState(false);
@@ -30,11 +31,13 @@ const MyProfile = observer(() => {
         createPost({content: data.text, images_urls: []}, Cookies.get('refresh'))
         setPost(true);
     }
-
+    const storedProfile = window.localStorage.getItem('profile_id');
+    const userData = storedProfile ? JSON.parse(storedProfile) : null;
     useEffect(() => {
         try {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error
+
             getProfile(Cookies.get('refresh'));
         }
         catch (e){
@@ -43,7 +46,7 @@ const MyProfile = observer(() => {
     }, [])
 
 
-if (isLoading) {
+if (loading) {
     return <div>Loading...</div>;
 }
 
@@ -55,7 +58,7 @@ if(error ){
     )
 }
 
-return (name&&
+return (storedProfile&&
     <div>
         <div className={cls.backgroundProfileAndAvatar}>
             <Avatar alt="Avatar" src={ava} sx={{width: 144, height: 144}}/>
@@ -66,9 +69,9 @@ return (name&&
         </div>
         <div className={cls.personal}>
             <div className={cls.profile}>
-                <h1>{name} {surname}</h1>
-                <p>Email: {email}</p>
-                <p>Birthday: {birthday}</p>
+                <h1>{userData.name} {userData.surname}</h1>
+                <p>Email: {userData.email}</p>
+                <p>Birthday: {userData.birthday}</p>
                 <div className={cls.follow}>
                     <p>253 Following</p>
                     <p>555 Followers</p>

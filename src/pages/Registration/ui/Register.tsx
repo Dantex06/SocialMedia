@@ -94,9 +94,11 @@ const Register = observer(() => {
                         type={showPassword ? "text" : "password"}
                         {...register("password", {
                             required: "Это поле обязательно!",
-                            pattern: {
-                                value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
-                                message: "Неправильно указан пароль! Должны использоваться заглавные буквы, цифры и спец. знаки"
+                            minLength: {
+                                value: 8, message: "Слишком мало символов"
+                            },
+                            maxLength: {
+                                value: 30, message: "Слишком много символов"
                             }
                         })}
                         InputProps={{

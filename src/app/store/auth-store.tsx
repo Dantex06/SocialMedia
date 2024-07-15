@@ -54,7 +54,8 @@ export interface AuthState {
         "is_public": true,
         "image": string | null,
         "birthday": string | null
-        "error": string | null
+        "error": string | null,
+        "loading": boolean
     },
     userData: {
         "loading": boolean,
@@ -109,7 +110,8 @@ class AuthStore {
             "is_public": true,
             image: null,
             birthday: null,
-            error: null
+            error: null,
+            loading: false
         },
         userData: {
             loading: false,
@@ -226,14 +228,14 @@ class AuthStore {
                 };
             }
         }).then(()=>{
-            this.getProfile(refresh, check=true)
+            if(window.localStorage.getItem("profile_id")===null){
+                this.getProfile(refresh, check=true)
+            }
         }).catch(error => {
             if (error.response.statusText === 'Unauthorized' && check !== true) {
                 console.log('unauthhh', refresh)
                 return this.updateToken(refresh).then(() => {
-                    return this.getProfile(refresh, check=true).then(()=>{
-                        return this.getPosts(refresh, true);
-                    })
+                    return this.getProfile(refresh, check=true)
                 });
             } else {
                 console.log("Yesssss", error);
@@ -244,33 +246,39 @@ class AuthStore {
         });
     }
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     getProfile = (refresh: IRefreshRequest, check = false): Promise<void> => {
-        this.initialState.authData.isLoading = true;
-        this.initialState.authData.error = null;
-        return profile().then(response => {
-            if (response.data) {
-                const {id, name, surname, email, birthday} = response.data;
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-expect-error
-                this.initialState.profileData = {
-                    id,
-                    name,
-                    surname,
-                    email,
-                    birthday
-                };
-            }
-        }).catch(error => {
-            if (error.response.statusText === 'Unauthorized' && check !== true) {
-                return this.updateToken(refresh).then(() => {
-                    return this.getProfile(refresh, true);
-                });
-            } else {
-                this.initialState.profileData.error = error.response.statusText;
-            }
-        }).finally(() => {
-            this.initialState.authData.isLoading = false;
-        });
+        if(!window.localStorage.getItem('profile_id')){
+            this.initialState.profileData.loading = true;
+            this.initialState.profileData.error = null;
+            return profile().then(response => {
+                if (response.data) {
+                    const {id, name, surname, email, birthday} = response.data;
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-expect-error
+                    this.initialState.profileData = {
+                        id,
+                        name,
+                        surname,
+                        email,
+                        birthday
+                    };
+
+                    window.localStorage.setItem('profile_id', JSON.stringify({id, name, surname, email, birthday}));
+                }
+            }).catch(error => {
+                if (error.response.statusText === 'Unauthorized' && check !== true) {
+                    return this.updateToken(refresh).then(() => {
+                        return this.getProfile(refresh, true);
+                    });
+                } else {
+                    this.initialState.profileData.error = error.response.statusText;
+                }
+            }).finally(() => {
+                this.initialState.authData.isLoading = false;
+            });
+        }
     }
 
     getUserData = (id: number, refresh: IRefreshRequest, check = false): Promise<void> => {
@@ -316,6 +324,7 @@ class AuthStore {
     logout = () => {
         this.initialState.authData.isLoading = true;
         window.localStorage.removeItem('access_token');
+        window.localStorage.removeItem('profile_id');
         this.initialState.authData.accessToken = null;
         this.initialState.authData.refreshToken = null;
         this.initialState.authData.isLoading = false;

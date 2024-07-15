@@ -6,7 +6,6 @@ import {observer} from "mobx-react-lite";
 import {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
-// import {useCookies} from "react-cookie";
 import Cookies from "js-cookie";
 
 
@@ -66,9 +65,11 @@ const Login = observer(() => {
                         type={showPassword ? "text" : "password"}
                         {...register("password", {
                             required: "Это поле обязательно!",
-                            pattern: {
-                                value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
-                                message: "Неправильно указан пароль! Должны использоваться заглавные буквы, цифры и спец. знаки"
+                            minLength: {
+                                value: 8, message: "Слишком мало символов"
+                            },
+                            maxLength: {
+                                value: 30, message: "Слишком много символов"
                             }
                         })}
                         InputProps={{
@@ -93,7 +94,7 @@ const Login = observer(() => {
                     <p className={cls.link}>Нету аккаунта? <Link to="/register">Зарегистрируйтесь</Link></p>
                 </Stack>
             </form>
-            {error ? <p className={cls.errorJoin}>Неверный логин или пароль</p>: ""}
+            {error && <p className={cls.errorJoin}>Неверный логин или пароль</p>}
         </div>
     )
 });

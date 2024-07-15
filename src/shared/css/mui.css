@@ -28,3 +28,8 @@
 .MuiInputBase-input.MuiOutlinedInput-input.MuiInputBase-inputMultiline.css-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input{
     color: white !important;
 }
+
+.MuiFormHelperText-root.Mui-error{
+    color: #ff9e9e !important;
+    font-weight: bold;
+}
