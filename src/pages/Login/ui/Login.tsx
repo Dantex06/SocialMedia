@@ -19,20 +19,25 @@ const Login = observer(() => {
         handleSubmit,
         formState: { errors },
     } = useForm<LoginValues>({});
+
     const {
-        login,
-        initialState: {
-            authData: { accessToken, error, refreshToken },
+        authStore: {
+            login,
+            initialState: {
+                authData: { accessToken, error, refreshToken },
+            },
         },
     } = useStores();
-    const { initialState } = useStores();
+
+    const {
+        authStore: { initialState },
+    } = useStores();
+
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
-    // const [, setCookie] = useCookies(['refresh']);
     useEffect(() => {
         if (accessToken && refreshToken !== null) {
             Cookies.set('refresh', refreshToken, { expires: 7 });
-            // setCookie( 'refresh', refreshToken);
             navigate('/');
         }
         initialState.authData.error = null;

@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
-import AuthStore from './auth-store.tsx';
+import { RootStore } from './root-store.tsx';
 
-export const AuthStoreContext = createContext<AuthStore | null>(null);
+export const AuthStoreContext = createContext<RootStore | null>(null);
 
 export const useStores = () => {
     const context = useContext(AuthStoreContext);

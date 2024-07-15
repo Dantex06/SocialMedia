@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 const Settings = observer(() => {
-    const { logout } = useStores();
+    const { authStore: {logout} } = useStores();
     const navigate = useNavigate();
 
     const handleQuit = () => {

@@ -7,9 +7,11 @@ import Cookies from 'js-cookie';
 
 const NewsPage = observer(() => {
     const {
-        getPosts,
-        initialState: {
-            postsData: { posts, errors, loading },
+        postsStore: {
+            getPosts,
+            initialState: {
+                postsData: { posts, errors, loading },
+            },
         },
     } = useStores();
     const refresh = Cookies.get('refresh');

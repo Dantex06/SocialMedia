@@ -13,9 +13,11 @@ const UserPage = observer(() => {
     const location = useLocation();
     const navigate = useNavigate();
     const {
-        getUserData,
-        initialState: {
-            userData: { name, surname, email, birthday, error, loading },
+        usersStore: {
+            getUserData,
+            initialState: {
+                userData: { name, surname, email, birthday, error, loading },
+            },
         },
     } = useStores();
     const id = Number(location.pathname.split('/')[2]);
@@ -27,9 +29,6 @@ const UserPage = observer(() => {
             navigate('/profile');
         }
         if (refresh) {
-            console.log('start checking profile');
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-
             getUserData(id, refresh).catch((err) => console.log(err));
         }
     }, []);

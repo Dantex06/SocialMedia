@@ -18,22 +18,22 @@ type RegisterValues = {
 };
 
 const Register = observer(() => {
-    const { registration } = useStores();
-    const { register, handleSubmit, formState } = useForm<RegisterValues>({});
-    const { errors } = formState;
     const {
-        initialState: {
-            authData: { accessToken, refreshToken },
+        authStore: {
+            registration,
+            initialState: {
+                authData: { accessToken, refreshToken },
+            },
         },
     } = useStores();
+    const { register, handleSubmit, formState } = useForm<RegisterValues>({});
+    const { errors } = formState;
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
-    // const [, setCookie] = useCookies(['refresh']);
 
     useEffect(() => {
         if (accessToken && refreshToken !== null) {
             Cookies.set('refresh', refreshToken, { expires: 7 });
-            // setCookie( 'refresh', refreshToken);
             navigate('/');
         }
     }, [accessToken, navigate]);

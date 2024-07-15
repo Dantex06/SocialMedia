@@ -1,5 +1,5 @@
 import { axiosInstance } from '../instance.ts';
-import { ILoginRequest, IPostSendRequest, IRefreshRequest, IRegisterRequest } from './types.ts';
+import { ILoginRequest, IPostSendRequest, IRegisterRequest } from './types.ts';
 import Endpoints from '../endpoints.ts';
 import { AxiosPromise } from 'axios';
 
@@ -15,7 +15,7 @@ export const userGetProfile = (id: number): AxiosPromise => {
     return axiosInstance.get(Endpoints.AUTH.PROFILE_GET + id);
 };
 
-export const refresh = (params: IRefreshRequest) =>
+export const refresh = (params: string | undefined) =>
     axiosInstance.post(Endpoints.AUTH.REFRESH, {
         refresh: params,
     });

@@ -21,7 +21,6 @@ interface IPost {
 
 const Post = ({ name, surname, text, photo, published, idUser, myId }: IPost) => {
     const url = import.meta.env.VITE_BACKEND_URL;
-    console.log('his', idUser, 'my', myId);
 
     return (
         <div className={cls.post}>

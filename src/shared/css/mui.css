@@ -30,6 +30,6 @@
 }
 
 .MuiFormHelperText-root.Mui-error{
-    color: #ff9e9e !important;
+    color: #ddff00 !important;
     font-weight: bold;
 }

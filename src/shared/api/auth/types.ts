@@ -24,9 +24,6 @@ export interface ILoginResponse {
     refresh: string;
 }
 
-export interface IRefreshRequest {
-    refresh: string;
-}
 
 export interface IPostSendRequest {
     images_urls: string[];

@@ -15,13 +15,15 @@ type PostRequest = {
 
 const MyProfile = observer(() => {
     const {
-        getProfile,
-        createPost,
-        initialState: {
-            profileData: { loading, error },
+        profileStore: {
+            getProfile,
+            createPost,
+            initialState: {
+                profileData: { loading, error },
+            },
         },
     } = useStores();
-
+    console.log()
     // const [refresh, setRefresh] = useCookies(['refresh']);
     const {
         handleSubmit,
@@ -30,16 +32,13 @@ const MyProfile = observer(() => {
     } = useForm<PostRequest>();
     const [post, setPost] = useState(false);
     const onSubmit = (data: PostRequest) => {
-        createPost({ 'content': data.text, 'images_urls': [] }, Cookies.get('refresh'),);
+        createPost({ content: data.text, images_urls: [] }, Cookies.get('refresh'));
         setPost(true);
     };
     const storedProfile = window.localStorage.getItem('profile_id');
     const userData = storedProfile ? JSON.parse(storedProfile) : null;
     useEffect(() => {
         try {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error
-
             getProfile(Cookies.get('refresh'));
         } catch (e) {
             console.log(e);
@@ -58,11 +57,7 @@ const MyProfile = observer(() => {
         storedProfile && (
             <div>
                 <div className={cls.backgroundProfileAndAvatar}>
-                    <Avatar
-                        alt="Avatar"
-                        src={ava}
-                        sx={{ width: 144, height: 144 }}
-                    />
+                    <Avatar alt="Avatar" src={ava} sx={{ width: 144, height: 144 }} />
                     <div className={cls.icons}>
                         <ShareIcon sx={{ color: 'white' }} />
                         <SettingsIcon sx={{ color: 'white' }} />
@@ -106,21 +101,10 @@ const MyProfile = observer(() => {
                                     helperText={errors['text']?.message}
                                 />
 
-                                <Button
-                                    style={{ marginLeft: '2vh' }}
-                                    type="submit"
-                                    variant="contained"
-                                    color="primary"
-                                >
+                                <Button style={{ marginLeft: '2vh' }} type="submit" variant="contained" color="primary">
                                     Опубликовать
                                 </Button>
-                                {post ? (
-                                    <p style={{ textAlign: 'center' }}>
-                                        Пост успешно создан!
-                                    </p>
-                                ) : (
-                                    ''
-                                )}
+                                {post ? <p style={{ textAlign: 'center' }}>Пост успешно создан!</p> : ''}
                             </Stack>
                         </form>
                     </div>
