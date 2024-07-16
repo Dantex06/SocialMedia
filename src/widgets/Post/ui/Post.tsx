@@ -8,6 +8,7 @@ import CommentClick from '@/shared/assets/postsFiles/CommentButton.svg';
 import ShareClick from '@/shared/assets/postsFiles/ShareButton.svg';
 import { Avatar } from '@mui/material';
 import ava from '@/shared/assets/SideBarIcons/cat.jpg';
+import { useMediaPredicate } from 'react-media-hook';
 
 interface IPost {
     name: string;
@@ -21,7 +22,7 @@ interface IPost {
 
 const Post = ({ name, surname, text, photo, published, idUser, myId }: IPost) => {
     const url = import.meta.env.VITE_BACKEND_URL;
-
+    const lessThan720 = useMediaPredicate('(max-width: 720px)');
     return (
         <div className={cls.post}>
             <div className={cls.user}>
@@ -61,7 +62,7 @@ const Post = ({ name, surname, text, photo, published, idUser, myId }: IPost) =>
                 </button>
                 <button className={cls.button}>
                     <ShareClick />
-                    <span>Share</span>
+                    {!lessThan720&&<span>Share</span>}
                 </button>
             </div>
         </div>

@@ -8,7 +8,7 @@ export interface AuthState {
         accessToken: string | null;
         refreshToken: string | null;
         isLoading: boolean;
-        error: AxiosError | null;
+        error: AxiosError | null | undefined;
     };
 }
 

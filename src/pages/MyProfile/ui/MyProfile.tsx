@@ -36,15 +36,14 @@ const MyProfile = observer(() => {
     const lessThan720 = useMediaPredicate('(max-width: 720px)');
     const onSubmit = (data: PostRequest) => {
         const trimmedText = data.text.trim();
-        reset()
+        reset();
         if (trimmedText.replace(/\s/g, '').length === 0) {
-            setErrorRequest('Ошибка при отправке сообщения')
+            setErrorRequest('Ошибка при отправке сообщения');
             return;
         }
         setErrorRequest('');
         createPost({ content: trimmedText, images_urls: [] }, Cookies.get('refresh'));
         setPost(true);
-
     };
     const storedProfile = window.localStorage.getItem('profile_id');
     const userData = storedProfile ? JSON.parse(storedProfile) : null;
@@ -68,7 +67,7 @@ const MyProfile = observer(() => {
         storedProfile && (
             <div>
                 <div className={cls.backgroundProfileAndAvatar}>
-                    <Avatar alt="Avatar" src={ava} sx={lessThan720?{width: 78, height: 78}:{ width: 144, height: 144 }} />
+                    <Avatar alt="Avatar" src={ava} sx={lessThan720 ? { width: 78, height: 78 } : { width: 144, height: 144 }} />
                     <div className={cls.icons}>
                         <ShareIcon sx={{ color: 'white' }} />
                         <SettingsIcon sx={{ color: 'white' }} />
@@ -90,12 +89,14 @@ const MyProfile = observer(() => {
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <Stack spacing={2} width={lessThan720 ? 300 : 400}>
                                 <TextField
+                                    style={{ maxHeight: '30vh' }}
                                     // style={{
                                     //     paddingLeft: '2vh',
                                     // }}
                                     id="outlined-textarea"
                                     placeholder="Что у вас нового?"
                                     multiline
+                                    maxRows={10}
                                     {...register('text', {
                                         required: 'Это поле обязательно!',
                                         minLength: {
@@ -114,14 +115,12 @@ const MyProfile = observer(() => {
                                 <Button type="submit" variant="contained" color="primary">
                                     Опубликовать
                                 </Button>
-                                {(errorRequest && !post) && <p style={{ textAlign: 'center' }}>{errorRequest}</p>}
-                                {(post && !errorRequest) && <p style={{ textAlign: 'center' }}>Пост успешно создан!</p>}
+                                {errorRequest && !post && <p style={{ textAlign: 'center' }}>{errorRequest}</p>}
+                                {post && !errorRequest && <p style={{ textAlign: 'center' }}>Пост успешно создан!</p>}
                             </Stack>
                         </form>
                     </div>
                 </div>
-                {/*<Post name="Jane" surname="Smith52" text="Hey friends! 🌸 I have some thrilling news to share with all of you. 🎉 I'm*/}
-                {/*        absolutely thrilled to embark on a new adventure that's just around the corner! 😍✨🌟🌈" photo={null}/>*/}
             </div>
         )
     );

@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import Cookies from 'js-cookie';
+import { useMediaPredicate } from 'react-media-hook';
 
 type RegisterValues = {
     name: string;
@@ -22,14 +23,15 @@ const Register = observer(() => {
         authStore: {
             registration,
             initialState: {
-                authData: { accessToken, refreshToken },
+                authData: { accessToken, refreshToken, error },
             },
         },
     } = useStores();
-    const { register, handleSubmit, formState } = useForm<RegisterValues>({});
+    const { register, handleSubmit, formState, reset } = useForm<RegisterValues>({});
     const { errors } = formState;
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
+    const lessThan720 = useMediaPredicate('(max-width: 720px)');
 
     useEffect(() => {
         if (accessToken && refreshToken !== null) {
@@ -39,18 +41,17 @@ const Register = observer(() => {
     }, [accessToken, navigate]);
 
     const onSubmit = (data: RegisterValues) => {
-        registration(data);
-        console.log(data);
+        registration(data).catch(()=>reset())
     };
     return (
-        <div>
+        <div style={{marginTop: "45px"}}>
             <h1 className={cls.title}>Регистрация</h1>
             <form className={cls.form} onSubmit={handleSubmit(onSubmit)}>
                 <Stack className={cls.form} spacing={2} width={400}>
                     <TextField
                         InputLabelProps={{ style: { color: '#fff' } }}
                         sx={{ input: { color: 'white' } }}
-                        style={{ margin: '17px 0', color: 'white' }}
+                        style={lessThan720?{width: "39vh",margin: '0 0 1vh 3vh'}:{ margin: '2vh 0', color: 'white' }}
                         label="Имя"
                         type="text"
                         {...register('name', {
@@ -71,7 +72,7 @@ const Register = observer(() => {
                     <TextField
                         InputLabelProps={{ style: { color: '#fff' } }}
                         sx={{ input: { color: 'white' } }}
-                        style={{ margin: '17px 0' }}
+                        style={lessThan720?{width: "39vh",margin: '2vh 0 1vh 3vh'}:{ margin: '2vh 0' }}
                         label="Фамилия"
                         type="text"
                         {...register('surname', {
@@ -92,7 +93,7 @@ const Register = observer(() => {
                     <TextField
                         InputLabelProps={{ style: { color: '#fff' } }}
                         sx={{ input: { color: 'white' } }}
-                        style={{ margin: '17px 0' }}
+                        style={lessThan720?{width: "39vh",margin: '2vh 0 1vh 3vh'}:{ margin: '2vh 0' }}
                         label="Почта"
                         type="email"
                         {...register('email', {
@@ -108,7 +109,7 @@ const Register = observer(() => {
 
                     <TextField
                         sx={{ input: { color: 'white' } }}
-                        style={{ margin: '17px 0' }}
+                        style={lessThan720?{width: "39vh",margin: '2vh 0 1vh 3vh'}:{ margin: '2vh 0' }}
                         label="Пароль"
                         type={showPassword ? 'text' : 'password'}
                         {...register('password', {
@@ -138,7 +139,7 @@ const Register = observer(() => {
                     <TextField
                         inputProps={{ style: { color: 'white' } }}
                         sx={{ input: { color: 'white' } }}
-                        style={{ margin: '17px 0' }}
+                        style={lessThan720?{width: "39vh",margin: '2vh 0 1vh 3vh'}:{ margin: '2vh 0' }}
                         type="date"
                         {...register('birthday', {
                             required: 'Это поле обязательно!',
@@ -151,13 +152,14 @@ const Register = observer(() => {
                         helperText={errors['birthday']?.message}
                     />
 
-                    <Button type="submit" variant="contained" color="primary">
+                    <Button style={lessThan720?{width: "39vh",margin: '2vh 0 1vh 3vh'}:{}} type="submit" variant="contained" color="primary">
                         Зарегистрироваться
                     </Button>
 
-                    <p className={cls.link}>
+                    <p className={cls.link} style={lessThan720?{width: "39vh",margin: '3vh 0 2vh 3vh'}:{}}>
                         Есть аккаунт? <Link to="/login">Войдите</Link>
                     </p>
+                    <p className={cls.errorJoin}>{error?.response?.status === 409 ? "Данная почта уже зарегестрирована": error!==null? "Произошла непредвиденная ошибка" : ""}</p>
                 </Stack>
             </form>
         </div>

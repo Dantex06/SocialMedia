@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import Cookies from 'js-cookie';
+import { useMediaPredicate } from 'react-media-hook';
 
 type LoginValues = {
     email: string;
@@ -19,7 +20,7 @@ const Login = observer(() => {
         handleSubmit,
         formState: { errors },
     } = useForm<LoginValues>({});
-
+    const lessThan720 = useMediaPredicate('(max-width: 720px)');
     const {
         authStore: {
             login,
@@ -54,7 +55,7 @@ const Login = observer(() => {
                 <Stack className={cls.form} spacing={2} width={400}>
                     <TextField
                         sx={{ input: { color: 'white' } }}
-                        style={{ margin: '17px 0' }}
+                        style={lessThan720?{width: "39vh",margin: '3vh 0 2vh 3vh'}:{ margin: '17px 0' }}
                         label="Почта"
                         type="email"
                         {...register('email', {
@@ -70,7 +71,7 @@ const Login = observer(() => {
 
                     <TextField
                         sx={{ input: { color: 'white' } }}
-                        style={{ margin: '17px 0' }}
+                        style={lessThan720?{width: "39vh",margin: '3vh 0 2vh 3vh'}:{ margin: '17px 0' }}
                         label="Пароль"
                         type={showPassword ? 'text' : 'password'}
                         {...register('password', {
@@ -97,10 +98,10 @@ const Login = observer(() => {
                         helperText={errors['password']?.message}
                     />
 
-                    <Button type="submit" variant="contained" color="primary">
+                    <Button style={lessThan720?{width: "39vh",margin: '3vh 0 2vh 3vh'}:{margin: "0 auto"}} type="submit" variant="contained" color="primary">
                         Войти
                     </Button>
-                    <p className={cls.link}>
+                    <p className={cls.link} style={lessThan720?{width: "39vh",margin: '3vh 0 2vh 3vh'}:{}}>
                         Нету аккаунта? <Link to="/register">Зарегистрируйтесь</Link>
                     </p>
                 </Stack>
