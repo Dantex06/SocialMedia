@@ -1,5 +1,7 @@
 .post {
-
+  @media (max-width: 720px) {
+    width: 43vh;
+  }
   background: rgba(103, 103, 103, 0.91);
   border-radius: 30px;
   width: 780px;
@@ -17,9 +19,10 @@
 
 .posts{
   overflow-y: scroll;
+  overflow-x: hidden;
   position: absolute;
-  width: 860px;
-  height: 770px;
+  width: 89vh;
+  height: 84vh;
 
 }
 

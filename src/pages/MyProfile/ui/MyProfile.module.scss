@@ -2,10 +2,10 @@
   display: flex;
   justify-content: space-between;
   width: 24vh;
+  margin-bottom: 17px;
 }
 
 .profile{
-  padding-top: 2vh;
   margin: 0 auto;
   width: 85vh;
   color: #e3e3e3;
@@ -24,12 +24,18 @@
 }
 
 .personal{
+  @media (max-width: 720px) {
+    display: block;
+  }
   margin-top: 1vh;
   display: flex;
-  padding: 0 2vh;
+  padding: 2vh 2vh;
 }
 
 .backgroundProfileAndAvatar{
+  @media (max-width: 720px) {
+    width: 45vh;
+  }
   display: flex;
   justify-content: space-between;
   padding: 1vh 0 1vh 1vh;

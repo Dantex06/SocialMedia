@@ -1,4 +1,8 @@
 .page{
+  @media (max-width: 720px) {
+    width: 45vh;
+    margin: 0 auto;
+  }
   width: 89vh;
   height: 84vh;
   background: rgba(128, 128, 128, 0.8);
@@ -6,9 +10,25 @@
   margin: 0 auto;
 }
 
+.header{
+  @media (max-width: 720px){
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+}
 
 
 .title{
+  @media (max-width: 720px) {
+    width: 20vh;
+    display: block;
+
+    padding-left: 0;
+  }
+  width: 89vh;
+  text-align: center;
   display: flex;
   align-items: center;
   margin-top: 2vh;

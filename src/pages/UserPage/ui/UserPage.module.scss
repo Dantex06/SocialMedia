@@ -30,6 +30,9 @@
 }
 
 .backgroundProfileAndAvatar{
+  @media (max-width: 720px) {
+    width: 45vh;
+  }
   display: flex;
   justify-content: space-between;
   padding: 1vh 0 1vh 1vh;

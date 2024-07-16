@@ -8,7 +8,8 @@ const translation = {
     "Settings": "Настройки",
     "About": "О сайте",
     "Not_found": "Страница не найдена",
-    "Create_post": "Создание поста"
+    "Create_post": "Создание поста",
+    "User_page": "Пользователь"
 }
 
 export const CamelCase = (word: string) => {

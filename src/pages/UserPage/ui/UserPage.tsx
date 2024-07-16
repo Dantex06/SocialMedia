@@ -4,10 +4,10 @@ import { useStores } from '@/app/store/root-store.context.ts';
 import { Avatar, Button } from '@mui/material';
 import ava from '@/shared/assets/SideBarIcons/cat.jpg';
 import cls from './UserPage.module.scss';
-import SettingsIcon from '@mui/icons-material/Settings';
 import ShareIcon from '@mui/icons-material/Share';
 import Cookies from 'js-cookie';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useMediaPredicate } from 'react-media-hook';
 
 const UserPage = observer(() => {
     const location = useLocation();
@@ -24,6 +24,7 @@ const UserPage = observer(() => {
     const refresh = Cookies.get('refresh');
     const storedProfile = window.localStorage.getItem('profile_id');
     const userData = storedProfile ? JSON.parse(storedProfile) : null;
+    const lessThan720 = useMediaPredicate('(max-width: 720px)');
     useEffect(() => {
         if (id === userData.id) {
             navigate('/profile');
@@ -43,13 +44,12 @@ const UserPage = observer(() => {
     return (
         <div>
             <div className={cls.backgroundProfileAndAvatar}>
-                <Avatar alt="Avatar" src={ava} sx={{ width: 144, height: 144 }} />
+                <Avatar alt="Avatar" src={ava} sx={lessThan720?{width: 78, height: 78}:{ width: 144, height: 144 }} />
                 <div className={cls.icons}>
                     <Button style={{ marginRight: '2vh' }} variant="contained">
                         Подписаться
                     </Button>
-                    <ShareIcon style={{ marginRight: '2vh', marginBottom: '0.5vh' }} sx={{ color: 'white' }} />
-                    <SettingsIcon style={{ marginBottom: '0.5vh' }} sx={{ color: 'white' }} />
+                    <ShareIcon style={{marginBottom: '0.5vh' }} sx={{ color: 'white' }} />
                 </div>
             </div>
             <div className={cls.personal}>

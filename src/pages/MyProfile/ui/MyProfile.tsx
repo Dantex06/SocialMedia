@@ -8,6 +8,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import ShareIcon from '@mui/icons-material/Share';
 import { useForm } from 'react-hook-form';
 import Cookies from 'js-cookie';
+import { useMediaPredicate } from 'react-media-hook';
 
 type PostRequest = {
     text: string;
@@ -31,7 +32,8 @@ const MyProfile = observer(() => {
         formState: { errors },
     } = useForm<PostRequest>();
     const [post, setPost] = useState(false);
-    const [errorRequest, setErrorRequest] = useState('')
+    const [errorRequest, setErrorRequest] = useState('');
+    const lessThan720 = useMediaPredicate('(max-width: 720px)');
     const onSubmit = (data: PostRequest) => {
         const trimmedText = data.text.trim();
         reset()
@@ -66,7 +68,7 @@ const MyProfile = observer(() => {
         storedProfile && (
             <div>
                 <div className={cls.backgroundProfileAndAvatar}>
-                    <Avatar alt="Avatar" src={ava} sx={{ width: 144, height: 144 }} />
+                    <Avatar alt="Avatar" src={ava} sx={lessThan720?{width: 78, height: 78}:{ width: 144, height: 144 }} />
                     <div className={cls.icons}>
                         <ShareIcon sx={{ color: 'white' }} />
                         <SettingsIcon sx={{ color: 'white' }} />
@@ -86,12 +88,11 @@ const MyProfile = observer(() => {
                     </div>
                     <div className={cls.post}>
                         <form onSubmit={handleSubmit(onSubmit)}>
-                            <Stack spacing={2} width={400}>
+                            <Stack spacing={2} width={lessThan720 ? 300 : 400}>
                                 <TextField
-                                    style={{
-                                        marginTop: '17px',
-                                        paddingLeft: '2vh',
-                                    }}
+                                    // style={{
+                                    //     paddingLeft: '2vh',
+                                    // }}
                                     id="outlined-textarea"
                                     placeholder="Что у вас нового?"
                                     multiline
@@ -110,7 +111,7 @@ const MyProfile = observer(() => {
                                     helperText={errors['text']?.message}
                                 />
 
-                                <Button style={{ marginLeft: '2vh' }} type="submit" variant="contained" color="primary">
+                                <Button type="submit" variant="contained" color="primary">
                                     Опубликовать
                                 </Button>
                                 {(errorRequest && !post) && <p style={{ textAlign: 'center' }}>{errorRequest}</p>}
