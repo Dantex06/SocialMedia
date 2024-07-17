@@ -1,3 +1,1 @@
-import UserPage from './ui/UserPage.tsx';
-
-export { UserPage };
+export { UserPage } from './ui/UserPage.tsx';

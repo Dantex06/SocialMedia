@@ -21,7 +21,7 @@ type RegisterValues = {
     birthday: string;
 };
 
-const Register = observer(() => {
+export const Register = observer(() => {
     const {
         authStore: {
             registration,
@@ -169,4 +169,3 @@ const Register = observer(() => {
     );
 });
 
-export default Register;

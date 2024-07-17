@@ -1,3 +1,1 @@
-import NewsPage from './ui/NewsPage.tsx';
-
-export { NewsPage };
+export { NewsPage } from './ui/NewsPage.tsx';

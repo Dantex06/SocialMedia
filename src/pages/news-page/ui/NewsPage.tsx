@@ -5,7 +5,7 @@ import Post from '@/widgets/Post/ui/Post.tsx';
 // import Cookies from 'js-cookie';
 import cls from './NewsPage.module.scss';
 
-const NewsPage = observer(() => {
+export const NewsPage = observer(() => {
     const {
         postsStore: {
             getPosts,
@@ -50,4 +50,3 @@ const NewsPage = observer(() => {
     }
 });
 
-export default NewsPage;

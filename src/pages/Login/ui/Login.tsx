@@ -17,7 +17,7 @@ type LoginValues = {
     password: string;
 };
 
-const Login = observer(() => {
+export const Login = observer(() => {
     const {
         register,
         handleSubmit,
@@ -114,4 +114,3 @@ const Login = observer(() => {
     );
 });
 
-export default Login;

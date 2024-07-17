@@ -9,7 +9,7 @@ type PostRequest = {
     url: string | null;
     date: string;
 };
-const CreatePost = observer(() => {
+export const CreatePost = observer(() => {
     const { handleSubmit, register } = useForm<PostRequest>();
 
     const onSubmit = (data: PostRequest) => {
@@ -48,4 +48,3 @@ const CreatePost = observer(() => {
     );
 });
 
-export default CreatePost;

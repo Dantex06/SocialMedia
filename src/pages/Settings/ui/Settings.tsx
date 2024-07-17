@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import Cookies from 'js-cookie';
 
-const Settings = observer(() => {
+export const Settings = observer(() => {
     const { authStore: {logout} } = useStores();
     const navigate = useNavigate();
 
@@ -22,5 +22,3 @@ const Settings = observer(() => {
         </div>
     );
 });
-
-export default Settings;

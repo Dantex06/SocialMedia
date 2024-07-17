@@ -6,7 +6,6 @@ import { useMediaPredicate } from 'react-media-hook';
 import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useForm } from 'react-hook-form';
-import Cookies from 'js-cookie';
 import ava from '@/shared/assets/SideBarIcons/cat.jpg';
 import cls from './MyProfile.module.scss';
 
@@ -15,7 +14,7 @@ type PostRequest = {
     text: string;
 };
 
-const MyProfile = observer(() => {
+export const MyProfile = observer(() => {
     const {
         profileStore: {
             getProfile,
@@ -43,14 +42,14 @@ const MyProfile = observer(() => {
             return;
         }
         setErrorRequest('');
-        createPost({ content: trimmedText, images_urls: [] }, Cookies.get('refresh'));
+        createPost({ content: trimmedText, images_urls: [] });
         setPost(true);
     };
     const storedProfile = window.localStorage.getItem('profile_id');
     const userData = storedProfile ? JSON.parse(storedProfile) : null;
     useEffect(() => {
         try {
-            getProfile(Cookies.get('refresh'));
+            getProfile();
         } catch (e) {
             console.log(e);
         }
@@ -91,9 +90,6 @@ const MyProfile = observer(() => {
                             <Stack spacing={2} width={lessThan720 ? 300 : 400}>
                                 <TextField
                                     style={{ maxHeight: '30vh' }}
-                                    // style={{
-                                    //     paddingLeft: '2vh',
-                                    // }}
                                     id="outlined-textarea"
                                     placeholder="Что у вас нового?"
                                     multiline
@@ -126,4 +122,4 @@ const MyProfile = observer(() => {
         )
     );
 });
-export default MyProfile;
+

@@ -10,6 +10,7 @@ import { Messages } from '@/pages/messages';
 import { Music } from '@/pages/music';
 import { About } from '@/pages/about';
 
+
 export enum AppRoutes {
     NEWS = 'news',
     LOGIN = 'login',

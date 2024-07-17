@@ -11,7 +11,7 @@ import Cookies from 'js-cookie';
 
 
 
-const UserPage = observer(() => {
+export const UserPage = observer(() => {
     const location = useLocation();
     const navigate = useNavigate();
     const {
@@ -32,7 +32,7 @@ const UserPage = observer(() => {
             navigate('/profile');
         }
         if (refresh) {
-            getUserData(id, refresh).catch((err) => console.log(err));
+            getUserData(id).catch((err) => console.log(err));
         }
     }, []);
     if (loading) {
@@ -70,4 +70,3 @@ const UserPage = observer(() => {
         </div>
     );
 });
-export default UserPage;

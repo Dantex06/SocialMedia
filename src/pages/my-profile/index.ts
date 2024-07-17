@@ -1,3 +1,1 @@
-import MyProfile from './ui/MyProfile.tsx';
-
-export { MyProfile };
+export { MyProfile }from './ui/MyProfile.tsx';

@@ -1,3 +1,1 @@
-import Music from './ui/Music.tsx';
-
-export { Music };
+export { Music } from './ui/Music.tsx';

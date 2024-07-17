@@ -1,3 +1,1 @@
-import Settings from './ui/Settings.tsx';
-
-export { Settings };
+export { Settings }from './ui/Settings.tsx';
