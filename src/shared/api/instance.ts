@@ -9,6 +9,7 @@ export const axiosInstance = axios.create({
 
 const urlSkipAuth = [Endpoints.AUTH.LOGIN, Endpoints.AUTH.REGISTER, Endpoints.AUTH.LOGOUT, Endpoints.AUTH.REFRESH];
 
+
 axiosInstance.interceptors.request.use(async (config) => {
     if (config.url && urlSkipAuth.includes(config.url)) {
         return config;
@@ -31,27 +32,20 @@ axiosInstance.interceptors.response.use(
  (response) => response,
  async (error) => {
      const originalRequest = error.config;
-
      // Проверяем, была ли ошибка 401 (неавторизованный доступ)
-     if (error.response && error.response.status === 401 && !originalRequest._retry) {
+     if (error.response && error.response.status === 401 && !originalRequest._retry && !urlSkipAuth.includes(originalRequest.url)) {
          originalRequest._retry = true; // Устанавливаем флаг, чтобы не повторять запрос бесконечно
 
          try {
-             // Выполняем запрос на обновление токена
              const response = await axiosInstance.post(Endpoints.AUTH.REFRESH, {
                  refresh: Cookies.get('refresh'),
              });
              window.localStorage.setItem('access_token', response.data.access);
-             // Сохраняем обновленный access token
 
-             // Повторяем первоначальный запрос с обновленным токеном
              originalRequest.headers.Authorization = `Bearer ${response.data.access}`;
              return axiosInstance(originalRequest);
          } catch (refreshError) {
-             // Обработка ошибки при обновлении токена
              console.error('Ошибка при обновлении токена:', refreshError);
-             // Вы можете перенаправить пользователя на страницу авторизации
-             // ...
          }
      }
      return Promise.reject(error);
