@@ -1,13 +1,13 @@
+import { ProtectedWrapperAuthorized, ProtectedWrapperUnauthorized } from 'src/entities/wrapper';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import cls from './AppRouter.module.scss';
-import { useEffect } from 'react';
-import { useCookies } from 'react-cookie';
-import Cookies from 'js-cookie';
-import { ProtectedWrapperAuthorized, ProtectedWrapperUnauthorized } from '@/entities/Wrapper';
 import { CamelCase } from '@/shared/utils/CamelCase.ts';
-import { privateConfig, publicConfig } from '@/shared/config/routeConfig/routeConfig.tsx';
-import { useMediaPredicate } from 'react-media-hook';
 import { DropDownMenu } from '@/widgets/DropDownMenu';
+import { useMediaPredicate } from 'react-media-hook';
+import { useCookies } from 'react-cookie';
+import { useEffect } from 'react';
+import Cookies from 'js-cookie';
+import cls from './AppRouter.module.scss';
+import { privateConfig, publicConfig } from '@/shared/config/routeConfig/RouteConfig.tsx';
 
 const AppRouter = () => {
     const [refresh] = useCookies(['refresh']);
@@ -16,6 +16,7 @@ const AppRouter = () => {
     const lessThan720 = useMediaPredicate('(max-width: 720px)');
     useEffect(() => {
         if (Cookies.get('refresh') === undefined) {
+         console.log('not refresh')
             navigate('/login');
         }
         if (Cookies.get('refresh') && (location.pathname === '/login' || location.pathname === '/register')) {

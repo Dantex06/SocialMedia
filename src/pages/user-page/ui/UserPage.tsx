@@ -1,13 +1,15 @@
-import { useEffect } from 'react';
-import { observer } from 'mobx-react-lite';
-import { useStores } from '@/app/store/root-store.context.ts';
-import { Avatar, Button } from '@mui/material';
-import ava from '@/shared/assets/SideBarIcons/cat.jpg';
-import cls from './UserPage.module.scss';
 import ShareIcon from '@mui/icons-material/Share';
-import Cookies from 'js-cookie';
+import { Avatar, Button } from '@mui/material';
+import { useStores } from '@/app/store/root-store.context.ts';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useMediaPredicate } from 'react-media-hook';
+import { observer } from 'mobx-react-lite';
+import { useEffect } from 'react';
+import ava from '@/shared/assets/SideBarIcons/cat.jpg';
+import cls from './UserPage.module.scss';
+import Cookies from 'js-cookie';
+
+
 
 const UserPage = observer(() => {
     const location = useLocation();

@@ -1,7 +1,7 @@
 import { Button, Stack, TextField } from '@mui/material';
 import { observer } from 'mobx-react-lite';
-import cls from './CreatePost.module.scss';
 import { useForm } from 'react-hook-form';
+import cls from './CreatePost.module.scss';
 
 type PostRequest = {
     userid: string;

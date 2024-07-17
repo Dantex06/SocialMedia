@@ -1,14 +1,15 @@
-import cls from './SideBar.module.scss';
-import Notification from '@/shared/assets/SideBarIcons/Notification.svg';
-import Menu from '@/shared/assets/SideBarIcons/Menu.svg';
-import NewPostPhoto from '@/shared/assets/SideBarIcons/PhotoNewPost.png';
+import { Avatar } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
 import ExampleFriend from '@/shared/assets/SideBarIcons/ExampleFriend.png';
+import Notification from '@/shared/assets/SideBarIcons/Notification.svg';
+import NewPostPhoto from '@/shared/assets/SideBarIcons/PhotoNewPost.png';
+import Offline from '@/shared/assets/SideBarIcons/Offline.png';
 import Search from '@/shared/assets/SideBarIcons/Search.svg';
 import Online from '@/shared/assets/SideBarIcons/Online.png';
-import Offline from '@/shared/assets/SideBarIcons/Offline.png';
-import { Link, useNavigate } from 'react-router-dom';
-import { Avatar } from '@mui/material';
+import Menu from '@/shared/assets/SideBarIcons/Menu.svg';
 import ava from '@/shared/assets/SideBarIcons/cat.jpg';
+import cls from './SideBar.module.scss';
+
 
 const SideBar = () => {
     const navigate = useNavigate();

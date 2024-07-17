@@ -1,13 +1,14 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import cls from './NavBar.module.scss';
-import HomeIconNoActive from '@/shared/assets/navIcons/HomeNoActive.svg';
-import HomeIconActive from '@/shared/assets/navIcons/HomeActive.svg';
+import SettingsIconNoActive from '@/shared/assets/navIcons/SettingsNoActive.svg';
 import MessageIconNoActive from '@/shared/assets/navIcons/MessageNoActive.svg';
+import SettingsIconActive from '@/shared/assets/navIcons/SettingsActive.svg';
 import MessageIconActive from '@/shared/assets/navIcons/MessageActive.svg';
 import MusicIconNoActive from '@/shared/assets/navIcons/MusicNoActive.svg';
+import HomeIconNoActive from '@/shared/assets/navIcons/HomeNoActive.svg';
 import MusicIconActive from '@/shared/assets/navIcons/MusicActive.svg';
-import SettingsIconNoActive from '@/shared/assets/navIcons/SettingsNoActive.svg';
-import SettingsIconActive from '@/shared/assets/navIcons/SettingsActive.svg';
+import HomeIconActive from '@/shared/assets/navIcons/HomeActive.svg';
+import cls from './NavBar.module.scss';
+
 
 const NavBar = () => {
     const location = useLocation();

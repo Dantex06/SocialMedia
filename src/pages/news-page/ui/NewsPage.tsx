@@ -1,9 +1,9 @@
-import cls from './NewsPage.module.scss';
-import { useEffect } from 'react';
-import { observer } from 'mobx-react-lite';
 import { useStores } from '@/app/store/root-store.context.ts';
+import { observer } from 'mobx-react-lite';
+import { useEffect } from 'react';
 import Post from '@/widgets/Post/ui/Post.tsx';
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
+import cls from './NewsPage.module.scss';
 
 const NewsPage = observer(() => {
     const {
@@ -14,14 +14,13 @@ const NewsPage = observer(() => {
             },
         },
     } = useStores();
-    const refresh = Cookies.get('refresh');
+    // const refresh = Cookies.get('refresh');
     const storedProfile = window.localStorage.getItem('profile_id');
     const userData = storedProfile ? JSON.parse(storedProfile) : null;
     useEffect(() => {
-        if (refresh) {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            getPosts(refresh);
-        }
+            getPosts();
+
     }, []);
 
     if (loading) {

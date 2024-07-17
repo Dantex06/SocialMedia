@@ -1,5 +1,7 @@
-import axios from 'axios';
 import Endpoints from './endpoints.ts';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+
 
 export const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_API,
@@ -24,6 +26,37 @@ axiosInstance.interceptors.request.use(async (config) => {
     }
     return config;
 });
+
+axiosInstance.interceptors.response.use(
+ (response) => response,
+ async (error) => {
+     const originalRequest = error.config;
+
+     // Проверяем, была ли ошибка 401 (неавторизованный доступ)
+     if (error.response && error.response.status === 401 && !originalRequest._retry) {
+         originalRequest._retry = true; // Устанавливаем флаг, чтобы не повторять запрос бесконечно
+
+         try {
+             // Выполняем запрос на обновление токена
+             const response = await axiosInstance.post(Endpoints.AUTH.REFRESH, {
+                 refresh: Cookies.get('refresh'),
+             });
+             window.localStorage.setItem('access_token', response.data.access);
+             // Сохраняем обновленный access token
+
+             // Повторяем первоначальный запрос с обновленным токеном
+             originalRequest.headers.Authorization = `Bearer ${response.data.access}`;
+             return axiosInstance(originalRequest);
+         } catch (refreshError) {
+             // Обработка ошибки при обновлении токена
+             console.error('Ошибка при обновлении токена:', refreshError);
+             // Вы можете перенаправить пользователя на страницу авторизации
+             // ...
+         }
+     }
+     return Promise.reject(error);
+ }
+);
 
 // axiosInstance.interceptors.response.use(
 //     (response) => response,

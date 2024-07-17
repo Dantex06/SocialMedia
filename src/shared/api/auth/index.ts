@@ -1,6 +1,6 @@
 import { axiosInstance } from '../instance.ts';
-import { ILoginRequest, IPostSendRequest, IRegisterRequest } from './types.ts';
 import Endpoints from '../endpoints.ts';
+import { ILoginRequest, IPostSendRequest, IRegisterRequest } from './types.ts';
 import { AxiosPromise } from 'axios';
 
 export const login = (params: ILoginRequest) => axiosInstance.post(Endpoints.AUTH.LOGIN, params);

@@ -1,9 +1,10 @@
-import './DropDownMenu.css';
-import { useRef, useState } from 'react';
 import { Avatar, Button } from '@mui/material';
-import ava from '@/shared/assets/SideBarIcons/cat.jpg';
-import { useClickOutside } from '@/shared/hooks/useClickOutside.ts';
 import { Link } from 'react-router-dom';
+import { useClickOutside } from '@/shared/hooks/useClickOutside.ts';
+import { useRef, useState } from 'react';
+import ava from '@/shared/assets/SideBarIcons/cat.jpg';
+import './DropDownMenu.css';
+
 
 const LinkStyle = {
     color: 'white',

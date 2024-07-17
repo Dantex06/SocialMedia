@@ -1,9 +1,9 @@
+import { ILoginRequest, ILoginResponse, IRegisterRequest, IRegisterResponse } from '@/shared/api/auth/types.ts';
+import { login, register } from '@/shared/api/auth';
 import { makeAutoObservable } from 'mobx';
-import { login, refresh, register } from '@/shared/api/auth';
-import { ILoginRequest, ILoginResponse, IRefreshResponse, IRegisterRequest, IRegisterResponse } from '@/shared/api/auth/types.ts';
 import { AxiosError } from 'axios';
 
-export interface AuthState {
+export interface IAuthState {
     authData: {
         accessToken: string | null;
         refreshToken: string | null;
@@ -13,7 +13,7 @@ export interface AuthState {
 }
 
 class AuthStore {
-    initialState: AuthState = {
+    initialState: IAuthState = {
         authData: {
             accessToken: null,
             refreshToken: null,
@@ -51,25 +51,6 @@ class AuthStore {
                 return response.data;
             })
             .catch((err) => {
-                this.initialState.authData.error = err;
-            })
-            .finally(() => {
-                this.initialState.authData.isLoading = false;
-            });
-    };
-
-    updateToken = (refreshToken: string | undefined): Promise<IRefreshResponse> => {
-        this.initialState.authData.error = null;
-        this.initialState.authData.isLoading = true;
-        return refresh(refreshToken)
-            .then((response) => {
-                window.localStorage.setItem('access_token', response.data.access);
-                this.initialState.authData.accessToken = response.data.access;
-                this.initialState.authData.refreshToken = response.data.refresh;
-                return response.data;
-            })
-            .catch((err) => {
-                console.log(err);
                 this.initialState.authData.error = err;
             })
             .finally(() => {

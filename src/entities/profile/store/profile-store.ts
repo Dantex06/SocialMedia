@@ -1,8 +1,7 @@
 import { postSend, profile } from '@/shared/api/auth';
-import AuthStore from '@/entities/auth/store/auth-store.tsx';
 import { makeAutoObservable } from 'mobx';
 
-export interface ProfileState {
+export interface IProfileState {
     profileData: {
         id: number | null;
         name: string | null;
@@ -24,7 +23,7 @@ export interface ProfileState {
 }
 
 class ProfileStore {
-    initialState: ProfileState = {
+    initialState: IProfileState = {
         profileData: {
             id: null,
             name: null,
@@ -45,11 +44,10 @@ class ProfileStore {
         },
     };
 
-    getProfile = (refreshToken: string | undefined, check = false): Promise<void> => {
+    getProfile = (): Promise<void> => {
         if (!window.localStorage.getItem('profile_id')) {
             this.initialState.profileData.loading = true;
             this.initialState.profileData.error = null;
-            const authStore = new AuthStore();
             return profile()
                 .then((response) => {
                     if (response.data) {
@@ -80,14 +78,8 @@ class ProfileStore {
                     }
                 })
                 .catch((error) => {
-                    if (error.response.statusText === 'Unauthorized' && !check) {
-                        return authStore.updateToken(refreshToken).then(() => {
-                            return this.getProfile(refreshToken, true);
-                        });
-                    } else {
-                        this.initialState.profileData.error = error.response.statusText;
-                    }
-                })
+                        this.initialState.profileData.error = error.response.statusText;}
+                )
                 .finally(() => {
                     this.initialState.profileData.loading = false;
                 });
@@ -98,28 +90,18 @@ class ProfileStore {
         newpost: {
             images_urls: string[];
             content: string;
-        },
-        refreshToken: string | undefined,
-        check = false,
+        }
     ): Promise<void> => {
         this.initialState.profileData.loading = true;
         this.initialState.profileData.error = null;
-        const authStore = new AuthStore();
         return postSend(newpost)
             .then((response) => {
                 return response.data
             })
             .catch((error) => {
-                if (error.response.statusText === 'Unauthorized' && !check) {
-                    console.log('Error cause unauth', error);
-                    return authStore.updateToken(refreshToken).then(() => {
-                        return this.createPost(newpost, refreshToken, true);
-                    });
-                } else {
-                    console.log('Error real', error);
                     this.initialState.profileData.error = error;
                 }
-            })
+            )
             .finally(() => {
                 this.initialState.profileData.loading = false;
             });

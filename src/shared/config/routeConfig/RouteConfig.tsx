@@ -1,15 +1,14 @@
+import { Register } from '@/pages/registration';
+import { MyProfile } from '@/pages/my-profile';
+import { Settings } from '@/pages/settings';
+import { NewsPage } from '@/pages/news-page';
+import { UserPage } from '@/pages/user-page';
+import { Login } from '@/pages/login';
+import { NotFoundPage } from '@/pages/notfound-page';
 import { RouteProps } from 'react-router-dom';
-import { NewsPage } from '@/pages/NewsPage';
-import { Login } from '@/pages/Login';
-import { Register } from '@/pages/Registration';
-import { MyProfile } from '@/pages/MyProfile';
-import { UserPage } from '@/pages/UserPage';
-import { Messages } from '@/pages/Messages';
-import { Music } from '@/pages/Music';
-import { Settings } from '@/pages/Settings';
-import { About } from '@/pages/About';
-import { NotFoundPage } from '@/pages/NotFoundPage';
-
+import { Messages } from '@/pages/messages';
+import { Music } from '@/pages/music';
+import { About } from '@/pages/about';
 
 export enum AppRoutes {
     NEWS = 'news',

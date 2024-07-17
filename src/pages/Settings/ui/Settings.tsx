@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
-import { observer } from 'mobx-react-lite';
 import { useStores } from '@/app/store/root-store.context.ts';
 import { useNavigate } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
 import Cookies from 'js-cookie';
 
 const Settings = observer(() => {

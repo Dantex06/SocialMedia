@@ -1,9 +1,8 @@
-import { makeAutoObservable } from 'mobx';
 import { userGetProfile } from '@/shared/api/auth';
-import AuthStore from '@/entities/auth/store/auth-store.tsx';
-import ProfileStore from '@/entities/profile/store/profile-store.tsx';
+import { makeAutoObservable } from 'mobx';
 
-export interface UsersState {
+
+export interface IUsersState {
     userData: {
         loading: boolean;
         id: number | null;
@@ -25,7 +24,7 @@ export interface UsersState {
 }
 
 class UsersStore {
-    initialState: UsersState = {
+    initialState: IUsersState = {
         userData: {
             loading: false,
             id: null,
@@ -46,11 +45,10 @@ class UsersStore {
         },
     };
 
-    getUserData = (id: number, refreshToken: string, check = false): Promise<void> => {
+    getUserData = (id: number): Promise<void> => {
         this.initialState.userData.error = null;
         this.initialState.userData.loading = true;
-        const authStore = new AuthStore();
-        const profile = new ProfileStore();
+
         return userGetProfile(id)
             .then((response) => {
                 if (response.data) {
@@ -69,24 +67,9 @@ class UsersStore {
                     };
                 }
             })
-            .then(() => {
-                if (profile.initialState.profileData.id === null) {
-                    return profile.getProfile(refreshToken, true);
-                }
-            })
             .catch((error) => {
-                if (error.response.statusText === 'Unauthorized' && !check) {
-                    return authStore.updateToken(refreshToken).then(() => {
-                        return this.getUserData(id, refreshToken, true).then(() => {
-                            if (profile.initialState.profileData.id === null) {
-                                return profile.getProfile(refreshToken, true);
-                            }
-                        });
-                    });
-                } else {
                     this.initialState.userData.error = error.response.statusText;
-                }
-            })
+                })
             .finally(() => {
                 this.initialState.userData.loading = false;
             });

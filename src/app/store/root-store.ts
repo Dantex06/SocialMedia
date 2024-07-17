@@ -1,7 +1,8 @@
-import { AuthStore } from '@/entities/auth';
 import { ProfileStore } from '@/entities/profile';
 import { PostsStore } from '@/entities/posts';
 import { UsersStore } from '@/entities/users';
+import { AuthStore } from '@/entities/auth';
+
 
 export class RootStore {
     authStore: AuthStore;

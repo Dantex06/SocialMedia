@@ -24,15 +24,9 @@ export interface ILoginResponse {
     refresh: string;
 }
 
-
 export interface IPostSendRequest {
     images_urls: string[];
     content: string;
-}
-
-export interface IRefreshResponse {
-    access: string;
-    refresh: string;
 }
 
 export interface IRegisterRequest {

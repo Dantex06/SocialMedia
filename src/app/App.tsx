@@ -1,6 +1,7 @@
+import { AppRouter } from '@/app/providers/router';
 import './styles/index.css';
 import './styles/reset.css';
-import { AppRouter } from '@/app/providers/router';
+
 
 const App = () => {
     return (

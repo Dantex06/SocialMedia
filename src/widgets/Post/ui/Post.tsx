@@ -1,14 +1,15 @@
-import cls from './Post.module.scss';
 import { Link } from 'react-router-dom';
-import websitelink from '@/shared/assets/postsFiles/WebSiteLink.png';
-import likeButton from '@/shared/assets/postsFiles/like.png';
-import likeheart from '@/shared/assets/postsFiles/likeheart.png';
-import LikeClick from '@/shared/assets/postsFiles/Likebutton.svg';
-import CommentClick from '@/shared/assets/postsFiles/CommentButton.svg';
-import ShareClick from '@/shared/assets/postsFiles/ShareButton.svg';
 import { Avatar } from '@mui/material';
-import ava from '@/shared/assets/SideBarIcons/cat.jpg';
 import { useMediaPredicate } from 'react-media-hook';
+import CommentClick from '@/shared/assets/postsFiles/CommentButton.svg';
+import websitelink from '@/shared/assets/postsFiles/WebSiteLink.png';
+import ShareClick from '@/shared/assets/postsFiles/ShareButton.svg';
+import LikeClick from '@/shared/assets/postsFiles/Likebutton.svg';
+import likeheart from '@/shared/assets/postsFiles/likeheart.png';
+import likeButton from '@/shared/assets/postsFiles/like.png';
+import ava from '@/shared/assets/SideBarIcons/cat.jpg';
+import cls from './Post.module.scss';
+
 
 interface IPost {
     name: string;

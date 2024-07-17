@@ -1,7 +1,5 @@
-import { makeAutoObservable } from 'mobx';
 import { postsGet } from '@/shared/api/auth';
-import AuthStore from '@/entities/auth/store/auth-store.tsx';
-import ProfileStore from '@/entities/profile/store/profile-store.tsx';
+import { makeAutoObservable } from 'mobx';
 
 interface IPostData {
     id: number;
@@ -39,11 +37,11 @@ class PostsStore {
         },
     };
 
-    getPosts = (refreshToken: string, check = false): Promise<void> => {
+    getPosts = (): Promise<void> => {
         this.initialState.postsData.loading = true;
         this.initialState.postsData.errors = null;
-        const authStore = new AuthStore();
-        const profile = new ProfileStore();
+        // const authStore = new AuthStore();
+        // const profile = new ProfileStore();
         return postsGet()
             .then((response) => {
                 if (response.data) {
@@ -58,19 +56,9 @@ class PostsStore {
                     };
                 }
             })
-            .then(() => {
-                if (window.localStorage.getItem('profile_id') === null) {
-                    profile.getProfile(refreshToken, (check = true));
-                }
-            })
             .catch((error) => {
-                if (error.response.statusText === 'Unauthorized' && !check) {
-                    return authStore.updateToken(refreshToken).then(() => {
-                        return this.getPosts(refreshToken, (check = true));
-                    });
-                } else {
-                    this.initialState.postsData.errors = error.response.statusText;
-                }
+                this.initialState.postsData.errors = error.response.statusText;
+
             })
             .finally(() => {
                 this.initialState.postsData.loading = false;
