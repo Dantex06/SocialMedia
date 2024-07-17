@@ -1,4 +1,4 @@
-import { Link, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import cls from './AppRouter.module.scss';
 import { useEffect } from 'react';
 import { useCookies } from 'react-cookie';
@@ -7,8 +7,7 @@ import { ProtectedWrapperAuthorized, ProtectedWrapperUnauthorized } from '@/enti
 import { CamelCase } from '@/shared/utils/CamelCase.ts';
 import { privateConfig, publicConfig } from '@/shared/config/routeConfig/routeConfig.tsx';
 import { useMediaPredicate } from 'react-media-hook';
-import { Avatar } from '@mui/material';
-import ava from '@/shared/assets/SideBarIcons/cat.jpg';
+import { DropDownMenu } from '@/widgets/DropDownMenu';
 
 const AppRouter = () => {
     const [refresh] = useCookies(['refresh']);
@@ -48,9 +47,7 @@ const AppRouter = () => {
                                 <div className={cls.header}>
                                     <p className={cls.title}>{CamelCase(key)} </p>
                                     {lessThan720 && (
-                                        <Link to="/profile">
-                                            <Avatar src={ava} />
-                                        </Link>
+                                       <DropDownMenu/>
                                     )}
                                 </div>
                                 <div className={cls.page}>{element}</div>

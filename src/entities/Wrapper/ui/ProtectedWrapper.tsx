@@ -26,7 +26,7 @@ export const ProtectedWrapperAuthorized = () => {
                 {(logged && moreThan720) ? <SideBar /> : ''}
                 <Outlet />
             </div>
-            {logged ? <NavBar /> : ''}
+            {(logged && moreThan720) ? <NavBar /> : ''}
         </div>
     );
 };
