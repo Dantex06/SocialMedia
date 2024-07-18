@@ -7,9 +7,13 @@
 
 .profile{
   margin: 0 auto;
+  @media (max-width: 720px) {
+    width: 40vh;
+  }
   width: 85vh;
   color: #e3e3e3;
 }
+
 
 .icons{
   display: flex;
