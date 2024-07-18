@@ -14,6 +14,11 @@ import Cookies from 'js-cookie';
 export const UserPage = observer(() => {
     const location = useLocation();
     const navigate = useNavigate();
+    const id = Number(location.pathname.split('/')[2]);
+    const refresh = Cookies.get('refresh');
+    const storedProfile = window.localStorage.getItem('profile_id');
+    const userData = storedProfile ? JSON.parse(storedProfile) : null;
+    const lessThan720 = useMediaPredicate('(max-width: 720px)');
     const {
         usersStore: {
             getUserData,
@@ -22,11 +27,7 @@ export const UserPage = observer(() => {
             profile: {name, surname, email, birthday}
         },
     } = useStores();
-    const id = Number(location.pathname.split('/')[2]);
-    const refresh = Cookies.get('refresh');
-    const storedProfile = window.localStorage.getItem('profile_id');
-    const userData = storedProfile ? JSON.parse(storedProfile) : null;
-    const lessThan720 = useMediaPredicate('(max-width: 720px)');
+
     useEffect(() => {
         if (userData!==null && id === userData.id) {
             navigate('/profile');

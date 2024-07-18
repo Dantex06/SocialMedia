@@ -2,14 +2,14 @@ import { Button, IconButton, InputAdornment, Stack, TextField } from '@mui/mater
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Link, useNavigate } from 'react-router-dom';
 import { useStores } from '@/app/store/root-store.context.ts';
+import { TextFieldCustom } from '@/shared/TextField';
 import { useMediaPredicate } from 'react-media-hook';
 import { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useForm } from 'react-hook-form';
 import cls from './Login.module.scss';
-
-
 import Cookies from 'js-cookie';
+
 
 
 type LoginValues = {
@@ -18,20 +18,19 @@ type LoginValues = {
 };
 
 export const Login = observer(() => {
+    const lessThan720 = useMediaPredicate('(max-width: 720px)');
+    const [showPassword, setShowPassword] = useState(false);
+    const validation = (name: keyof LoginValues, pattern: { [key: string]: unknown }) => register(name, pattern)
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm<LoginValues>({});
-
-    const lessThan720 = useMediaPredicate('(max-width: 720px)');
-
     const {
         authStore: {login, errorsResponse}
     } = useStores();
 
-    const navigate = useNavigate();
-    const [showPassword, setShowPassword] = useState(false);
 
     const onSubmit = (data: LoginValues) => {
         login(data).then(()=>{
@@ -44,21 +43,18 @@ export const Login = observer(() => {
             <h1 className={cls.title}>Войдите</h1>
             <form className={cls.form} onSubmit={handleSubmit(onSubmit)}>
                 <Stack className={cls.form} spacing={2} width={400}>
-                    <TextField
-                        sx={{ input: { color: 'white' } }}
-                        style={lessThan720?{width: "39vh",margin: '3vh 0 2vh 3vh'}:{ margin: '17px 0' }}
-                        label="Почта"
-                        type="email"
-                        {...register('email', {
-                            required: 'Это поле обязательно!',
-                            pattern: {
-                                value: /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i,
-                                message: 'Неправильный адрес почты',
-                            },
-                        })}
-                        error={!!errors['email']}
-                        helperText={errors['email']?.message}
+                    <TextFieldCustom
+                     register={validation('email', {
+                         required: 'Это поле обязательно!',
+                         pattern: {
+                             value: /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i,
+                             message: 'Неправильный адрес почты',
+                         },
+                     })}
+                     errors={errors['email']}
+                     label={'Почта'}
                     />
+
 
                     <TextField
                         sx={{ input: { color: 'white' } }}

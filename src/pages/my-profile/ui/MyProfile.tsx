@@ -15,6 +15,9 @@ type PostRequest = {
 };
 
 export const MyProfile = observer(() => {
+    const [post, setPost] = useState(false);
+    const [errorRequest, setErrorRequest] = useState('');
+    const lessThan720 = useMediaPredicate('(max-width: 720px)');
     const {
         profileStore: {
             getProfile,
@@ -23,7 +26,6 @@ export const MyProfile = observer(() => {
          loading
         },
     } = useStores();
-
     const {
         reset,
         handleSubmit,
@@ -31,9 +33,6 @@ export const MyProfile = observer(() => {
         formState: { errors },
     } = useForm<PostRequest>();
 
-    const [post, setPost] = useState(false);
-    const [errorRequest, setErrorRequest] = useState('');
-    const lessThan720 = useMediaPredicate('(max-width: 720px)');
     const onSubmit = (data: PostRequest) => {
         const trimmedText = data.text.trim();
         reset();
