@@ -3,7 +3,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Link, useNavigate } from 'react-router-dom';
 import { useStores } from '@/app/store/root-store.context.ts';
 import { useMediaPredicate } from 'react-media-hook';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useForm } from 'react-hook-form';
 import cls from './Login.module.scss';
@@ -23,32 +23,20 @@ export const Login = observer(() => {
         handleSubmit,
         formState: { errors },
     } = useForm<LoginValues>({});
+
     const lessThan720 = useMediaPredicate('(max-width: 720px)');
-    const {
-        authStore: {
-            login,
-            initialState: {
-                authData: { accessToken, error, refreshToken },
-            },
-        },
-    } = useStores();
 
     const {
-        authStore: { initialState },
+        authStore: {login, errorsResponse}
     } = useStores();
 
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
-    useEffect(() => {
-        if (accessToken && refreshToken !== null) {
-            Cookies.set('refresh', refreshToken, { expires: 7 });
-            navigate('/');
-        }
-        initialState.authData.error = null;
-    }, [accessToken, navigate]);
 
     const onSubmit = (data: LoginValues) => {
-        login(data);
+        login(data).then(()=>{
+            if(Cookies.get('refresh')) navigate('/')
+        });
     };
 
     return (
@@ -109,7 +97,7 @@ export const Login = observer(() => {
                     </p>
                 </Stack>
             </form>
-            {error && <p className={cls.errorJoin}>Неверный логин или пароль</p>}
+            {errorsResponse && <p className={cls.errorJoin}>Неверный логин или пароль</p>}
         </div>
     );
 });

@@ -1,5 +1,6 @@
 import { postsGet } from '@/shared/api/auth';
 import { makeAutoObservable } from 'mobx';
+import { AxiosError } from 'axios';
 
 interface IPostData {
     id: number;
@@ -15,53 +16,53 @@ interface IPostData {
 }
 
 export interface PostsState {
-    postsData: {
-        loading: boolean;
-        errors: string | null;
-        first: number;
-        current: number;
-        last: number;
-        posts: IPostData[];
-    };
+    first: number;
+    current: number;
+    last: number;
+    posts: IPostData[];
 }
 
 class PostsStore {
-    initialState: PostsState = {
-        postsData: {
-            loading: false,
-            errors: null,
-            first: 1,
-            current: 1,
-            last: 52,
-            posts: [],
-        },
+    public loading: boolean = false;
+    private _error: null | AxiosError = null;
+
+    private _postsData: PostsState = {
+        first: 1,
+        current: 1,
+        last: 52,
+        posts: [],
     };
 
+    get error(): AxiosError | null {
+        return this._error;
+    }
+
+    get posts(): PostsState {
+        return this._postsData;
+    }
+
     getPosts = (): Promise<void> => {
-        this.initialState.postsData.loading = true;
-        this.initialState.postsData.errors = null;
-        // const authStore = new AuthStore();
-        // const profile = new ProfileStore();
+        this.loading = true;
+        this._error = null;
         return postsGet()
             .then((response) => {
                 if (response.data) {
                     const { current, first, last, posts } = response.data;
-                    this.initialState.postsData = {
+                    this._postsData = {
                         current,
                         first,
                         last,
                         posts,
-                        loading: false,
-                        errors: null,
                     };
+                    this._error = null;
+                    this.loading = false;
                 }
             })
             .catch((error) => {
-                this.initialState.postsData.errors = error.response.statusText;
-
+                this._error = error.response.statusText;
             })
             .finally(() => {
-                this.initialState.postsData.loading = false;
+                this.loading = false;
             });
     };
 

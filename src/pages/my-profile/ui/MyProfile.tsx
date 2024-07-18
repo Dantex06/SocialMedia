@@ -19,18 +19,18 @@ export const MyProfile = observer(() => {
         profileStore: {
             getProfile,
             createPost,
-            initialState: {
-                profileData: { loading, error },
-            },
+            error,
+         loading
         },
     } = useStores();
-    // const [refresh, setRefresh] = useCookies(['refresh']);
+
     const {
         reset,
         handleSubmit,
         register,
         formState: { errors },
     } = useForm<PostRequest>();
+
     const [post, setPost] = useState(false);
     const [errorRequest, setErrorRequest] = useState('');
     const lessThan720 = useMediaPredicate('(max-width: 720px)');
@@ -47,12 +47,9 @@ export const MyProfile = observer(() => {
     };
     const storedProfile = window.localStorage.getItem('profile_id');
     const userData = storedProfile ? JSON.parse(storedProfile) : null;
+
     useEffect(() => {
-        try {
-            getProfile();
-        } catch (e) {
-            console.log(e);
-        }
+        getProfile()
     }, []);
 
     if (loading) {
@@ -60,7 +57,8 @@ export const MyProfile = observer(() => {
     }
 
     if (error) {
-        return <div>{error}</div>;
+        console.log(error)
+        return <div>{error.code}</div>;
     }
 
     return (

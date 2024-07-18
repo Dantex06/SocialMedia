@@ -1,8 +1,8 @@
 import { postSend, profile } from '@/shared/api/auth';
 import { makeAutoObservable } from 'mobx';
+import { AxiosError } from 'axios';
 
 export interface IProfileState {
-    profileData: {
         id: number | null;
         name: string | null;
         surname: string | null;
@@ -17,14 +17,13 @@ export interface IProfileState {
         is_public: true;
         image: string | null;
         birthday: string | null;
-        error: string | null;
-        loading: boolean;
-    };
 }
 
 class ProfileStore {
-    initialState: IProfileState = {
-        profileData: {
+    public loading: boolean = false
+    private _error: null | AxiosError = null
+
+    private _profileData: IProfileState = {
             id: null,
             name: null,
             surname: null,
@@ -39,20 +38,25 @@ class ProfileStore {
             is_public: true,
             image: null,
             birthday: null,
-            error: null,
-            loading: false,
-        },
-    };
+        }
+
+    get error(): AxiosError | null {
+        return this._error;
+    }
+
+    get profile(): IProfileState {
+        return this._profileData;
+    }
 
     getProfile = (): Promise<void> => {
         if (!window.localStorage.getItem('profile_id')) {
-            this.initialState.profileData.loading = true;
-            this.initialState.profileData.error = null;
+            this.loading = true;
+            this._error = null;
             return profile()
                 .then((response) => {
                     if (response.data) {
                         const { id, name, surname, email, birthday } = response.data;
-                        this.initialState.profileData = {
+                        this._profileData = {
                             country: { alpha2: 'EE', alpha3: 'EST', id: 70, name: 'Estonia', region: 'Europe' },
                             image: null,
                             is_public: true,
@@ -60,9 +64,7 @@ class ProfileStore {
                             name,
                             surname,
                             email,
-                            birthday,
-                            loading: false,
-                            error: null
+                            birthday
                         };
 
                         window.localStorage.setItem(
@@ -78,32 +80,26 @@ class ProfileStore {
                     }
                 })
                 .catch((error) => {
-                        this.initialState.profileData.error = error.response.statusText;}
-                )
+                    this._error = error.response.statusText;
+                })
                 .finally(() => {
-                    this.initialState.profileData.loading = false;
+                    this.loading = false;
                 });
         } else return Promise.resolve(undefined);
     };
 
-    createPost = (
-        newpost: {
-            images_urls: string[];
-            content: string;
-        }
-    ): Promise<void> => {
-        this.initialState.profileData.loading = true;
-        this.initialState.profileData.error = null;
+    createPost = (newpost: { images_urls: string[]; content: string }): Promise<void> => {
+        this.loading = true;
+        this._error = null;
         return postSend(newpost)
             .then((response) => {
-                return response.data
+                return response.data;
             })
             .catch((error) => {
-                    this.initialState.profileData.error = error;
-                }
-            )
+                this._error = error;
+            })
             .finally(() => {
-                this.initialState.profileData.loading = false;
+                this.loading = false;
             });
     };
 

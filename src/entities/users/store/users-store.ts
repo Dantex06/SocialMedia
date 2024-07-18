@@ -1,10 +1,9 @@
 import { userGetProfile } from '@/shared/api/auth';
 import { makeAutoObservable } from 'mobx';
+import { AxiosError } from 'axios';
 
 
 export interface IUsersState {
-    userData: {
-        loading: boolean;
         id: number | null;
         name: string | null;
         surname: string | null;
@@ -18,15 +17,15 @@ export interface IUsersState {
         };
         is_public: true;
         image: string | null;
-        birthday: string | null;
-        error: string | null;
-    };
+        birthday: string | null
 }
 
 class UsersStore {
-    initialState: IUsersState = {
-        userData: {
-            loading: false,
+
+    public loading: boolean = false
+    private _error: null | AxiosError = null
+
+    private _userData: IUsersState = {
             id: null,
             name: null,
             surname: null,
@@ -41,37 +40,42 @@ class UsersStore {
             is_public: true,
             image: null,
             birthday: null,
-            error: null,
-        },
-    };
+        }
+
+    get error(): AxiosError | null {
+        return this._error;
+    }
+
+    get profile(): IUsersState {
+        return this._userData;
+    }
 
     getUserData = (id: number): Promise<void> => {
-        this.initialState.userData.error = null;
-        this.initialState.userData.loading = true;
+        this._error = null;
+        this.loading = true;
 
         return userGetProfile(id)
             .then((response) => {
                 if (response.data) {
                     const { id, name, surname, email, birthday } = response.data;
-                    this.initialState.userData = {
+                    this._userData = {
                         country: { alpha2: 'EE', alpha3: 'EST', id: 70, name: 'Estonia', region: 'Europe' },
-                        error: null,
                         image: null,
                         is_public: true,
-                        loading: false,
                         id,
                         name,
                         surname,
                         email,
                         birthday
                     };
+                    this.loading = false
                 }
             })
             .catch((error) => {
-                    this.initialState.userData.error = error.response.statusText;
+                    this._error = error.response.statusText;
                 })
             .finally(() => {
-                this.initialState.userData.loading = false;
+                this.loading = false;
             });
     };
 

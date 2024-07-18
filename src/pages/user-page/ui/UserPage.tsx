@@ -17,9 +17,9 @@ export const UserPage = observer(() => {
     const {
         usersStore: {
             getUserData,
-            initialState: {
-                userData: { name, surname, email, birthday, error, loading },
-            },
+            loading,
+            error,
+            profile: {name, surname, email, birthday}
         },
     } = useStores();
     const id = Number(location.pathname.split('/')[2]);
@@ -28,7 +28,7 @@ export const UserPage = observer(() => {
     const userData = storedProfile ? JSON.parse(storedProfile) : null;
     const lessThan720 = useMediaPredicate('(max-width: 720px)');
     useEffect(() => {
-        if (id === userData.id) {
+        if (userData!==null && id === userData.id) {
             navigate('/profile');
         }
         if (refresh) {
@@ -40,7 +40,8 @@ export const UserPage = observer(() => {
     }
 
     if (error) {
-        return <div>{error}</div>;
+        console.log(error)
+        return <div>{error.code}</div>;
     }
 
     return (

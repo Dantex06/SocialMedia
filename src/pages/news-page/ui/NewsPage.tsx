@@ -2,23 +2,20 @@ import { useStores } from '@/app/store/root-store.context.ts';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import Post from '@/widgets/Post/ui/Post.tsx';
-// import Cookies from 'js-cookie';
 import cls from './NewsPage.module.scss';
 
 export const NewsPage = observer(() => {
     const {
         postsStore: {
             getPosts,
-            initialState: {
-                postsData: { posts, errors, loading },
-            },
+         error,
+         loading,
+         posts
         },
     } = useStores();
-    // const refresh = Cookies.get('refresh');
     const storedProfile = window.localStorage.getItem('profile_id');
     const userData = storedProfile ? JSON.parse(storedProfile) : null;
     useEffect(() => {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             getPosts();
 
     }, []);
@@ -27,13 +24,14 @@ export const NewsPage = observer(() => {
         return <div>Loading...</div>;
     }
 
-    if (errors) {
-        return <div>{errors}</div>;
+    if (error) {
+        console.log(error)
+        return <div>{error.code}</div>;
     }
-    if (!loading && !errors) {
+    if (!loading && !error) {
         return (
             <div className={cls.posts}>
-                {posts.map((post) => (
+                {posts.posts.map((post) => (
                     <Post
                         key={post.id}
                         name={post.author.name}

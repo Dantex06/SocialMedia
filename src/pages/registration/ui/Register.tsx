@@ -3,13 +3,11 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Link, useNavigate } from 'react-router-dom';
 import { useStores } from '@/app/store/root-store.context.ts';
 import { useMediaPredicate } from 'react-media-hook';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useForm } from 'react-hook-form';
 import cls from './Register.module.scss';
 import '@/shared/css/mui.css';
-
-
 import Cookies from 'js-cookie';
 
 
@@ -24,10 +22,7 @@ type RegisterValues = {
 export const Register = observer(() => {
     const {
         authStore: {
-            registration,
-            initialState: {
-                authData: { accessToken, refreshToken, error },
-            },
+            registration, errorsResponse
         },
     } = useStores();
     const { register, handleSubmit, formState, reset } = useForm<RegisterValues>({});
@@ -36,16 +31,12 @@ export const Register = observer(() => {
     const [showPassword, setShowPassword] = useState(false);
     const lessThan720 = useMediaPredicate('(max-width: 720px)');
 
-    useEffect(() => {
-        if (accessToken && refreshToken !== null) {
-            Cookies.set('refresh', refreshToken, { expires: 7 });
-            navigate('/');
-        }
-    }, [accessToken, navigate]);
-
     const onSubmit = (data: RegisterValues) => {
-        registration(data).catch(()=>reset())
+        registration(data).then(()=>{
+            if(Cookies.get('refresh')) navigate('/')
+        }).catch(()=>reset());
     };
+
     return (
         <div style={{marginTop: "45px"}}>
             <h1 className={cls.title}>Регистрация</h1>
@@ -162,7 +153,7 @@ export const Register = observer(() => {
                     <p className={cls.link} style={lessThan720?{width: "39vh",margin: '3vh 0 2vh 3vh'}:{}}>
                         Есть аккаунт? <Link to="/login">Войдите</Link>
                     </p>
-                    <p className={cls.errorJoin}>{error?.response?.status === 409 ? "Данная почта уже зарегестрирована": error!==null? "Произошла непредвиденная ошибка" : ""}</p>
+                    <p className={cls.errorJoin}>{errorsResponse?.response?.status === 409 ? "Данная почта уже зарегестрирована": errorsResponse!==null? "Произошла непредвиденная ошибка" : ""}</p>
                 </Stack>
             </form>
         </div>
