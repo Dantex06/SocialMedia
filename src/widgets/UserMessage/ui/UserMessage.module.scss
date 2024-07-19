@@ -1,0 +1,25 @@
+.contact{
+  padding-left: 2vh;
+  display: flex;
+  align-items: center;
+  height: 8vh;
+  width: 90%;
+  margin: 0 auto 4vh auto;
+  background: rgba(103, 103, 103, 0.91);
+  border-radius: 2vh;
+}
+.contact:last-child {
+  margin-bottom: 0;
+}
+.message{
+  color: white;
+  margin-left: 2vh;
+}
+
+.name{
+  font-weight: bold;
+}
+
+.lstmessage{
+  color: #c7c7c7;
+}
