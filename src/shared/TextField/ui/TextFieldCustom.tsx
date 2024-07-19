@@ -2,12 +2,14 @@ import { useMediaPredicate } from 'react-media-hook';
 import { TextField } from '@mui/material';
 import { ReactNode } from 'react';
 
+
+
 interface TextFieldCustomProps {
-    register: any; // Замените 'any' на конкретный тип, соответствующий вашей логике
-    errors: any; // Замените 'any' на конкретный тип, соответствующий вашей логике
+    register: any,
+    errors: any;
     label: string;
     type?: string;
-    inputProps?: any; // Замените 'any' на конкретный тип, если необходимо
+    inputProps?: any;
     endAdornment?: ReactNode;
 }
 

@@ -1,0 +1,40 @@
+
+
+.backgroundText{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30vh;
+}
+
+html[data-theme="1"] {
+  --background: url("../../../shared/assets/backgroundImg/backgroundimage1.png");
+}
+
+html[data-theme="2"] {
+  --background: url("../../../shared/assets/backgroundImg/backgroundimage2.png");
+}
+
+html[data-theme="3"]{
+  --background: url("../../../shared/assets/backgroundImg/backgroundimage3.png");
+}
+
+.background {
+  margin: 0 auto;
+  background: var(--background);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+  width: 35vh;
+  height: 22vh;
+}
+
+
+.options {
+  width: 100%;
+  text-align: center;
+  padding-top: 5vh;
+  height: 100%;
+  color: white;
+  font-size: 20px;
+}

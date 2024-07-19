@@ -20,7 +20,7 @@ type LoginValues = {
 export const Login = observer(() => {
     const lessThan720 = useMediaPredicate('(max-width: 720px)');
     const [showPassword, setShowPassword] = useState(false);
-    const validation = (name: keyof LoginValues, pattern: { [key: string]: unknown }) => register(name, pattern)
+    const validation = (name: keyof LoginValues, pattern: typeof FormValidate.length | typeof FormValidate.date ) => register(name, pattern)
     const navigate = useNavigate();
     const {
         register,
@@ -63,6 +63,7 @@ export const Login = observer(() => {
                     <Button style={lessThan720?{width: "39vh",margin: '3vh 0 2vh 3vh'}:{margin: "0 auto"}} type="submit" variant="contained" color="primary">
                         Войти
                     </Button>
+
                     <p className={cls.link} style={lessThan720?{width: "39vh",margin: '3vh 0 2vh 3vh'}:{}}>
                         Нету аккаунта? <Link to="/register">Зарегистрируйтесь</Link>
                     </p>

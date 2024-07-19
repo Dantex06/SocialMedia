@@ -15,7 +15,13 @@ const AppRouter = () => {
     const location = useLocation();
     const lessThan720 = useMediaPredicate('(max-width: 720px)');
     useEffect(() => {
-        if (Cookies.get('refresh') === undefined) {
+     if(!window.localStorage.getItem('background')){
+      window.localStorage.setItem('background', '1')
+      document.documentElement.setAttribute('data-theme', '1')
+     }else{
+      document.documentElement.setAttribute('data-theme', String(window.localStorage.getItem('background')));
+     }
+     if (Cookies.get('refresh') === undefined) {
          console.log('not refresh')
             navigate('/login');
         }

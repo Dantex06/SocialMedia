@@ -39,7 +39,7 @@ export const Register = observer(() => {
         }).catch(()=>reset());
     };
 
-    const validation = (name: keyof RegisterValues, pattern: { [key: string]: unknown }) => register(name, pattern)
+    const validation = (name: keyof RegisterValues, pattern: typeof FormValidate.length | typeof FormValidate.date) => register(name, pattern)
 
 
     return (

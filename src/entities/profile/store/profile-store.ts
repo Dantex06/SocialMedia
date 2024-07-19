@@ -2,6 +2,13 @@ import { postSend, profile } from '@/shared/api/auth';
 import { makeAutoObservable } from 'mobx';
 import { AxiosError } from 'axios';
 
+export const Backgrounds = {
+ '1': "@/shared/assets/backgrounds/backgroundimage1.png",
+ '2': "@/shared/assets/backgrounds/backgroundimage2.png",
+ '3': "@/shared/assets/backgrounds/backgroundimage3.png",
+}
+
+
 export interface IProfileState {
         id: number | null;
         name: string | null;
@@ -77,6 +84,7 @@ class ProfileStore {
                                 birthday,
                             }),
                         );
+
                     }
                 })
                 .catch((error) => {

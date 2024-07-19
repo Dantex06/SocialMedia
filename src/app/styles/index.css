@@ -4,9 +4,21 @@
     margin: 0 auto 10px auto;
 }
 
+html[data-theme="1"] {
+    --background: url("../../shared/assets/backgroundImg/backgroundimage1.png");
+}
+
+html[data-theme="2"] {
+    --background: url("../../shared/assets/backgroundImg/backgroundimage2.png");
+}
+
+html[data-theme="3"]{
+    --background: url("../../shared/assets/backgroundImg/backgroundimage3.png");
+}
+
 .app {
     height: 100vh;
-    background-image:url("../../shared/assets/backgroundImg/backgroundimage1.png");
+    background: var(--background);
     background-repeat: no-repeat;
     background-size: auto;
     background-position: center center;
