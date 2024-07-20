@@ -8,8 +8,7 @@ import { useEffect } from 'react';
 import ava from '@/shared/assets/SideBarIcons/cat.jpg';
 import cls from './UserPage.module.scss';
 import Cookies from 'js-cookie';
-
-
+import { Loading } from '@/widgets/Loading';
 
 export const UserPage = observer(() => {
     const location = useLocation();
@@ -24,12 +23,12 @@ export const UserPage = observer(() => {
             getUserData,
             loading,
             error,
-            profile: {name, surname, email, birthday}
+            profile: { name, surname, email, birthday },
         },
     } = useStores();
 
     useEffect(() => {
-        if (userData!==null && id === userData.id) {
+        if (userData !== null && id === userData.id) {
             navigate('/profile');
         }
         if (refresh) {
@@ -37,23 +36,23 @@ export const UserPage = observer(() => {
         }
     }, []);
     if (loading) {
-        return <div>Loading...</div>;
+        return <Loading />;
     }
 
     if (error) {
-        console.log(error)
+        console.log(error);
         return <div>{error.code}</div>;
     }
 
     return (
         <div>
             <div className={cls.backgroundProfileAndAvatar}>
-                <Avatar alt="Avatar" src={ava} sx={lessThan720?{width: 78, height: 78}:{ width: 144, height: 144 }} />
+                <Avatar alt="Avatar" src={ava} sx={lessThan720 ? { width: 78, height: 78 } : { width: 144, height: 144 }} />
                 <div className={cls.icons}>
                     <Button style={{ marginRight: '2vh' }} variant="contained">
                         Подписаться
                     </Button>
-                    <ShareIcon style={{marginBottom: '0.5vh' }} sx={{ color: 'white' }} />
+                    <ShareIcon style={{ marginBottom: '0.5vh' }} sx={{ color: 'white' }} />
                 </div>
             </div>
             <div className={cls.personal}>

@@ -8,6 +8,7 @@ import { observer } from 'mobx-react-lite';
 import { useForm } from 'react-hook-form';
 import ava from '@/shared/assets/SideBarIcons/cat.jpg';
 import cls from './MyProfile.module.scss';
+import { Loading } from '@/widgets/Loading';
 
 
 type PostRequest = {
@@ -52,7 +53,7 @@ export const MyProfile = observer(() => {
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <Loading/>
     }
 
     if (error) {

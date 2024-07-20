@@ -3,29 +3,24 @@ import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import Post from '@/widgets/Post/ui/Post.tsx';
 import cls from './NewsPage.module.scss';
+import { Loading } from '@/widgets/Loading';
 
 export const NewsPage = observer(() => {
     const {
-        postsStore: {
-            getPosts,
-         error,
-         loading,
-         posts
-        },
+        postsStore: { getPosts, error, loading, posts },
     } = useStores();
     const storedProfile = window.localStorage.getItem('profile_id');
     const userData = storedProfile ? JSON.parse(storedProfile) : null;
     useEffect(() => {
-            getPosts();
-
+        getPosts();
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <Loading />;
     }
 
     if (error) {
-        console.log(error)
+        console.log(error);
         return <div>{error.code}</div>;
     }
     if (!loading && !error) {
@@ -47,4 +42,3 @@ export const NewsPage = observer(() => {
         );
     }
 });
-
