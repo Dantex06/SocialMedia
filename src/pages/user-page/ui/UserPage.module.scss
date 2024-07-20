@@ -6,11 +6,17 @@
 
 .profile{
   padding-top: 2vh;
-  margin: 0 auto;
+  margin: 0 auto 0.5vh auto;
   width: 85vh;
   color: #e3e3e3;
 }
-
+.posts{
+  overflow-y: scroll;
+  @media (max-width: 720px) {
+    height: 55vh;
+  }
+  height: 50vh;
+}
 
 .icons{
   display: flex;

@@ -1,4 +1,4 @@
-import { postsGet } from '@/shared/api/auth';
+import { postsGet, userPosts } from '@/shared/api/auth';
 import { makeAutoObservable } from 'mobx';
 import { AxiosError } from 'axios';
 
@@ -15,6 +15,21 @@ interface IPostData {
     updated_at: null;
 }
 
+interface IPostUserData {
+    "id": number | null,
+    "content": string,
+    "image_url": null,
+    "published_at": string | null,
+    "updated_at": null
+}
+
+export interface PostUserState {
+    "first": number | null,
+    "current": number | null,
+    "last": number | null,
+    "posts": IPostUserData[];
+}
+
 export interface PostsState {
     first: number;
     current: number;
@@ -25,6 +40,13 @@ export interface PostsState {
 class PostsStore {
     public loading: boolean = false;
     private _error: null | AxiosError = null;
+
+    private _postsUserData: PostUserState = {
+        first: 1,
+        current: 1,
+        last: 52,
+        posts: []
+    }
 
     private _postsData: PostsState = {
         first: 1,
@@ -37,8 +59,34 @@ class PostsStore {
         return this._error;
     }
 
+    get userPosts(): PostUserState {
+        return this._postsUserData;
+    }
+
     get posts(): PostsState {
         return this._postsData;
+    }
+
+    getUserPosts = (id: number): Promise<void> => {
+        this._error = null;
+        this.loading = true;
+        return userPosts(id)
+         .then((response)=> {
+             if (response.data) {
+                 const { current, first, last, posts } = response.data;
+                 this._postsUserData = {
+                     current,
+                     first,
+                     last,
+                     posts,
+                 };
+                 console.log(response.data.posts);
+             }
+         }).catch((error) => {
+             console.log(error);
+         }).finally(()=>{
+             this.loading = false;
+         })
     }
 
     getPosts = (): Promise<void> => {

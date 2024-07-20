@@ -9,6 +9,7 @@ import ava from '@/shared/assets/SideBarIcons/cat.jpg';
 import cls from './UserPage.module.scss';
 import Cookies from 'js-cookie';
 import { Loading } from '@/widgets/Loading';
+import Post from '../../../widgets/Post/ui/Post.tsx';
 
 export const UserPage = observer(() => {
     const location = useLocation();
@@ -19,6 +20,7 @@ export const UserPage = observer(() => {
     const userData = storedProfile ? JSON.parse(storedProfile) : null;
     const lessThan720 = useMediaPredicate('(max-width: 720px)');
     const {
+        postsStore: {getUserPosts, userPosts},
         usersStore: {
             getUserData,
             loading,
@@ -32,7 +34,9 @@ export const UserPage = observer(() => {
             navigate('/profile');
         }
         if (refresh) {
-            getUserData(id).catch((err) => console.log(err));
+            getUserData(id)
+                .then(() => getUserPosts(id)).then(()=>console.log(userPosts.posts))
+                .catch((err) => console.log(err));
         }
     }, []);
     if (loading) {
@@ -67,6 +71,20 @@ export const UserPage = observer(() => {
                         <p>555 Followers</p>
                     </div>
                 </div>
+            </div>
+            <div className={cls.posts}>
+                {userPosts.posts.map((post, index) => (
+                 <Post
+                  key={index}
+                  name={name}
+                  surname={surname}
+                  text={post.content}
+                  photo={null}
+                  published={post.published_at}
+                  idUser={post.id}
+                  myId={userData ? userData.id : null}
+                 />
+                ))}
             </div>
         </div>
     );

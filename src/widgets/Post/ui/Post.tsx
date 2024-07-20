@@ -12,12 +12,12 @@ import cls from './Post.module.scss';
 
 
 interface IPost {
-    name: string;
-    surname: string;
+    name: string | null;
+    surname: string | null;
     text: string;
     photo: string | null;
-    published: string;
-    idUser: number;
+    published: string | null;
+    idUser: number | null;
     myId: number | null;
 }
 

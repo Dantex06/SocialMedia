@@ -20,8 +20,9 @@ export interface IUsersState {
         birthday: string | null
 }
 
-class UsersStore {
 
+
+class UsersStore {
     public loading: boolean = false
     private _error: null | AxiosError = null
 

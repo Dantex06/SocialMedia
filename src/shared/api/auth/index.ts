@@ -15,6 +15,10 @@ export const userGetProfile = (id: number): AxiosPromise => {
     return axiosInstance.get(Endpoints.AUTH.PROFILE_GET + id);
 };
 
+export const userPosts = (id: number): AxiosPromise => {
+    return axiosInstance.get(Endpoints.AUTH.PROFILE_GET_POSTS(id));
+};
+
 export const refresh = (params: string | undefined) =>
     axiosInstance.post(Endpoints.AUTH.REFRESH, {
         refresh: params,
