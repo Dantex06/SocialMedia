@@ -1,3 +1,4 @@
+import { privateConfig, publicConfig } from '@/shared/config/routeConfig/RouteConfig.tsx';
 import { ProtectedWrapperAuthorized, ProtectedWrapperUnauthorized } from 'src/entities/wrapper';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { CamelCase } from '@/shared/utils/CamelCase.ts';
@@ -7,7 +8,6 @@ import { useCookies } from 'react-cookie';
 import { useEffect } from 'react';
 import Cookies from 'js-cookie';
 import cls from './AppRouter.module.scss';
-import { privateConfig, publicConfig } from '@/shared/config/routeConfig/RouteConfig.tsx';
 
 const AppRouter = () => {
     const [refresh] = useCookies(['refresh']);
@@ -15,14 +15,14 @@ const AppRouter = () => {
     const location = useLocation();
     const lessThan720 = useMediaPredicate('(max-width: 720px)');
     useEffect(() => {
-     if(!window.localStorage.getItem('background')){
-      window.localStorage.setItem('background', '1')
-      document.documentElement.setAttribute('data-theme', '1')
-     }else{
-      document.documentElement.setAttribute('data-theme', String(window.localStorage.getItem('background')));
-     }
-     if (Cookies.get('refresh') === undefined) {
-         console.log('not refresh')
+        if (!window.localStorage.getItem('background')) {
+            window.localStorage.setItem('background', '1');
+            document.documentElement.setAttribute('data-theme', '1');
+        } else {
+            document.documentElement.setAttribute('data-theme', String(window.localStorage.getItem('background')));
+        }
+        if (Cookies.get('refresh') === undefined) {
+            console.log('not refresh');
             navigate('/login');
         }
         if (Cookies.get('refresh') && (location.pathname === '/login' || location.pathname === '/register')) {
@@ -53,9 +53,7 @@ const AppRouter = () => {
                             <div>
                                 <div className={cls.header}>
                                     <p className={cls.title}>{CamelCase(key)} </p>
-                                    {lessThan720 && (
-                                       <DropDownMenu/>
-                                    )}
+                                    {lessThan720 && <DropDownMenu />}
                                 </div>
                                 <div className={cls.page}>{element}</div>
                             </div>

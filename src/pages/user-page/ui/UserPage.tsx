@@ -3,13 +3,15 @@ import { Avatar, Button } from '@mui/material';
 import { useStores } from '@/app/store/root-store.context.ts';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useMediaPredicate } from 'react-media-hook';
+import Post from '../../../widgets/Post/ui/Post.tsx';
+import { Loading } from '@/widgets/Loading';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import ava from '@/shared/assets/SideBarIcons/cat.jpg';
 import cls from './UserPage.module.scss';
 import Cookies from 'js-cookie';
-import { Loading } from '@/widgets/Loading';
-import Post from '../../../widgets/Post/ui/Post.tsx';
+
+
 
 export const UserPage = observer(() => {
     const location = useLocation();
@@ -35,7 +37,7 @@ export const UserPage = observer(() => {
         }
         if (refresh) {
             getUserData(id)
-                .then(() => getUserPosts(id)).then(()=>console.log(userPosts.posts))
+                .then(() => getUserPosts(id))
                 .catch((err) => console.log(err));
         }
     }, []);
@@ -73,9 +75,11 @@ export const UserPage = observer(() => {
                 </div>
             </div>
             <div className={cls.posts}>
-                {userPosts.posts.map((post, index) => (
+                {userPosts.posts.map((post) => (
                  <Post
-                  key={index}
+                  key={post.id}
+                  id={post.id}
+                  isLiked={post.is_liked}
                   name={name}
                   surname={surname}
                   text={post.content}

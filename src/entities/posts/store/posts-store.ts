@@ -11,23 +11,16 @@ interface IPostData {
     };
     content: string;
     images_url: null;
+    is_liked: boolean;
     published_at: string;
     updated_at: null;
-}
-
-interface IPostUserData {
-    "id": number | null,
-    "content": string,
-    "image_url": null,
-    "published_at": string | null,
-    "updated_at": null
 }
 
 export interface PostUserState {
     "first": number | null,
     "current": number | null,
     "last": number | null,
-    "posts": IPostUserData[];
+    "posts": IPostData[];
 }
 
 export interface PostsState {

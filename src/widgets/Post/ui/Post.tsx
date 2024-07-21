@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 import { Avatar } from '@mui/material';
+import { useStores } from '@/app/store/root-store.context.ts';
 import { useMediaPredicate } from 'react-media-hook';
+import { useEffect, useState } from 'react';
+import { observer } from 'mobx-react-lite';
 import CommentClick from '@/shared/assets/postsFiles/CommentButton.svg';
 import websitelink from '@/shared/assets/postsFiles/WebSiteLink.png';
 import ShareClick from '@/shared/assets/postsFiles/ShareButton.svg';
@@ -12,6 +15,8 @@ import cls from './Post.module.scss';
 
 
 interface IPost {
+    id: number;
+    isLiked: boolean;
     name: string | null;
     surname: string | null;
     text: string;
@@ -21,9 +26,31 @@ interface IPost {
     myId: number | null;
 }
 
-const Post = ({ name, surname, text, photo, published, idUser, myId }: IPost) => {
+const Post = observer(({ id, isLiked, name, surname, text, photo, published, idUser, myId }: IPost) => {
+    const {
+        likeStore: { likePost, deleteLikePost },
+    } = useStores();
+
+    const [isLikePost, setIsLikePost] = useState(isLiked);
+
+    useEffect(() => {
+    }, [isLikePost]);
+
+    const like = () => {
+        likePost(id).then(() => {
+            console.log('true')
+            setIsLikePost(true)});
+    };
+
+    const deleteLike = () => {
+        deleteLikePost(id).then(() => {
+            console.log('false')
+            setIsLikePost(false)});
+    }
+
     const url = import.meta.env.VITE_BACKEND_URL;
     const lessThan720 = useMediaPredicate('(max-width: 720px)');
+
     return (
         <div className={cls.post}>
             <div className={cls.user}>
@@ -53,7 +80,7 @@ const Post = ({ name, surname, text, photo, published, idUser, myId }: IPost) =>
                 <p className={cls.commentCount}>0 comments</p>
             </div>
             <div className={cls.buttons}>
-                <button style={{ background: '#308AFF' }} className={cls.button}>
+                <button onClick={() => (isLikePost ? deleteLike() : like())} style={isLikePost ? { background: '#308AFF' } : { background: 'gray' }} className={cls.button}>
                     <LikeClick />
                     <span>Like</span>
                 </button>
@@ -63,11 +90,11 @@ const Post = ({ name, surname, text, photo, published, idUser, myId }: IPost) =>
                 </button>
                 <button className={cls.button}>
                     <ShareClick />
-                    {!lessThan720&&<span>Share</span>}
+                    {!lessThan720 && <span>Share</span>}
                 </button>
             </div>
         </div>
     );
-};
+});
 
 export default Post;

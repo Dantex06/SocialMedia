@@ -46,7 +46,7 @@ export const Register = observer(() => {
         <div style={{ marginTop: '45px' }}>
             <h1 className={cls.title}>Регистрация</h1>
             <form className={cls.form} onSubmit={handleSubmit(onSubmit)}>
-                <Stack className={cls.form} spacing={2} width={400}>
+                <Stack className={cls.form} spacing={2}>
                     <TextFieldCustom register={validation('name', FormValidate.length)} errors={errors['name']} label={'Имя'} />
                     <TextFieldCustom register={validation('surname', FormValidate.length)} errors={errors['surname']} label={'Фамилия'} />
                     <TextFieldCustom register={validation('email', FormValidate.email)} errors={errors['email']} label={'Почта'} />

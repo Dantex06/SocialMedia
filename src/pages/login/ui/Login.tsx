@@ -42,7 +42,7 @@ export const Login = observer(() => {
         <div className={cls.all}>
             <h1 className={cls.title}>Войдите</h1>
             <form className={cls.form} onSubmit={handleSubmit(onSubmit)}>
-                <Stack className={cls.form} spacing={2} width={400}>
+                <Stack className={cls.form} spacing={2}>
                  <TextFieldCustom register={validation('email', FormValidate.email)} errors={errors['email']} label={'Почта'} />
 
                  <TextFieldCustom

@@ -5,17 +5,19 @@
 }
 
 .profile{
-  padding-top: 2vh;
+  padding-top: 1vh;
   margin: 0 auto 0.5vh auto;
   width: 85vh;
   color: #e3e3e3;
+  padding-bottom: 1vh;
 }
 .posts{
   overflow-y: scroll;
   @media (max-width: 720px) {
-    height: 55vh;
+    height: 50vh;
   }
   height: 50vh;
+  border-radius: 30px;
 }
 
 .icons{

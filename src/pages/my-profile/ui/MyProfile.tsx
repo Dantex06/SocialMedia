@@ -4,11 +4,12 @@ import ShareIcon from '@mui/icons-material/Share';
 import { useStores } from '@/app/store/root-store.context.ts';
 import { useMediaPredicate } from 'react-media-hook';
 import { useEffect, useState } from 'react';
+import { Loading } from '@/widgets/Loading';
 import { observer } from 'mobx-react-lite';
 import { useForm } from 'react-hook-form';
 import ava from '@/shared/assets/SideBarIcons/cat.jpg';
 import cls from './MyProfile.module.scss';
-import { Loading } from '@/widgets/Loading';
+
 
 
 type PostRequest = {

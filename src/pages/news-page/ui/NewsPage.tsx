@@ -29,6 +29,8 @@ export const NewsPage = observer(() => {
                 {posts.posts.map((post) => (
                     <Post
                         key={post.id}
+                        id={post.id}
+                        isLiked={post.is_liked}
                         name={post.author.name}
                         surname={post.author.surname}
                         text={post.content}
