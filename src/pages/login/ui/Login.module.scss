@@ -17,8 +17,12 @@
   color: white;
   text-align: center;
 }
+
 .form{
   margin: 30px auto;
+  @media (min-width: 720px) {
+    width: 50vh;
+  }
 }
 .link{
   color: white;
