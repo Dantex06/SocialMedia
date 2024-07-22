@@ -1,3 +1,4 @@
+import { DropDownMenuLikes } from '@/widgets/DropDownMenuLikes';
 import { Link } from 'react-router-dom';
 import { Avatar } from '@mui/material';
 import { useStores } from '@/app/store/root-store.context.ts';
@@ -8,15 +9,13 @@ import CommentClick from '@/shared/assets/postsFiles/CommentButton.svg';
 import websitelink from '@/shared/assets/postsFiles/WebSiteLink.png';
 import ShareClick from '@/shared/assets/postsFiles/ShareButton.svg';
 import LikeClick from '@/shared/assets/postsFiles/Likebutton.svg';
-import likeheart from '@/shared/assets/postsFiles/likeheart.png';
-import likeButton from '@/shared/assets/postsFiles/like.png';
 import ava from '@/shared/assets/SideBarIcons/cat.jpg';
 import cls from './Post.module.scss';
-
 
 interface IPost {
     id: number;
     isLiked: boolean;
+    likesCount: number;
     name: string | null;
     surname: string | null;
     text: string;
@@ -26,27 +25,28 @@ interface IPost {
     myId: number | null;
 }
 
-const Post = observer(({ id, isLiked, name, surname, text, photo, published, idUser, myId }: IPost) => {
+const Post = observer(({ id, isLiked, likesCount, name, surname, text, photo, published, idUser, myId }: IPost) => {
     const {
         likeStore: { likePost, deleteLikePost },
     } = useStores();
 
     const [isLikePost, setIsLikePost] = useState(isLiked);
-
-    useEffect(() => {
-    }, [isLikePost]);
+    const [countLike, setCountLike] = useState(likesCount);
+    useEffect(() => {}, [isLikePost]);
 
     const like = () => {
         likePost(id).then(() => {
-            console.log('true')
-            setIsLikePost(true)});
+            setCountLike((prevState) => prevState + 1);
+            setIsLikePost(true);
+        });
     };
 
     const deleteLike = () => {
         deleteLikePost(id).then(() => {
-            console.log('false')
-            setIsLikePost(false)});
-    }
+            setCountLike((prevState) => prevState - 1);
+            setIsLikePost(false);
+        });
+    };
 
     const url = import.meta.env.VITE_BACKEND_URL;
     const lessThan720 = useMediaPredicate('(max-width: 720px)');
@@ -71,14 +71,7 @@ const Post = observer(({ id, isLiked, name, surname, text, photo, published, idU
             </div>
             <p className={cls.message}>{text}</p>
             {photo ? <img src={photo} alt="photoPost" /> : ''}
-            <div className={cls.likes}>
-                <img src={likeButton} alt="like" />
-                <img src={likeheart} alt="likeheart" />
-                <span className={cls.like}>You & 1 other</span>
-            </div>
-            <div className="comments">
-                <p className={cls.commentCount}>0 comments</p>
-            </div>
+            <DropDownMenuLikes id={id} likes={countLike}/>
             <div className={cls.buttons}>
                 <button onClick={() => (isLikePost ? deleteLike() : like())} style={isLikePost ? { background: '#308AFF' } : { background: 'gray' }} className={cls.button}>
                     <LikeClick />

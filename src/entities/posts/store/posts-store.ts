@@ -12,6 +12,7 @@ interface IPostData {
     content: string;
     images_url: null;
     is_liked: boolean;
+    likes_count: number;
     published_at: string;
     updated_at: null;
 }
@@ -73,10 +74,9 @@ class PostsStore {
                      last,
                      posts,
                  };
-                 console.log(response.data.posts);
              }
          }).catch((error) => {
-             console.log(error);
+             this._error = error;
          }).finally(()=>{
              this.loading = false;
          })
