@@ -78,6 +78,7 @@ export const UserPage = observer(() => {
                 {userPosts.posts.map((post) => (
                  <Post
                   key={post.id}
+                  likesCount={post.likes_count}
                   id={post.id}
                   isLiked={post.is_liked}
                   name={name}

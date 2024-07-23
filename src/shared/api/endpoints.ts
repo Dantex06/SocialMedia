@@ -19,6 +19,7 @@ const Endpoints = {
     LIKES: {
         LIKE: (id: number) => `api/private/posts/${id}/like`,
         DELETE_LIKE: (id: number) => `api/private/posts/${id}/like`,
+        WHO_LIKED: (id: number) => `api/private/posts/${id}/likes`,
     },
 };
 

@@ -31,6 +31,7 @@ export const NewsPage = observer(() => {
                         key={post.id}
                         id={post.id}
                         isLiked={post.is_liked}
+                        likesCount={post.likes_count}
                         name={post.author.name}
                         surname={post.author.surname}
                         text={post.content}

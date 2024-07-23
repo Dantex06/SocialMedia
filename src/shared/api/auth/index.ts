@@ -15,6 +15,10 @@ export const like = (id: number): AxiosPromise => {
     return axiosInstance.post(Endpoints.LIKES.LIKE(id))
 }
 
+export const whoLiked = (id: number): AxiosPromise => {
+    return axiosInstance.get(Endpoints.LIKES.WHO_LIKED(id));
+}
+
 export const delLike = (id: number): AxiosPromise => {
     return axiosInstance.delete(Endpoints.LIKES.DELETE_LIKE(id))
 }
