@@ -7,13 +7,23 @@ import { Loading } from '@/widgets/Loading';
 
 export const NewsPage = observer(() => {
     const {
-        postsStore: { getPosts, error, loading, posts },
+        postsStore: { getPosts, error, loading, posts, getPostsMore },
     } = useStores();
     const storedProfile = window.localStorage.getItem('profile_id');
     const userData = storedProfile ? JSON.parse(storedProfile) : null;
     useEffect(() => {
         getPosts();
     }, []);
+
+    const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+        const target = e.currentTarget;
+        if (target.scrollHeight - target.scrollTop <= target.clientHeight + 50) { // 50px для буфера
+            if(posts.posts.length%100===0){
+                getPostsMore();
+            }
+        }
+    }
+
 
     if (loading) {
         return <Loading />;
@@ -25,10 +35,10 @@ export const NewsPage = observer(() => {
     }
     if (!loading && !error) {
         return (
-            <div className={cls.posts}>
-                {posts.posts.map((post) => (
+            <div className={cls.posts} onScroll={handleScroll}>
+                {posts.posts.map((post, num) => (
                     <Post
-                        key={post.id}
+                        key={num}
                         id={post.id}
                         isLiked={post.is_liked}
                         likesCount={post.likes_count}

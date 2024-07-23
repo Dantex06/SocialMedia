@@ -36,3 +36,7 @@ export const postSend = (newpost: IPostSendRequest): AxiosPromise => axiosInstan
 export const postsGet = (): AxiosPromise => {
     return axiosInstance.get(Endpoints.POSTS.POST_GET);
 };
+
+export const postsGetMore = (page: number) => {
+    return axiosInstance.get(Endpoints.POSTS.POST_GET_MORE(page))
+}

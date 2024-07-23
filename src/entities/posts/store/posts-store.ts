@@ -1,8 +1,8 @@
-import { postsGet, userPosts } from '@/shared/api/auth';
+import { postsGet, postsGetMore, userPosts } from '@/shared/api/auth';
 import { makeAutoObservable } from 'mobx';
 import { AxiosError } from 'axios';
 
-interface IPostData {
+export interface IPostData {
     id: number;
     author: {
         id: number;
@@ -33,6 +33,7 @@ export interface PostsState {
 
 class PostsStore {
     public loading: boolean = false;
+    private _page: number = 1;
     private _error: null | AxiosError = null;
 
     private _postsUserData: PostUserState = {
@@ -48,6 +49,21 @@ class PostsStore {
         last: 52,
         posts: [],
     };
+
+    get page(){
+        return this._page;
+    }
+
+    updatePage = () => {
+        this._page += 1;
+    }
+
+    set updatePosts({ current, first, last, posts }: PostsState){
+        this._postsData.first = first;
+        this._postsData.last = last;
+        this._postsData.current = current;
+        posts.forEach((post)=>{this._postsData.posts.push(post)});
+    }
 
     get error(): AxiosError | null {
         return this._error;
@@ -82,9 +98,28 @@ class PostsStore {
          })
     }
 
+    getPostsMore = (): Promise<void> => {
+        this._error = null;
+        return postsGetMore(this.page)
+         .then((response) => {
+             if (response.data ) {
+                 console.log(response.status)
+                 const { current, first, last, posts } = response.data;
+                 this.updatePosts = { first, current, last, posts };
+                 console.log(posts.length);
+                 this._error = null;
+                 this.updatePage();
+             }
+         })
+         .catch((error) => {
+             this._error = error.response.statusText;
+         })
+    };
+
     getPosts = (): Promise<void> => {
         this.loading = true;
         this._error = null;
+        this._page = 1;
         return postsGet()
             .then((response) => {
                 if (response.data) {
@@ -97,6 +132,7 @@ class PostsStore {
                     };
                     this._error = null;
                     this.loading = false;
+                    this.updatePage();
                 }
             })
             .catch((error) => {
