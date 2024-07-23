@@ -5,18 +5,15 @@ import { useStores } from '@/app/store/root-store.context.ts';
 import { useEffect, useRef, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import ava from '@/shared/assets/SideBarIcons/cat.jpg';
-import './DropDownMenuLikes.css';
-import cls from '@/widgets/Post/ui/Post.module.scss';
+import cls from './DropDownMenuLikes.module.scss';
 import likeButton from '@/shared/assets/postsFiles/like.png';
 import likeheart from '@/shared/assets/postsFiles/likeheart.png';
 
-
-
-const LinkStyle = {
-    color: 'white',
-    textDecoration: 'none',
-    fontSize: '2vh',
-};
+// const LinkStyle = {
+//     color: 'white',
+//     textDecoration: 'none',
+//     fontSize: '2vh',
+// };
 
 interface IDropDown {
     id: number;
@@ -34,8 +31,8 @@ export const DropDownMenuLikes = observer(({ id, likes }: IDropDown) => {
         if (isOpen) setTimeout(() => setIsOpen(false), 50);
     });
     useEffect(() => {
-        if(!isOpen){
-            clearLikeUsers()
+        if (!isOpen) {
+            clearLikeUsers();
         }
     }, [isOpen]);
 
@@ -48,13 +45,18 @@ export const DropDownMenuLikes = observer(({ id, likes }: IDropDown) => {
             </div>
             <nav className={isOpen ? cls.menuActive : cls.menu} ref={menuRef}>
                 <ul className={cls.menu_list}>
-                    {likeUsers
-                        ? likeUsers.likes.map((user) => (
-                              <Link key={user.user.id} style={LinkStyle} to={`${url}profile/${user.user.id}`}>
-                                  <li className={cls.menu_item} style={{ display: "flex", alignItems: "center"}}><Avatar src={ava} style={{marginRight: "1vh"}}/><div>{user.user.name} {user.user.surname}</div></li>
-                              </Link>
-                          ))
-                        : null}
+                    {likeUsers && (
+                        likeUsers.likes.map((user) => (
+                            <Link key={user.user.id} className={cls.linkStyle} to={`${url}profile/${user.user.id}`}>
+                                <li className={cls.menu_item}>
+                                    <Avatar src={ava} />
+                                    <div>
+                                        {user.user.name} {user.user.surname}
+                                    </div>
+                                </li>
+                            </Link>
+                        ))
+                    )}
                 </ul>
             </nav>
         </>
