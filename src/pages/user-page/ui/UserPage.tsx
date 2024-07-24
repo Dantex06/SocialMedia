@@ -1,7 +1,7 @@
 import ShareIcon from '@mui/icons-material/Share';
 import { Avatar, Button } from '@mui/material';
 import { useStores } from '@/app/store/root-store.context.ts';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useMediaPredicate } from 'react-media-hook';
 import Post from '../../../widgets/Post/ui/Post.tsx';
 import { Loading } from '@/widgets/Loading';
@@ -15,7 +15,6 @@ import Cookies from 'js-cookie';
 
 export const UserPage = observer(() => {
     const location = useLocation();
-    const navigate = useNavigate();
     const id = Number(location.pathname.split('/')[2]);
     const refresh = Cookies.get('refresh');
     const storedProfile = window.localStorage.getItem('profile_id');
@@ -32,9 +31,6 @@ export const UserPage = observer(() => {
     } = useStores();
 
     useEffect(() => {
-        if (userData !== null && id === userData.id) {
-            navigate('/profile');
-        }
         if (refresh) {
             getUserData(id)
                 .then(() => getUserPosts(id))

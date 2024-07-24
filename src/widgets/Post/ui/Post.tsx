@@ -71,7 +71,7 @@ const Post = observer(({ id, isLiked, likesCount, name, surname, text, photo, pu
             </div>
             <p className={cls.message}>{text}</p>
             {photo ? <img src={photo} alt="photoPost" /> : ''}
-            <DropDownMenuLikes id={id} likes={countLike}/>
+            <DropDownMenuLikes id={id} likes={countLike} myId={myId}/>
             <div className={cls.buttons}>
                 <button onClick={() => (isLikePost ? deleteLike() : like())} style={isLikePost ? { background: '#308AFF' } : { background: 'gray' }} className={cls.button}>
                     <LikeClick />

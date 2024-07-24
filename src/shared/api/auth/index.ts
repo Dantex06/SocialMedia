@@ -27,12 +27,16 @@ export const userGetProfile = (id: number): AxiosPromise => {
     return axiosInstance.get(Endpoints.USERS.PROFILE_GET + id);
 };
 
-export const userPosts = (id: number): AxiosPromise => {
+export const UserPosts = (id: number): AxiosPromise => {
     return axiosInstance.get(Endpoints.POSTS.PROFILE_GET_POSTS(id));
 };
 
 export const postSend = (newpost: IPostSendRequest): AxiosPromise => axiosInstance.post(Endpoints.PROFILE.POST_SEND, newpost);
 
-export const postsGet = (): AxiosPromise => {
+export const PostsGet = (): AxiosPromise => {
     return axiosInstance.get(Endpoints.POSTS.POST_GET);
 };
+
+export const PostsGetMore = (page: number) => {
+    return axiosInstance.get(Endpoints.POSTS.POST_GET_MORE(page))
+}

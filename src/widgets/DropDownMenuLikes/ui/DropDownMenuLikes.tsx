@@ -9,18 +9,13 @@ import cls from './DropDownMenuLikes.module.scss';
 import likeButton from '@/shared/assets/postsFiles/like.png';
 import likeheart from '@/shared/assets/postsFiles/likeheart.png';
 
-// const LinkStyle = {
-//     color: 'white',
-//     textDecoration: 'none',
-//     fontSize: '2vh',
-// };
-
 interface IDropDown {
     id: number;
     likes: number;
+    myId: number | null;
 }
 
-export const DropDownMenuLikes = observer(({ id, likes }: IDropDown) => {
+export const DropDownMenuLikes = observer(({ id, likes, myId }: IDropDown) => {
     const url = import.meta.env.VITE_BACKEND_URL;
     const [isOpen, setIsOpen] = useState(false);
     const menuRef = useRef(null);
@@ -47,7 +42,7 @@ export const DropDownMenuLikes = observer(({ id, likes }: IDropDown) => {
                 <ul className={cls.menu_list}>
                     {likeUsers && (
                         likeUsers.likes.map((user) => (
-                            <Link key={user.user.id} className={cls.linkStyle} to={`${url}profile/${user.user.id}`}>
+                            <Link key={user.user.id} className={cls.linkStyle} to={myId === user.user.id ? `${url}profile` : `${url}profile/${user.user.id}`}>
                                 <li className={cls.menu_item}>
                                     <Avatar src={ava} />
                                     <div>

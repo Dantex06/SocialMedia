@@ -14,6 +14,7 @@ const Endpoints = {
     },
     POSTS: {
         POST_GET: 'api/private/feed',
+        POST_GET_MORE: (page: number) => `api/private/feed?page=${page}`,
         PROFILE_GET_POSTS: (id: number) => `api/private/profiles/${id}/feed`,
     },
     LIKES: {
